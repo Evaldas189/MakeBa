@@ -9,4 +9,8 @@ module.exports = {
       "encrypted-tbn0.gstatic.com",
     ],
   },
+
+  env: {
+    stripe_public_key: process.env.STRIPE_PUBLIC_KEY,
+  },
 };
