@@ -7,6 +7,10 @@ module.exports = {
       "logodix.com",
       "cdn.buyee.jp",
       "encrypted-tbn0.gstatic.com",
+      "st2.depositphotos.com",
+      "mydigitech.in",
+      "canary.contestimg.wish.com",
+      "m.media-amazon.com"
     ],
   },
 

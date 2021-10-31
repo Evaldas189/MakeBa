@@ -1,3 +1,5 @@
+import image from "next/image";
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async (req, res) => {
@@ -5,7 +7,7 @@ export default async (req, res) => {
 
   const transformedItems = items.map((item) => ({
     description: item.description,
-    quantity: 1,
+    quantity: item.quantity,
     price_data: {
       currency: "gbp",
       unit_amount: item.price * 100,
@@ -19,7 +21,7 @@ export default async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     shipping_address_collection: {
-      allowed_countries: ["GB", "US", "CA"],
+      allowed_countries: ["GB", "US", "CA","LT"],
     },
     line_items: transformedItems,
     mode: "payment",
@@ -28,6 +30,7 @@ export default async (req, res) => {
     metadata: {
       email: email,
       images: JSON.stringify(items.map((item) => item.image)),
+      quantities: JSON.stringify(items.map((item) => item.quantity)),
     },
   });
 
