@@ -5,29 +5,25 @@ import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 import db from "../../firebase";
 
-export default function Home(props) {
+export default function Home({products}) {
   const [searchValue, setSearchValue] = useState("");
-  console.log(props)
   return (
     <div className="bg-gray-100">
       <Head>
-        <title>Amazon 2.0</title>
+        <title>MakeBa</title>
       </Head>
 
       <Header setSearchValue={setSearchValue} searchValue={searchValue} />
 
       <main className="max-w-screen-2xl mx-auto">
-        <ProductFeed products={props.products} searchValue={searchValue} />
+        <ProductFeed products={products} searchValue={searchValue} />
       </main>
     </div>
   );
 }
 
-export async function getServerSideProps(context) {
-  // const session = await getSession(context);
-  // const products = await fetch("https://fakestoreapi.com/products").then(
-  //   (res) => res.json()
-  // );
+export async function getServerSideProps() {
+ 
   const firebaseItems = await db.collection("items").orderBy("timestamp", "desc").get();
 
   const products = await Promise.all(
@@ -41,8 +37,5 @@ export async function getServerSideProps(context) {
     }))
   );
 
-  console.log(products)
-
   return { props: { products } };
 }
-//https://fakestoreapi.com/products

@@ -1,4 +1,3 @@
-import image from "next/image";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -13,7 +12,7 @@ export default async (req, res) => {
       unit_amount: item.price * 100,
       product_data: {
         name: item.title,
-        images: [item.image],
+        images: [item.images],
       },
     },
   }));
@@ -29,8 +28,7 @@ export default async (req, res) => {
     cancel_url: `${process.env.HOST}/checkout`,
     metadata: {
       email: email,
-      images: JSON.stringify(items.map((item) => item.image)),
-      quantities: JSON.stringify(items.map((item) => item.quantity)),
+      images: JSON.stringify(items.map((item) => item.images)),
     },
   });
 
