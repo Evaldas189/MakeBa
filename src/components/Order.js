@@ -38,8 +38,8 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
       <div className="p-5 sm:pb-3 sm:p-10 ">
         <div className="flex space-x-6 overflow-auto pb-2">
           {images.map((image,i) => (
-            <div className=''>
-            <img src={image} alt="" className="h-20 object-contain sm:h-32 "/>
+            <div className='min-w-max'>
+            <img src={image} alt="" className="h-20 object-contain sm:h-32 min-w-20"/>
             <div className="hidden sm:block whitespace-nowrap text-center mt-1" >Quantity: {items[i].quantity}</div>
             <div className="whitespace-nowrap text-center mt-1 block sm:hidden" >Q: {items[i].quantity}</div>
             </div>

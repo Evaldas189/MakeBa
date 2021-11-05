@@ -22,7 +22,7 @@ function success() {
           </p>
           <button
             onClick={() => router.push("/orders")}
-            className="button mt-8"
+            className="button mt-8 text-white"
           >
             Go to my orders
           </button>

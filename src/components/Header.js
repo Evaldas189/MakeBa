@@ -12,10 +12,13 @@ import { selectItems } from "../slices/basketSlice";
 import { useEffect, useState } from "react";
 
 const categories = [
-  "electronics",
-  "men's clothing",
-  "jewelery",
-  "women's clothing",
+  "Electronics",
+  "Pet Supplies",
+  "Automotive and Car Care",
+  "Arts and Crafts",
+  "Toys & Games",
+  "Beauty & Personal Care",
+  "home & kitchen"
 ];
 
 function Header({setSearchValue, searchValue}) {
@@ -43,14 +46,13 @@ function Header({setSearchValue, searchValue}) {
     setSearchTerm(searchValue);
   }, [searchValue])
 
-console.log(router.pathname)
   return (
     <header>
       <div className="flex items-center bg-gradient-to-b from-red-800 to-red-600 p-1 flex-grow py-2">
         <div className="logo flex items-center justify-start flex-grow  px-4 md:px-10 font-fantasy text-white">
           <div
             className="hidden sm:block hover:cursor-pointer"
-            onClick={() => router.push("/")}
+            onClick={() => {router.push("/")}}
           >
             <Image
               src="/images/logo.png"
@@ -72,7 +74,7 @@ console.log(router.pathname)
           </div>
         </div>
         <div
-          className={`relative hidden items-center rounded-md border-gray-400 h-10 bg-gray-100 hover:bg-gray-200 sm:flex cursor-pointer flex-grow max-w-md`}
+          className={`relative hidden items-center rounded-md border-gray-400 h-10 bg-gray-100 hover:bg-gray-200 sm:${router.pathname !== "/" ? "hidden" : "flex"} cursor-pointer flex-grow max-w-md`}
         >
           {/* <input
             type="text"
@@ -116,7 +118,7 @@ console.log(router.pathname)
           </div>
           <div
             onClick={() => {
-              session && router.push("/orders");
+              router.push("/orders");
             }}
             className="link"
           >
@@ -170,38 +172,44 @@ console.log(router.pathname)
             <a
               href="#responsive-header"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              onClick={() => setSearchValue("Electronics")}
             >
-              electronics
+              Electronics
             </a>
             <a
               href="#responsive-header"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              onClick={() => setSearchValue("home & kitchen")}
             >
-              men's clothing
+              home & kitchen
             </a>
             <a
               href="#responsive-header"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              onClick={() => setSearchValue("Automotive and Car Care")}
             >
-              women's clothing
+              Automotive and Car Care
             </a>
             <a
               href="#responsive-header"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              onClick={() => setSearchValue("Arts and Crafts")}
             >
-              household items
+              Arts and Crafts
             </a>
             <a
               href="#responsive-header"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              onClick={() => setSearchValue("Toys & Games")}
             >
-              Sports & Entertainment
+              Toys & Games
             </a>
             <a
               href="#responsive-header"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-6"
+              onClick={() => setSearchValue("Beauty & Personal Care")}
             >
-              jewelery
+              Beauty & Personal Care
             </a>
           </div>
          

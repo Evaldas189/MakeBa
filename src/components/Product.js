@@ -20,6 +20,7 @@ function Product({ id, title, price, desc, category, images, openModal }) {
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
   );
   const [hasPrime] = useState(Math.random() < 0.5);
+  
   const [session] = useSession();
 
   const addItemToBasket = () => {
@@ -37,7 +38,6 @@ function Product({ id, title, price, desc, category, images, openModal }) {
         hasPrime,
         quantity: 1,
       };
-      console.log("zsdasdsad")
       toast("Added to the cart!");
 
       dispatch(addToBasket(product));
@@ -45,7 +45,8 @@ function Product({ id, title, price, desc, category, images, openModal }) {
   };
 
   return (
-    <div className="relative rounded-lg shadow-md flex flex-col m-5 bg-white z-30 p-10 hover:scale-105">
+    //hover:scale-105
+    <div className="relative rounded-lg shadow-md flex flex-col m-5 bg-white z-30 p-10">
       <ToastContainer autoClose={2000}/>
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
         {category}
@@ -73,7 +74,6 @@ function Product({ id, title, price, desc, category, images, openModal }) {
           <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
         </div>
       )}
-
       <button onClick={addItemToBasket} className="mt-auto text-white font-bold flex flex-row justify-center items-center button">
         <ShoppingCartIcon className="h-6 mr-2 text-white"/> Add to Cart
       </button>
