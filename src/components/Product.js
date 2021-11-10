@@ -4,12 +4,11 @@ import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import { addToBasket } from "../slices/basketSlice";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
 import { useSession } from "next-auth/client";
+import { toast } from 'react-toastify';
 
 
 const MAX_RATING = 5;
@@ -39,7 +38,6 @@ function Product({ id, title, price, desc, category, images, openModal }) {
         quantity: 1,
       };
       toast("Added to the cart!");
-
       dispatch(addToBasket(product));
     }
   };
@@ -47,7 +45,6 @@ function Product({ id, title, price, desc, category, images, openModal }) {
   return (
     //hover:scale-105
     <div className="relative rounded-lg shadow-md flex flex-col m-5 bg-white z-30 p-10">
-      <ToastContainer autoClose={2000}/>
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
         {category}
       </p>

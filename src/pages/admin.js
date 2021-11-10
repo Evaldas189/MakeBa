@@ -103,7 +103,6 @@ export async function getServerSideProps({ req, res }) {
           credential: adminFirebase.credential.cert(serviceAccount),
         })
       : adminFirebase.app();
-    console.log(req.body);
     app
       .firestore()
       .collection("items")

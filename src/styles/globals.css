@@ -26,6 +26,8 @@ header .logo {
   box-shadow: rgb(0 0 0 / 10%) 0px 8px 11px !important;
 }
 
+.search:focus { outline: none; }
+
 .provider {
   background-color: rgb(109, 109, 207) !important;
 }

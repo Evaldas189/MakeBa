@@ -4,19 +4,25 @@ import { useState } from "react";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 import db from "../../firebase";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/router";
 
 export default function Home({products}) {
   const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
+  console.log(router.query.value)
   return (
     <div className="bg-gray-100">
+      <ToastContainer autoClose={2000} closeOnClick/>
       <Head>
         <title>MakeBa</title>
       </Head>
 
-      <Header setSearchValue={setSearchValue} searchValue={searchValue} />
+      <Header setSearchValue={setSearchValue} searchValue={router?.query.value ? router?.query.value : searchValue} />
 
       <main className="max-w-screen-2xl mx-auto">
-        <ProductFeed products={products} searchValue={searchValue} />
+        <ProductFeed products={products} searchValue={router?.query.value ? router?.query.value : searchValue} />
       </main>
     </div>
   );

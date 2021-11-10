@@ -18,6 +18,7 @@ function Checkout() {
   const total = useSelector(selectTotal);
   const [spinner, setSpinner] = useState(false);
 
+
   const createCheckoutSession = async () => {
     setSpinner(true);
     const stripe = await stripePromise;
@@ -34,13 +35,12 @@ function Checkout() {
       alert(result.error.message);
     }
   };
-  console.log(items)
   return (
     <div className="bg-gray-100">
       <Header />
       <main className="relative lg:flex max-w-screen-2xl mx-auto">
         <div className="flex-grow my-5 md:m-5 shadow-sm">
-          {items.length === 0 && (
+          {items?.length === 0 && (
             <Image
               src="/images/emptyCart.png"
               width={"1000"}
@@ -50,12 +50,12 @@ function Checkout() {
           )}
           <div className="flex flex-col p-5 space-y-10 bg-white">
             <h1 className="text-3xl border-b pb-4">
-              {items.length === 0
+              {items?.length === 0
                 ? "Your Basket is empty :("
                 : "Shopping Basket"}
             </h1>
 
-            {items.map((item, i) => (
+            {items?.map((item, i) => (
               <CheckoutProduct
                 key={i}
                 id={item.id}
@@ -71,12 +71,12 @@ function Checkout() {
             ))}
           </div>
         </div>
-        {items.length > 0 && (
+        {items?.length > 0 && (
           <div className="flex flex-col md:my-5  bg-white p-10 shadow-md">
             {items.length > 0 && (
               <>
                 <h2 className="whitespace-nowrap">
-                  Subtotal ({items.length} items):{" "}
+                  Subtotal ({items?.length} items):{" "}
                   <span className="font-bold">
                     <Currency quantity={total} currency="GBP" />
                   </span>

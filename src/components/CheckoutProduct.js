@@ -40,20 +40,6 @@ function CheckoutProduct({
     dispatch(removeFromCart({ id }));
   };
 
-  const addItemToBasket = () => {
-    const product = {
-      id,
-      title,
-      price,
-      rating,
-      description,
-      category,
-      image,
-      hasPrime,
-    };
-    dispatch(addToBasket(product));
-  };
-
   const updateQuantity = ({id, number})=>{
      setItemQuantity(number);
      dispatch(updateBasket({id, number}));
@@ -113,7 +99,6 @@ function CheckoutProduct({
                   <Menu.Item onClick={()=> updateQuantity({id, number})}>
                     {({ active }) => (
                       <a
-                        href="#"
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"

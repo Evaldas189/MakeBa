@@ -43,7 +43,6 @@ export default async (req, res) => {
 
     let event;
 
-    // Verify (came from stripe)
     try {
       event = await stripe.webhooks.constructEvent(
         payload,
@@ -57,7 +56,6 @@ export default async (req, res) => {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
 
-      // Fullfill the order
       return fullfillOrder(session)
         .then(() => res.status(200))
         .catch((e) =>
