@@ -60,7 +60,7 @@ function Header({setSearchValue, searchValue}) {
               });
             }}
           >
-            <Image
+            <img
               src="/images/logo.png"
               width={120}
               height={50}
@@ -75,7 +75,8 @@ function Header({setSearchValue, searchValue}) {
               })
             }
           >
-            <Image
+            <img
+              style={{minWidth: "40px !important", maxWidth: "55px !important", minHeight: "32px !important", marginBottom: 6 }}
               src="/images/aha4.png"
               width={100}
               height={70}
@@ -131,11 +132,14 @@ function Header({setSearchValue, searchValue}) {
           )}
         </div>
         <div className="text-white flex items-center text-sm font-medium space-x-6 mx-3 md:mx-6 whitespace-nowrap">
-          <div onClick={!session ? signIn : signOut} className="link">
-            <p className="hover:underline">
-              {session ? `Hello, ${session.user.name}` : "Sign In"}
-            </p>
-            <p className="font-medium md:text-sm">Account & Lists</p>
+          <div>
+            {!session ? <p onClick={signIn} className="signInButton cursor-pointer hover:bg-yellow-300 hover:text-black">
+              {"Sign In"}
+            </p> : 
+            <p className="cursor-pointer">
+              {`Hello, ${session.user.name}`}
+            </p>}
+            {session && <p onClick={!session ? signIn : signOut} className="link font-bold md:text-sm">Sign out</p>}
           </div>
           <div
             onClick={() => {
@@ -195,7 +199,9 @@ function Header({setSearchValue, searchValue}) {
                   <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
                 </svg>
               </button>
-              <div className="text-center">Logout</div>
+              
+              <SearchIcon className="h-8 p-1 mr-3 bg-yellow-400 rounded-full" />
+              
             </div>
           </div>
         ) : (

@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/client";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 import db from "../../firebase";
@@ -12,6 +12,7 @@ export default function Home({products}) {
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
   console.log(router.query.value)
+  
   return (
     <div className="bg-gray-100">
       <ToastContainer autoClose={2000} closeOnClick/>

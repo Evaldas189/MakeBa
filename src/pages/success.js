@@ -1,9 +1,18 @@
 import Header from "../components/Header";
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { saveState } from '../slices/basketSlice'
 
 function success() {
   const router = useRouter();
+
+  useEffect(() => {
+    setTimeout(() => {
+      saveState([])
+    }, 1000);
+  }, [])
+
   return (
     <div className="bg-gray-100 h-screen">
       <Header />

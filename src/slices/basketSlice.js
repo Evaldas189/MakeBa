@@ -6,7 +6,6 @@ export function loadState() {
   try {
     const serializedState = localStorage.getItem(KEY);
     if (!serializedState) return undefined;
-    console.log(JSON.parse(serializedState))
     return JSON.parse(serializedState);
   } catch (e) {
     return undefined;
@@ -19,6 +18,7 @@ const initialState = {
 
 
 export async function saveState(state) {
+  console.log("LOOL")
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem(KEY, serializedState);
@@ -72,6 +72,7 @@ export const basketSlice = createSlice({
       }
       state.items = newBasket;
       saveState(state.items)
+      console.log(state.items)
     },
   },
 });

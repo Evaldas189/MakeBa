@@ -25,6 +25,13 @@ header .logo {
 .shop-menu {
   box-shadow: rgb(0 0 0 / 10%) 0px 8px 11px !important;
 }
+.signInButton {
+  padding: 8px 14px;
+  background-color: rgba(251, 191, 36, var(--tw-bg-opacity));
+  border-radius: 20px;
+  color: white;
+  font-weight: 500;
+}
 
 .search:focus { outline: none; }
 
