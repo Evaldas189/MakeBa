@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
-function Product({ id, title, price, desc, category, images, openModal }) {
+function Product({ id, title, price, desc, category, images, index }) {
   const dispatch = useDispatch();
   const [rating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
@@ -23,33 +23,29 @@ function Product({ id, title, price, desc, category, images, openModal }) {
   const [session] = useSession();
 
   const addItemToBasket = () => {
-    if (!session) {
-      openModal(true)
-    } else {
-      const product = {
-        id,
-        title,
-        price,
-        rating,
-        desc,
-        category,
-        images,
-        hasPrime,
-        quantity: 1,
-      };
-      toast("Added to the cart!");
-      dispatch(addToBasket(product));
-    }
+    const product = {
+      id,
+      title,
+      price,
+      rating,
+      desc,
+      category,
+      images,
+      hasPrime,
+      quantity: 1,
+    };
+    toast("Added to the cart!");
+    dispatch(addToBasket(product));
   };
 
   return (
     //hover:scale-105
-    <div className="relative rounded-lg shadow-md flex flex-col m-5 bg-white z-30 p-10">
+    <div className="relative rounded-lg shadow-md flex flex-col m-2 bg-white z-30 pb-5 md:pd-10 p-10">
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
         {category}
       </p>
-      <Image src={images} height={200} width={200} objectFit="contain" />
-      <h4 className="my-3">{title}</h4>
+      <Image className="rounded-sm" src={images} height={200} width={200} objectFit="contain" />
+      <h4 className="my-3 line-clamp-2">{title}</h4>
       <div className="flex">
         {Array(rating)
           .fill()
@@ -58,20 +54,10 @@ function Product({ id, title, price, desc, category, images, openModal }) {
           ))}
       </div>
       <p className="text-xs my-2 line-clamp-2">{desc}</p>
-      <div className="mb-5">
+      <div className="mb-2 md:mb-5 font-bold">
         <Currency quantity={price} currency="GBP" />
       </div>
-      {hasPrime && (
-        <div className="flex items-center space-x-2 -mt-5">
-          <img
-            className="w-12"
-            src="https://logodix.com/logo/5638.jpg"
-            alt=""
-          />
-          <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
-        </div>
-      )}
-      <button onClick={addItemToBasket} className="mt-auto text-white font-bold flex flex-row justify-center items-center button">
+      <button onClick={addItemToBasket} className="mt-auto hidden text-white font-bold md:flex flex-row justify-center items-center button">
         <ShoppingCartIcon className="h-6 mr-2 text-white"/> Add to Cart
       </button>
     </div>

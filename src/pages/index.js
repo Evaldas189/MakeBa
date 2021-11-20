@@ -7,24 +7,27 @@ import db from "../../firebase";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import FIlter from "../components/FIlter";
 
 export default function Home({products}) {
   const [searchValue, setSearchValue] = useState("");
+  const [openFilter, setOpenFilter] = useState(false)
   const router = useRouter();
-  console.log(router.query.value)
   
   return (
     <div className="bg-gray-100">
       <ToastContainer autoClose={2000} closeOnClick/>
       <Head>
         <title>MakeBa</title>
+        <meta name="theme-color" content="rgba(229, 231, 235)" >
       </Head>
 
       <Header setSearchValue={setSearchValue} searchValue={router?.query.value ? router?.query.value : searchValue} />
 
       <main className="max-w-screen-2xl mx-auto">
-        <ProductFeed products={products} searchValue={router?.query.value ? router?.query.value : searchValue} />
+        <ProductFeed products={products} setOpenFilter={setOpenFilter} searchValue={router?.query.value ? router?.query.value : searchValue} />
       </main>
+      {openFilter && <FIlter setOpenFilter={setOpenFilter}/>}
     </div>
   );
 }

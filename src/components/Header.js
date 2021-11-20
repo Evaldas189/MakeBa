@@ -30,6 +30,7 @@ function Header({setSearchValue, searchValue}) {
   const [searchResults, setSearchResults] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
   const [openNavBar, setOpenNavBar] = useState(false);
+  const [openSearchBar, setOpenSearchBar] = useState(false)
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -71,16 +72,17 @@ function Header({setSearchValue, searchValue}) {
             className="block sm:hidden hover:cursor-pointer"
             onClick={() =>
               router.push({
-                pathname: "/checkout",
+                pathname: "/",
               })
             }
           >
             <img
-              style={{minWidth: "40px !important", maxWidth: "55px !important", minHeight: "32px !important", marginBottom: 6 }}
+              style={{
+                marginBottom: 6,
+              }}
               src="/images/aha4.png"
-              width={100}
-              height={70}
               objectFit="contain"
+              className="mobileLogo"
             />
           </div>
         </div>
@@ -119,10 +121,15 @@ function Header({setSearchValue, searchValue}) {
             >
               {searchResults.map((item) => (
                 <li
-                  onClick={() => { !router.pathname === "/checkout" || !router.pathname === "/orders" ? setSearchValue(item) : router.push({
-                    pathname: '/',
-                    query: { value: item}, 
-                  })}}
+                  onClick={() => {
+                    !router.pathname === "/checkout" ||
+                    !router.pathname === "/orders"
+                      ? setSearchValue(item)
+                      : router.push({
+                          pathname: "/",
+                          query: { value: item },
+                        });
+                  }}
                   className="hover:bg-gray-100 p-2"
                 >
                   {item}
@@ -133,18 +140,29 @@ function Header({setSearchValue, searchValue}) {
         </div>
         <div className="text-white flex items-center text-sm font-medium space-x-6 mx-3 md:mx-6 whitespace-nowrap">
           <div>
-            {!session ? <p onClick={signIn} className="signInButton cursor-pointer hover:bg-yellow-300 hover:text-black">
-              {"Sign In"}
-            </p> : 
-            <p className="cursor-pointer">
-              {`Hello, ${session.user.name}`}
-            </p>}
-            {session && <p onClick={!session ? signIn : signOut} className="link font-bold md:text-sm">Sign out</p>}
+            {!session ? (
+              <p
+                onClick={signIn}
+                className="signInButton cursor-pointer bg-yellow-500 hover:bg-yellow-300 hover:text-black"
+              >
+                {"Sign In"}
+              </p>
+            ) : (
+              <p className="cursor-pointer">{`Hello, ${session.user.name}`}</p>
+            )}
+            {session && (
+              <p
+                onClick={!session ? signIn : signOut}
+                className="link font-bold md:text-sm underline"
+              >
+                Sign out
+              </p>
+            )}
           </div>
           <div
             onClick={() => {
               router.push({
-                pathname: '/orders',
+                pathname: "/orders",
               });
             }}
             className="link"
@@ -155,7 +173,7 @@ function Header({setSearchValue, searchValue}) {
           <div
             onClick={() => {
               router.push({
-                pathname: '/checkout',
+                pathname: "/checkout",
               });
             }}
             className="relative flex items-center link"
@@ -170,18 +188,6 @@ function Header({setSearchValue, searchValue}) {
           </div>
         </div>
       </div>
-
-      {/* <div className="shop-menu flex items-center justify-center text-white text-sm space-x-3 p-2 pl-6">
-        <p className="link">Prime Video</p>
-        <p className="link">Amazon Business</p>
-        <p className="link">Today's Deals</p>
-        <p className="link hidden lg:inline-flex">Electronics</p>
-        <p className="link hidden lg:inline-flex">Food & Grocery</p>
-        <p className="link hidden lg:inline-flex">Prime</p>
-        <p className="link hidden lg:inline-flex">Buy Again</p>
-        <p className="link hidden lg:inline-flex">Shopper Toolkit</p>
-        <p className="link hidden lg:inline-flex">Health & Personal Care</p>
-      </div> */}
       <nav className="shop-menu flex flex-col lg:flex-row items-start lg:items-center justify-start lg:justify-center lg:text-center text-white text-sm space-x-3 p-2 pl-6">
         {!openNavBar ? (
           <div className="block lg:hidden w-full">
@@ -199,8 +205,63 @@ function Header({setSearchValue, searchValue}) {
                   <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
                 </svg>
               </button>
-              
-              <SearchIcon className="h-8 p-1 mr-3 bg-yellow-400 rounded-full" />
+              <div
+                class={`search-box ${
+                  openSearchBar === true ? "openBar" : ""
+                } relative d-flex justify-center align-center`}
+              >
+                <input
+                  type="text"
+                  placeholder="Type to search .."
+                  value={searchTerm}
+                  onChange={handleChange}
+                  onFocus={() => {
+                    setOpenSearch(true);
+                  }}
+                  onBlur={() =>
+                    setTimeout(function () {
+                      setOpenSearch(false);
+                    }, 100)
+                  }
+                />
+                {!openSearchBar ? (
+                  <SearchIcon
+                    onClick={() => setOpenSearchBar(true)}
+                    className="absolute h-5 text-black top-1 right-4"
+                    style={{ marginTop: 1, marginRight: 1 }}
+                  />
+                ) : (
+                  <XIcon
+                    onClick={() => setOpenSearchBar(false)}
+                    className="absolute h-5 text-black top-1 right-4"
+                    style={{ marginTop: 1, marginRight: 1 }}
+                  />
+                )}
+                {searchTerm?.length > 0 && searchResults.length > 0 && (
+                <ul
+                  className={`dropdown ${
+                    openSearch ? "block" : "hidden"
+                  } bg-white max-h-60 overflow-x-hidden z-50 border-2 absolute top-9 w-11/12 mr-2 rounded-lg border-gray-400 rounded-b-md`}
+                >
+                  {searchResults.map((item) => (
+                    <li
+                      onClick={() => {
+                        !router.pathname === "/checkout" ||
+                        !router.pathname === "/orders"
+                          ? setSearchValue(item)
+                          : router.push({
+                              pathname: "/",
+                              query: { value: item },
+                            });
+                      }}
+                      className="hover:bg-gray-100 p-2 text-black"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              </div>
               
             </div>
           </div>
@@ -219,55 +280,85 @@ function Header({setSearchValue, searchValue}) {
           <div className="text-sm lg:flex-grow">
             <a
               className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-              onClick={() => { !router.pathname === "/checkout" || !router.pathname === "/orders" ? setSearchValue("Electronics") : router.push({
-                pathname: '/',
-                query: { value: "Electronics"}, 
-              })}}
+              onClick={() => {
+                !router.pathname === "/checkout" ||
+                !router.pathname === "/orders"
+                  ? setSearchValue("Electronics")
+                  : router.push({
+                      pathname: "/",
+                      query: { value: "Electronics" },
+                    });
+              }}
             >
               Electronics
             </a>
             <a
               className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-              onClick={() => { !router.pathname === "/checkout" || !router.pathname === "/orders" ? setSearchValue("home & kitchen") : router.push({
-                pathname: '/',
-                query: { value: "home & kitchen"}, 
-              })}}
+              onClick={() => {
+                !router.pathname === "/checkout" ||
+                !router.pathname === "/orders"
+                  ? setSearchValue("home & kitchen")
+                  : router.push({
+                      pathname: "/",
+                      query: { value: "home & kitchen" },
+                    });
+              }}
             >
               home & kitchen
             </a>
             <a
               className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-              onClick={() => { !router.pathname === "/checkout" || !router.pathname === "/orders" ? setSearchValue("Automotive and Car Care") : router.push({
-                pathname: '/',
-                query: { value: "Automotive and Car Care"}, 
-              })}}
+              onClick={() => {
+                !router.pathname === "/checkout" ||
+                !router.pathname === "/orders"
+                  ? setSearchValue("Automotive and Car Care")
+                  : router.push({
+                      pathname: "/",
+                      query: { value: "Automotive and Car Care" },
+                    });
+              }}
             >
               Automotive and Car Care
             </a>
             <a
               className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-              onClick={() => { !router.pathname === "/checkout" || !router.pathname === "/orders" ? setSearchValue("Arts and Crafts") : router.push({
-                pathname: '/',
-                query: { value: "Arts and Crafts"}, 
-              })}}
+              onClick={() => {
+                !router.pathname === "/checkout" ||
+                !router.pathname === "/orders"
+                  ? setSearchValue("Arts and Crafts")
+                  : router.push({
+                      pathname: "/",
+                      query: { value: "Arts and Crafts" },
+                    });
+              }}
             >
               Arts and Crafts
             </a>
             <a
               className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-              onClick={() => { !router.pathname === "/checkout" || !router.pathname === "/orders" ? setSearchValue("Toys & Games") : router.push({
-                pathname: '/',
-                query: { value: "Toys & Games"}, 
-              })}}
+              onClick={() => {
+                !router.pathname === "/checkout" ||
+                !router.pathname === "/orders"
+                  ? setSearchValue("Toys & Games")
+                  : router.push({
+                      pathname: "/",
+                      query: { value: "Toys & Games" },
+                    });
+              }}
             >
               Toys & Games
             </a>
             <a
               className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-6"
-              onClick={() => { !router.pathname === "/checkout" || !router.pathname === "/orders" ? setSearchValue("Beauty & Personal Care") : router.push({
-                pathname: '/',
-                query: { value: "Beauty & Personal Care"}, 
-              })}}
+              onClick={() => {
+                !router.pathname === "/checkout" ||
+                !router.pathname === "/orders"
+                  ? setSearchValue("Beauty & Personal Care")
+                  : router.push({
+                      pathname: "/",
+                      query: { value: "Beauty & Personal Care" },
+                    });
+              }}
             >
               Beauty & Personal Care
             </a>
