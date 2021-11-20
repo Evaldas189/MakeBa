@@ -55,7 +55,7 @@ function Product({ id, title, price, desc, category, images, index }) {
       </div>
       <p className="text-xs my-2 line-clamp-2">{desc}</p>
       <div className="mb-2 md:mb-5 font-bold">
-        <Currency quantity={price} currency="GBP" />
+        <Currency quantity={price} currency="EUR" />
       </div>
       <button onClick={addItemToBasket} className="mt-auto hidden text-white font-bold md:flex flex-row justify-center items-center button">
         <ShoppingCartIcon className="h-6 mr-2 text-white"/> Add to Cart
