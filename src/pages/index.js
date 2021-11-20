@@ -19,7 +19,7 @@ export default function Home({products}) {
       <ToastContainer autoClose={2000} closeOnClick/>
       <Head>
         <title>MakeBa</title>
-        <meta name="theme-color" content="rgba(229, 231, 235)" >
+        <meta name="theme-color" content="rgba(229, 231, 235)"/>
       </Head>
 
       <Header setSearchValue={setSearchValue} searchValue={router?.query.value ? router?.query.value : searchValue} />
