@@ -188,9 +188,9 @@ function Header({setSearchValue, searchValue}) {
           </div>
         </div>
       </div>
-      <nav className="shop-menu flex flex-col lg:flex-row items-start lg:items-center justify-start lg:justify-center lg:text-center text-white text-sm space-x-3 p-2 pl-6">
+      <nav className="shop-menu flex flex-col md:flex-row items-start md:items-center justify-start md:justify-center md:text-center text-white text-sm space-x-3 p-2 pl-6">
         {!openNavBar ? (
-          <div className="block lg:hidden w-full">
+          <div className="block md:hidden w-full">
             <div className="flex justify-between items-center">
               <button
                 onClick={() => setOpenNavBar(true)}
@@ -206,7 +206,7 @@ function Header({setSearchValue, searchValue}) {
                 </svg>
               </button>
               <div
-                class={`search-box ${
+                className={`search-box ${
                   openSearchBar === true ? "openBar" : ""
                 } relative d-flex justify-center align-center`}
               >
@@ -225,11 +225,13 @@ function Header({setSearchValue, searchValue}) {
                   }
                 />
                 {!openSearchBar ? (
+                  <div onClick={() => setOpenSearchBar(true)} className="h-8 absolute w-9 right-2">
                   <SearchIcon
-                    onClick={() => setOpenSearchBar(true)}
-                    className="absolute h-5 text-black top-1 right-4"
-                    style={{ marginTop: 1, marginRight: 1 }}
+                    
+                    className="absolute h-5 top-1 text-black right-3"
+                    style={{ marginTop: 1, marginRight: -3 }}
                   />
+                  </div>
                 ) : (
                   <XIcon
                     onClick={() => setOpenSearchBar(false)}
@@ -275,11 +277,11 @@ function Header({setSearchValue, searchValue}) {
         <div
           className={`${
             openNavBar === false ? "hidden" : "block"
-          } w-full flex-grow lg:flex lg:items-center lg:w-auto `}
+          } w-full flex-grow md:flex md:items-center md:w-auto `}
         >
-          <div className="text-sm lg:flex-grow">
+          <div className="text-sm sm:flex-grow">
             <a
-              className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 active:text-red-400"
               onClick={() => {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
@@ -293,7 +295,7 @@ function Header({setSearchValue, searchValue}) {
               Electronics
             </a>
             <a
-              className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 active:text-red-400"
               onClick={() => {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
@@ -307,7 +309,7 @@ function Header({setSearchValue, searchValue}) {
               home & kitchen
             </a>
             <a
-              className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 active:text-red-400"
               onClick={() => {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
@@ -321,7 +323,7 @@ function Header({setSearchValue, searchValue}) {
               Automotive and Car Care
             </a>
             <a
-              className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 active:text-red-400"
               onClick={() => {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
@@ -335,7 +337,7 @@ function Header({setSearchValue, searchValue}) {
               Arts and Crafts
             </a>
             <a
-              className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+              className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 active:text-red-400"
               onClick={() => {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
@@ -349,7 +351,7 @@ function Header({setSearchValue, searchValue}) {
               Toys & Games
             </a>
             <a
-              className="block cursor-pointer mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-6"
+              className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-6 active:text-red-400"
               onClick={() => {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"

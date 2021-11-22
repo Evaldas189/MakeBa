@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/outline";
 import { useSession } from "next-auth/client";
 import { toast } from 'react-toastify';
-
+import { useRouter } from "next/router";
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
@@ -21,6 +21,7 @@ function Product({ id, title, price, desc, category, images, index }) {
   const [hasPrime] = useState(Math.random() < 0.5);
   
   const [session] = useSession();
+  const router = useRouter();
 
   const addItemToBasket = () => {
     const product = {
@@ -38,9 +39,16 @@ function Product({ id, title, price, desc, category, images, index }) {
     dispatch(addToBasket(product));
   };
 
+  const showProductInfo = ()=> {
+    router.push({
+      pathname: "/product",
+      query: { id: id },
+    });
+  }
+
   return (
     //hover:scale-105
-    <div className="relative rounded-lg shadow-md flex flex-col m-2 bg-white z-30 pb-5 md:pd-10 p-10">
+    <div onClick={()=> showProductInfo()} className="relative cursor-pointer rounded-lg shadow-md flex flex-col m-2 bg-white z-30 pb-5 md:pd-10 p-10">
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
         {category}
       </p>
