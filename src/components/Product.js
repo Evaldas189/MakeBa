@@ -23,7 +23,8 @@ function Product({ id, title, price, desc, category, images, index }) {
   const [session] = useSession();
   const router = useRouter();
 
-  const addItemToBasket = () => {
+  const addItemToBasket = (e) => {
+    e.stopPropagation()
     const product = {
       id,
       title,
@@ -65,7 +66,7 @@ function Product({ id, title, price, desc, category, images, index }) {
       <div className="mb-2 md:mb-5 font-bold">
         <Currency quantity={price} currency="EUR" />
       </div>
-      <button onClick={addItemToBasket} className="mt-auto hidden text-white font-bold md:flex flex-row justify-center items-center button">
+      <button onClick={(e)=>addItemToBasket(e)} className=" z-50 mt-auto hidden text-white font-bold md:flex flex-row justify-center items-center button">
         <ShoppingCartIcon className="h-6 mr-2 text-white"/> Add to Cart
       </button>
     </div>

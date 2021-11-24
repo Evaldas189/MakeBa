@@ -17,7 +17,6 @@ export const filterSlice = createSlice({
     applyFilter: (state, action) => {
      
       state.filter[action.payload.key] = action.payload.value;
-      console.log(state.filter.keyword)
     },
     resetFilter: (state) => {
        state.filter = {

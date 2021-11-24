@@ -50,7 +50,7 @@ function ProductFeed({ products, searchValue, setOpenFilter }) {
           arr2 = products.filter((product) =>
             product.desc.toLowerCase().includes(filter.keyword.toLowerCase())
           );
-          Array.prototype.push.apply(newProducts,arr2); 
+          newProducts.concat(arr2)
         }
         if (filter?.minValue !== "") {
           newProducts = newProducts.filter(

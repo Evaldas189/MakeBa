@@ -1,28 +1,64 @@
 import { useState } from "react";
 import db from "../../firebase";
+import { addToBasket } from "../slices/basketSlice";
+import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import Header from "../components/Header";
+import moment from "moment";
+import Currency from "react-currency-formatter";
+import { useRouter } from "next/router";
+
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 
-function product({product}) {
+function product({products, product}) {
   const [rating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
   );
+  const router = useRouter();
+  const [mainImage, setMainImage] = useState(product?.images[0])
+  const dispatch = useDispatch();
+
+
+  const addItemToBasket = () => {
+    toast("Added to the cart!");
+    const newProduct = {
+      ...product,
+      quantity: 1,
+    }
+    dispatch(addToBasket(newProduct));
+  };
   return (
     <div>
-      <Header />
-
+      <Header products={products} />
       <div>
+        <ToastContainer autoClose={2000} closeOnClick />
         <section class="text-gray-700 body-font overflow-hidden bg-white">
-          <div class="container px-5 py-8 sm:py-20 mx-auto">
-            <div class="lg:w-4/5 mx-auto flex flex-wrap">
-              <img
-                alt="ecommerce"
-                class="lg:w-1/3 w-full object-cover object-center rounded border border-gray-200 h-1/4 sm:h-2/4"
-                src={product.images}
-              />
-              <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+          <div class="container px-5 py-8 sm:py-15 mx-auto">
+            <div class="lg:w-4/5 mx-auto flex flex-wrap justify-center">
+              <div className="sm:w-1/2 xl:w-1/3 w-full sm:h-full max-h-72 md:max-h-full">
+                <img
+                  alt="ecommerce"
+                  class="object-contain shadow-md object-center rounded p-2 border w-full h-96 border-gray-200 max-h-72 md:max-h-96"
+                  src={mainImage}
+                />
+                <div className="flex flex-row mt-2 mr-0 ml-0">
+                  {product.images.map((image) => (
+                    <img
+                      onClick={() => setMainImage(image)}
+                      alt="ecommerce"
+                      class={`object-contain ${
+                        image === mainImage ? "border-red-600" : ""
+                      }
+                    py-2 cursor-pointer object-center rounded mx-1 shadow-md my-1 border w-full border-gray-200  max-h-20 md:max-h-20`}
+                      src={image}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div class="lg:w-1/2 w-full lg:pl-10  mt-36 lg:mt-0">
                 <h2 class="text-sm title-font text-gray-500 tracking-widest">
                   {product.category}
                 </h2>
@@ -128,14 +164,15 @@ function product({product}) {
                   </span>
                 </div>
                 <p class="leading-relaxed">{product.desc}</p>
-                <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-                
-                </div>
+                <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5"></div>
                 <div class="flex">
                   <span class="title-font font-medium text-2xl text-gray-900">
                     $58.00
                   </span>
-                  <button class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                  <button
+                    onClick={addItemToBasket}
+                    class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                  >
                     Add To Cart
                   </button>
                   <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
@@ -154,6 +191,34 @@ function product({product}) {
               </div>
             </div>
           </div>
+          <h1 className="justify-self-center text-lg text-center pb-4">You may also like:</h1>
+          <div className="flex flex-col sm:flex-row justify-center items-center mr-10 ml-10 mb-10">
+            {products
+              .filter(
+                (prod) =>
+                  prod.category === product.category && prod.id !== product.id
+              )
+              .slice(0, 4)
+              .map((p) => (
+                <div onClick={() => {
+                  router.push({
+                    pathname: "/product",
+                    query: { id: p.id },
+                  });
+                }} className="flex cursor-pointer flex-col max-w-md sm:max-w-xs m-4 w-full sm:w-1/4  shadow-md border border-gray-200 justify-center items-center">
+                  <img
+                    alt="ecommerce"
+                    class={`object-contain
+                    py-2 object-center rounded mx-1 my-1 w-ful max-h-44 md:max-h-28`}
+                    src={p.images[0]}
+                  />
+                  <p className="p-4 my-2 line-clamp-2 pb-0">{p.title}</p>
+                  <div className="mb-2 md:mb-5 font-bold text-red-700 pt-2">
+                  <Currency quantity={p.price} currency="EUR" />
+                  </div>
+                </div>
+              ))}
+          </div>
         </section>
       </div>
     </div>
@@ -163,9 +228,22 @@ function product({product}) {
 export default product;
 
 export async function getServerSideProps(context) {
-  const firebaseItems = await db.collection("items").doc(context.query.id).get();
-    
-      const product = JSON.parse(JSON.stringify(firebaseItems.data()));
-      return { props: { product } };
+  const firebaseItems = await db.collection("items").orderBy("timestamp", "desc").get();
 
+  const products = await Promise.all(
+    firebaseItems.docs.map(async (item) => ({
+      id: item.id,
+      title: item.data().title,
+      images: item.data().images,
+      desc: item.data().desc,
+      price: item.data().price,
+      category: item.data().category,
+      timestamp: moment(item.data().timestamp.toDate()).unix(),
+    }))
+  );
+
+  const product = products.find(prod => prod.id === context.query.id)
+  console.log(product)
+
+  return { props: { products, product } };
 }

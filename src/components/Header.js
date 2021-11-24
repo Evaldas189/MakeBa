@@ -21,13 +21,14 @@ const categories = [
   "home & kitchen"
 ];
 
-function Header({setSearchValue, searchValue}) {
+function Header({setSearchValue, searchValue, products}) {
   const [session] = useSession();
   const router = useRouter();
   const items = useSelector(selectItems);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [productSearchResults, setProductSearchResults] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
   const [openNavBar, setOpenNavBar] = useState(false);
   const [openSearchBar, setOpenSearchBar] = useState(false)
@@ -37,8 +38,13 @@ function Header({setSearchValue, searchValue}) {
   };
   useEffect(() => {
     const results = categories.filter(c =>
-      c.toLowerCase().includes(searchTerm)
+      c.toLowerCase().includes(searchTerm?.toLowerCase())
     );
+    let productResults = [...products];
+    productResults = products.filter((c) =>
+      c.title.toLowerCase().includes(searchTerm?.toLowerCase())
+    );
+    setProductSearchResults(productResults)
     setSearchResults(results);
   }, [searchTerm]);
 
@@ -87,7 +93,8 @@ function Header({setSearchValue, searchValue}) {
           </div>
         </div>
         <div
-          className={`relative hidden items-center rounded-md border-gray-400 h-10 bg-gray-100 hover:bg-gray-200 sm:flex cursor-pointer flex-grow max-w-md`}
+          style={{ flex: 2 }}
+          className={`relative hidden items-center rounded-md border-gray-400 h-10 bg-gray-100 hover:bg-gray-200 sm:flex cursor-pointer flex-grow max-w-full`}
         >
           {/* <input
             type="text"
@@ -113,30 +120,45 @@ function Header({setSearchValue, searchValue}) {
           />
 
           <SearchIcon className="h-12 p-4" />
-          {searchTerm?.length > 0 && searchResults.length > 0 && (
-            <ul
-              className={`dropdown ${
-                openSearch ? "block" : "hidden"
-              } bg-white max-h-60 overflow-x-hidden z-50 border-t-2 absolute top-9 w-full border-gray-400 rounded-b-md`}
-            >
-              {searchResults.map((item) => (
-                <li
-                  onClick={() => {
-                    !router.pathname === "/checkout" ||
-                    !router.pathname === "/orders"
-                      ? setSearchValue(item)
-                      : router.push({
-                          pathname: "/",
-                          query: { value: item },
-                        });
-                  }}
-                  className="hover:bg-gray-100 p-2"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
+          {searchTerm?.length > 0 &&
+            (searchResults.length > 0 || productSearchResults.length > 0) && (
+              <ul
+                className={`dropdown ${
+                  openSearch ? "block" : "hidden"
+                } bg-white border max-h-60 overflow-x-hidden z-50 border-t-2 absolute top-9 w-full border-gray-400 rounded-b-md`}
+              >
+                {searchResults.map((item) => (
+                  <li
+                    onClick={() => {
+                      !router.pathname === "/checkout" ||
+                      !router.pathname === "/orders"
+                        ? setSearchValue(item)
+                        : router.push({
+                            pathname: "/",
+                            query: { value: item },
+                          });
+                    }}
+                    className="hover:bg-gray-100 p-2"
+                  >
+                    {item} <div className="text-red-600"> category </div>
+                  </li>
+                ))}
+                {productSearchResults.map(({ title, price, id }) => (
+                  <li
+                    onClick={() => {
+                      router.push({
+                        pathname: "/product",
+                        query: { id: id },
+                      });
+                    }}
+                    className="hover:bg-gray-100 p-2"
+                  >
+                    {title}{" "}
+                    <div className="text-red-600"> product price: {price} </div>
+                  </li>
+                ))}
+              </ul>
+            )}
         </div>
         <div className="text-white flex items-center text-sm font-medium space-x-6 mx-3 md:mx-6 whitespace-nowrap">
           <div>
@@ -225,12 +247,14 @@ function Header({setSearchValue, searchValue}) {
                   }
                 />
                 {!openSearchBar ? (
-                  <div onClick={() => setOpenSearchBar(true)} className="h-8 absolute w-9 right-2">
-                  <SearchIcon
-                    
-                    className="absolute h-5 top-1 text-black right-3"
-                    style={{ marginTop: 1, marginRight: -3 }}
-                  />
+                  <div
+                    onClick={() => setOpenSearchBar(true)}
+                    className="h-8 absolute w-9 right-2"
+                  >
+                    <SearchIcon
+                      className="absolute h-5 top-1 text-black right-3"
+                      style={{ marginTop: 1, marginRight: -3 }}
+                    />
                   </div>
                 ) : (
                   <XIcon
@@ -239,32 +263,53 @@ function Header({setSearchValue, searchValue}) {
                     style={{ marginTop: 1, marginRight: 1 }}
                   />
                 )}
-                {searchTerm?.length > 0 && searchResults.length > 0 && (
-                <ul
-                  className={`dropdown ${
-                    openSearch ? "block" : "hidden"
-                  } bg-white max-h-60 overflow-x-hidden z-50 border-2 absolute top-9 w-11/12 mr-2 rounded-lg border-gray-400 rounded-b-md`}
-                >
-                  {searchResults.map((item) => (
-                    <li
-                      onClick={() => {
-                        !router.pathname === "/checkout" ||
-                        !router.pathname === "/orders"
-                          ? setSearchValue(item)
-                          : router.push({
-                              pathname: "/",
-                              query: { value: item },
-                            });
-                      }}
-                      className="hover:bg-gray-100 p-2 text-black"
+                {searchTerm?.length > 0 &&
+                  (searchResults.length > 0 ||
+                    productSearchResults.length > 0) && (
+                    <ul
+                      className={`dropdown ${
+                        openSearch ? "block" : "hidden"
+                      } bg-white max-h-60 overflow-x-hidden z-50 border-2 absolute top-9 w-11/12 mr-2 rounded-lg border-gray-400 rounded-b-md`}
                     >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              )}
+                      {searchResults.map((item) => (
+                        <li
+                          onClick={() => {
+                            !router.pathname === "/checkout" ||
+                            !router.pathname === "/orders"
+                              ? setSearchValue(item)
+                              : router.push({
+                                  pathname: "/",
+                                  query: { value: item },
+                                });
+                          }}
+                          className="hover:bg-gray-100 p-2 text-black"
+                        >
+                          {item}
+                          <div className="text-red-600">
+                            category
+                          </div>
+                        </li>
+                      ))}
+                      {productSearchResults.map(({ title, price, id }) => (
+                        <li
+                          onClick={() => {
+                            router.push({
+                              pathname: "/product",
+                              query: { id: id },
+                            });
+                          }}
+                          className="hover:bg-gray-100 p-2 text-black"
+                        >
+                          {title}{" "}
+                          <div className="text-red-600">
+                            {" "}
+                            product price: {price}{" "}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
               </div>
-              
             </div>
           </div>
         ) : (

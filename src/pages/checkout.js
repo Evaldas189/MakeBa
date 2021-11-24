@@ -9,10 +9,13 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useState } from "react";
 import Spinner from "../svg/Spinner";
+import db from "../../firebase";
+import moment from "moment";
+
 
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
-function Checkout() {
+function Checkout({products}) {
   const items = useSelector(selectItems);
   const [session] = useSession();
   const total = useSelector(selectTotal);
@@ -37,7 +40,7 @@ function Checkout() {
   };
   return (
     <div className="bg-gray-100">
-      <Header />
+      <Header products={products}/>
       <main className="relative lg:flex max-w-screen-2xl mx-auto">
         <div className="flex-grow my-5 md:m-5 shadow-sm">
           {items?.length === 0 && (
@@ -64,7 +67,7 @@ function Checkout() {
                 price={item.price}
                 description={item.description}
                 category={item.category}
-                image={item.images}
+                image={item.images[1] === "t" ? item.images : item.images[0]}
                 hasPrime={item.hasPrime}
                 quantity={item.quantity}
               />
@@ -129,3 +132,22 @@ function Checkout() {
 }
 
 export default Checkout;
+
+export async function getServerSideProps() {
+ 
+  const firebaseItems = await db.collection("items").orderBy("timestamp", "desc").get();
+
+  const products = await Promise.all(
+    firebaseItems.docs.map(async (item) => ({
+      id: item.id,
+      title: item.data().title,
+      images: item.data().images,
+      desc: item.data().desc,
+      price: item.data().price,
+      category: item.data().category,
+      timestamp: moment(item.data().timestamp.toDate()).unix(),
+    }))
+  );
+
+  return { props: { products } };
+}

@@ -24,10 +24,11 @@ export default function Home({products}) {
       <ToastContainer autoClose={2000} closeOnClick/>
       <Head>
         <title>MakeBa</title>
-        <meta name="theme-color" content="#911a1a"/>
+        <meta name="theme-color" content="#dc2626"/>
       </Head>
 
-      <Header setSearchValue={setSearchValue} searchValue={router?.query.value ? router?.query.value : searchValue} />
+      <Header setSearchValue={setSearchValue} products={products}
+      searchValue={router?.query.value ? router?.query.value : searchValue} />
 
       <main className="max-w-screen-2xl mx-auto">
         <ProductFeed products={products} setOpenFilter={setOpenFilter} searchValue={router?.query.value ? router?.query.value : searchValue} />
