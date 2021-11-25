@@ -128,7 +128,16 @@ function FIlter({setOpenFilter}) {
         >
           Reset
         </button>
+        <button
+          onClick={()=>closeFilter()}
+          className="mt-4 text-white font-bold w-full border border-white shadow-md flex flex-row justify-center items-center bg-yellow-600 p-1 rounded-md"
+        >
+          OK
+        </button>
         </div>
+      </div>
+      <div onClick={()=> closeFilter()} className=" w-2/6 sm:w-3/4 h-screen float-right">
+
       </div>
     </div>
   );

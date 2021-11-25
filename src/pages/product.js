@@ -27,13 +27,14 @@ function product({products, product}) {
 
 
   const addItemToBasket = () => {
-    toast("Added to the cart!");
+    
     const newProduct = {
       ...product,
       quantity: 1,
       images: product.images[0]
     }
     dispatch(addToBasket(newProduct));
+    toast("Added to the cart!");
   };
   return (
     <div>
