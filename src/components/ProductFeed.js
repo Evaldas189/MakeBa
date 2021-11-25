@@ -31,7 +31,7 @@ function ProductFeed({ products, searchValue, setOpenFilter }) {
 
    useEffect(() => {
     let newProducts = [...products];
-    if (filter && searchValue === "") {
+    if (filter) {
 
       if (
         filter?.keyword === "" &&

@@ -3,14 +3,12 @@ import Header from "../components/Header";
 import moment from "moment";
 import db from "../../firebase";
 import Order from "../components/Order";
-import Spinner from "../svg/Spinner";
 
-function Orders({ orders }) {
+function Orders({ orders, products }) {
   const [session] = useSession();
-
   return (
     <div>
-      <Header />
+      <Header products={products} />
       <main className="relative max-w-screen-lg mx-auto p-10">
         <h1 className="text-3xl border-b mb-2 pb-1 border-black">
           {orders?.length} Orders
@@ -72,9 +70,28 @@ export async function getServerSideProps(context) {
       }))
     );
 
+    const firebaseItems = await db
+      .collection("items")
+      .orderBy("timestamp", "desc")
+      .get();
+
+    const products = await Promise.all(
+      firebaseItems.docs.map(async (item) => ({
+        id: item.id,
+        title: item.data().title,
+        images: item.data().images,
+        desc: item.data().desc,
+        price: item.data().price,
+        category: item.data().category,
+        timestamp: moment(item.data().timestamp.toDate()).unix(),
+      }))
+    );
+
+
     return {
       props: {
         orders,
+        products
       },
     };
   }

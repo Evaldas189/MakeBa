@@ -31,7 +31,8 @@ export default function Home({products}) {
       searchValue={router?.query.value ? router?.query.value : searchValue} />
 
       <main className="max-w-screen-2xl mx-auto">
-        <ProductFeed products={products} setOpenFilter={setOpenFilter} searchValue={router?.query.value ? router?.query.value : searchValue} />
+        <ProductFeed products={products} setOpenFilter={setOpenFilter}
+        searchValue={router?.query.value ? router?.query.value : searchValue} />
       </main>
       {openFilter && <FIlter setOpenFilter={setOpenFilter}/>}
     </div>

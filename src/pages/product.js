@@ -27,6 +27,7 @@ function product({products, product}) {
     const newProduct = {
       ...product,
       quantity: 1,
+      images: product.images[0]
     }
     dispatch(addToBasket(newProduct));
   };
