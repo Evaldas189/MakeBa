@@ -2,7 +2,7 @@ function Spinner() {
     return (
       <div className="h-screen w-screen flex items-center justify-center">
         <svg
-          className="absolute z-50 animate-spin h-20"
+          className="absolute z-40 animate-spin h-20"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

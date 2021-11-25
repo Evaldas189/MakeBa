@@ -6,11 +6,13 @@ import { useDispatch } from "react-redux";
 import { applyFilter, resetFilter } from "../slices/filterSlice";
 import { selectFilter } from "../slices/filterSlice";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 function FIlter({setOpenFilter}) {
 
   const dispatch = useDispatch();
   const basketFilter = useSelector(selectFilter);
+  const router = useRouter();
   const [filter, setFilter] = useState(
     {keyword: basketFilter.keyword, minValue: basketFilter.minValue, maxValue: basketFilter.maxValue, sort: basketFilter.sort})
 
@@ -23,6 +25,7 @@ function FIlter({setOpenFilter}) {
   };
 
   const onFilterChange = (key, value) => {
+  
     dispatch(
       applyFilter({key,value})
     );
@@ -32,7 +35,7 @@ function FIlter({setOpenFilter}) {
   };
 
   return (
-    <div className="w-screen h-screen z-40 fixed top-0 bg-opacity-60 bg-black">
+    <div className="w-screen h-screen z-50 fixed top-0 bg-opacity-60 bg-black">
       <div className="h-screen w-4/6 sm:w-1/4 absolute bg-red-900 top-0 left-0 z-50">
         <XIcon
           onClick={() => closeFilter()}

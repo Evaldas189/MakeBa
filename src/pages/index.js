@@ -9,14 +9,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import FIlter from "../components/FIlter";
 import moment from "moment";
+import { useDispatch } from "react-redux";
 
 export default function Home({products}) {
   const [searchValue, setSearchValue] = useState("");
   const [openFilter, setOpenFilter] = useState(false)
   const router = useRouter();
+
   useEffect(() => {
     if (openFilter === true) {
-      setSearchValue("");
     }
   }, [openFilter]);
   return (
@@ -28,11 +29,11 @@ export default function Home({products}) {
       </Head>
 
       <Header setSearchValue={setSearchValue} products={products}
-      searchValue={router?.query.value ? router?.query.value : searchValue} />
+      searchValue={router?.query?.category ? router?.query?.category : searchValue}  openFilter={openFilter}/>
 
       <main className="max-w-screen-2xl mx-auto">
         <ProductFeed products={products} setOpenFilter={setOpenFilter}
-        searchValue={router?.query.value ? router?.query.value : searchValue} />
+        searchValue={router?.query?.category ? router?.query?.category : searchValue} openFilter={openFilter} />
       </main>
       {openFilter && <FIlter setOpenFilter={setOpenFilter}/>}
     </div>

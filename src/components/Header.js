@@ -21,7 +21,7 @@ const categories = [
   "home & kitchen"
 ];
 
-function Header({setSearchValue, searchValue, products}) {
+function Header({setSearchValue, searchValue, products, openFilter}) {
   const [session] = useSession();
   const router = useRouter();
   const items = useSelector(selectItems);
@@ -47,6 +47,10 @@ function Header({setSearchValue, searchValue, products}) {
     setProductSearchResults(productResults)
     setSearchResults(results);
   }, [searchTerm]);
+
+  useEffect(() => {
+    openFilter && setSearchTerm("")
+  }, [openFilter])
 
   useEffect(() => {
     console.log(searchValue)
@@ -135,8 +139,9 @@ function Header({setSearchValue, searchValue, products}) {
                         ? setSearchValue(item)
                         : router.push({
                             pathname: "/",
-                            query: { value: item },
-                          });
+                            query: { category: item },
+                          },
+                          { shallow: true });
                     }}
                     className="hover:bg-gray-100 p-2"
                   >
@@ -279,8 +284,9 @@ function Header({setSearchValue, searchValue, products}) {
                               ? setSearchValue(item)
                               : router.push({
                                   pathname: "/",
-                                  query: { value: item },
-                                });
+                                  query: { category: item },
+                                },
+                                { shallow: true });
                           }}
                           className="hover:bg-gray-100 p-2 text-black"
                         >
@@ -331,10 +337,13 @@ function Header({setSearchValue, searchValue, products}) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Electronics")
-                  : router.push({
-                      pathname: "/",
-                      query: { value: "Electronics" },
-                    });
+                  : router.push(
+                      {
+                        pathname: "/",
+                        query: { category: "Electronics" },
+                      },
+                      { shallow: true }
+                    );
               }}
             >
               Electronics
@@ -347,8 +356,9 @@ function Header({setSearchValue, searchValue, products}) {
                   ? setSearchValue("home & kitchen")
                   : router.push({
                       pathname: "/",
-                      query: { value: "home & kitchen" },
-                    });
+                      query: { category: "home & kitchen" },
+                    },
+                    { shallow: true });
               }}
             >
               home & kitchen
@@ -361,8 +371,9 @@ function Header({setSearchValue, searchValue, products}) {
                   ? setSearchValue("Automotive and Car Care")
                   : router.push({
                       pathname: "/",
-                      query: { value: "Automotive and Car Care" },
-                    });
+                      query: { category: "Automotive and Car Care" },
+                    },
+                    { shallow: true });
               }}
             >
               Automotive and Car Care
@@ -375,8 +386,9 @@ function Header({setSearchValue, searchValue, products}) {
                   ? setSearchValue("Arts and Crafts")
                   : router.push({
                       pathname: "/",
-                      query: { value: "Arts and Crafts" },
-                    });
+                      query: { category: "Arts and Crafts" },
+                    },
+                    { shallow: true });
               }}
             >
               Arts and Crafts
@@ -389,8 +401,9 @@ function Header({setSearchValue, searchValue, products}) {
                   ? setSearchValue("Toys & Games")
                   : router.push({
                       pathname: "/",
-                      query: { value: "Toys & Games" },
-                    });
+                      query: { category: "Toys & Games" },
+                    },
+                    { shallow: true });
               }}
             >
               Toys & Games
@@ -403,8 +416,9 @@ function Header({setSearchValue, searchValue, products}) {
                   ? setSearchValue("Beauty & Personal Care")
                   : router.push({
                       pathname: "/",
-                      query: { value: "Beauty & Personal Care" },
-                    });
+                      query: { category: "Beauty & Personal Care" },
+                    },
+                    { shallow: true });
               }}
             >
               Beauty & Personal Care

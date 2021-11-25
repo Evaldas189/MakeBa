@@ -24,6 +24,7 @@ function Checkout({products}) {
 
   const createCheckoutSession = async () => {
     setSpinner(true);
+    console.log(items)
     const stripe = await stripePromise;
     const checkoutSession = await axios.post("/api/create-checkout-session", {
       items: items,

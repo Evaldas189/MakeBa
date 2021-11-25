@@ -27,7 +27,7 @@ const fullfillOrder = async (session) => {
     .set({
       amount: session.amount_total / 100,
       amount_shipping: session.total_details.amount_shipping / 100,
-      images: JSON.parse(session.metadata.images[0]),
+      images: JSON.parse(session.metadata.images),
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     })
     .then(() => {
@@ -37,7 +37,6 @@ const fullfillOrder = async (session) => {
 
 export default async (req, res) => {
   if (req.method === "POST") {
-    console.log("asdasdasddas")
     const requestBuffer = await buffer(req);
     const payload = requestBuffer.toString();
     const sig = req.headers["stripe-signature"];
@@ -55,17 +54,13 @@ export default async (req, res) => {
       return res.status(400).send({ message: "Webhook error: " + e.message });
     }
     if (event.type === "checkout.session.completed") {
-      try {
       const session = event.data.object;
+
       return fullfillOrder(session)
         .then(() => res.status(200))
         .catch((e) =>
           res.status(400).send({ message: "WEBHOOK_ERROR: " + e.message })
         );
-      } catch (e) {
-        console.log("ERROR", e.message);
-        return res.status(400).send({ message: "Webhook error: " + e.message });
-      }
     }
   }
 };

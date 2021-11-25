@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import db from "../../firebase";
 import { addToBasket } from "../slices/basketSlice";
 import { useDispatch } from "react-redux";
@@ -18,8 +18,12 @@ function product({products, product}) {
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
   );
   const router = useRouter();
-  const [mainImage, setMainImage] = useState(product?.images[0])
+  const [mainImage, setMainImage] = useState("")
   const dispatch = useDispatch();
+
+  useEffect(() => {
+   setMainImage(product.images[0])
+  }, [product])
 
 
   const addItemToBasket = () => {
@@ -244,7 +248,6 @@ export async function getServerSideProps(context) {
   );
 
   const product = products.find(prod => prod.id === context.query.id)
-  console.log(product)
 
   return { props: { products, product } };
 }

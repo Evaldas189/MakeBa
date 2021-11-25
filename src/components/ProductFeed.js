@@ -8,9 +8,9 @@ import {
 import { selectFilter } from "../slices/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { resetFilter } from "../slices/filterSlice";
+import { resetFilter, applyFilter } from "../slices/filterSlice";
 
-function ProductFeed({ products, searchValue, setOpenFilter }) {
+function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
   const [sortedProducts, setSortedProducts] = useState(products);
   const filter = useSelector(selectFilter);
@@ -31,10 +31,10 @@ function ProductFeed({ products, searchValue, setOpenFilter }) {
 
    useEffect(() => {
     let newProducts = [...products];
-    if (filter) {
-
+    if (filter && openFilter) {
+      console.log(filter)
       if (
-        filter?.keyword === "" &&
+        (filter?.keyword === "" || filter?.keyword === undefined) &&
         filter?.minValue === "" &&
         filter?.maxValue === "" &&
         filter?.sort === ""
@@ -42,15 +42,19 @@ function ProductFeed({ products, searchValue, setOpenFilter }) {
         newProducts = products
       } else {
         if (filter?.keyword !== "") {
-          let arr1;
           let arr2;
           newProducts = products.filter((product) =>
-            product.title.toLowerCase().includes(filter.keyword.toLowerCase())
+            product.title.toLowerCase().includes(filter?.keyword?.toLowerCase())
           );
           arr2 = products.filter((product) =>
-            product.desc.toLowerCase().includes(filter.keyword.toLowerCase())
+            product.category.toLowerCase().includes(filter?.keyword?.toLowerCase())
           );
-          newProducts.concat(arr2)
+          if (newProducts.length > 0) {
+            newProducts.concat(arr2);
+          }
+          else{
+            newProducts = arr2
+          }
         }
         if (filter?.minValue !== "") {
           newProducts = newProducts.filter(
@@ -95,7 +99,7 @@ function ProductFeed({ products, searchValue, setOpenFilter }) {
   return (
     <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
       <div
-        onClick={() => setOpenFilter(true)}
+        onClick={() =>{dispatch(applyFilter({key: 'keyword', value: router?.query?.category})), setOpenFilter(true)}}
         className="fixed z-40 top-1/2 -left-2 h-14 bg-red-600 rounded-r-full"
       >
         <AdjustmentsIcon
