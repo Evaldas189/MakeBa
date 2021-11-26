@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import FIlter from "../components/FIlter";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import Footer from "../components/Footer";
 
 export default function Home({products}) {
   const [searchValue, setSearchValue] = useState("");
@@ -35,6 +35,7 @@ export default function Home({products}) {
         <ProductFeed products={products} setOpenFilter={setOpenFilter}
         searchValue={router?.query?.category ? router?.query?.category : searchValue} openFilter={openFilter} />
       </main>
+      <Footer/>
       {openFilter && <FIlter setOpenFilter={setOpenFilter}/>}
     </div>
   );

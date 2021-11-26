@@ -9,6 +9,7 @@ import { selectFilter } from "../slices/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { resetFilter, applyFilter } from "../slices/filterSlice";
+import NoProducts from "./NoProducts";
 
 function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
@@ -20,19 +21,25 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
   useEffect(() => {
     let newProducts = [...products];
-    if (searchValue !== "") {
-      newProducts.sort(
-        (a, b) =>
-          b.category.toLowerCase().includes(searchValue.toLowerCase()) - a.category.toLowerCase().includes(searchValue.toLowerCase())
+    if (searchValue !== "" && !openFilter) {
+      newProducts = newProducts.filter((a) =>
+        a.category.toLowerCase().includes(searchValue.toLowerCase())
       );
+    }
+    if(searchValue === ""){
+      newProducts = [...products]
+    }
+    if(newProducts.length === 0){
+      newProducts = [...products]
     }
     setSortedProducts(newProducts);
   }, [searchValue])
 
    useEffect(() => {
+
     let newProducts = [...products];
+
     if (filter && openFilter) {
-      console.log(filter)
       if (
         (filter?.keyword === "" || filter?.keyword === undefined) &&
         filter?.minValue === "" &&
@@ -41,7 +48,8 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
       ) {
         newProducts = products
       } else {
-        if (filter?.keyword !== "") {
+        console.log(filter)
+        if (filter?.keyword !== "" && filter?.keyword !== undefined) {
           let arr2;
           newProducts = products.filter((product) =>
             product.title.toLowerCase().includes(filter?.keyword?.toLowerCase())
@@ -68,6 +76,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
         }
 
         if (filter?.sort !== "") {
+
           if (filter.sort === "1") {
             newProducts.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
           }
@@ -97,10 +106,12 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
 
   return (
+    <>
+    {true ? 
     <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
       <div
         onClick={() =>{dispatch(applyFilter({key: 'keyword', value: router?.query?.category})), setOpenFilter(true)}}
-        className="fixed z-40 top-1/2 -left-2 h-14 bg-red-600 rounded-r-full"
+        className="filter-button cursor-pointer fixed z-40 top-1/2 -left-2 h-14  rounded-r-full"
       >
         <AdjustmentsIcon
           className="h-9 p-2 text-yellow-400 transform rotate-90"
@@ -150,6 +161,8 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
         <Spinner />
       )}
     </div>
+    : <NoProducts/>}
+    </>
   );
 }
 

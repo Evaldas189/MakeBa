@@ -61,7 +61,7 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
 
   return (
     <header>
-      <div className="flex items-center bg-gradient-to-b from-red-800 to-red-600 p-1 flex-grow py-2">
+      <div className="top-header flex items-center p-1 flex-grow py-2">
         <div className="logo flex items-center justify-start flex-grow  px-4 md:px-10 font-fantasy text-white">
           <div
             className="hidden sm:block hover:cursor-pointer"
@@ -116,32 +116,58 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
             onFocus={() => {
               setOpenSearch(true);
             }}
-            onBlur={() =>
+            onBlur={() => {
+              console.log("nx..");
               setTimeout(function () {
                 setOpenSearch(false);
-              }, 100)
-            }
+              }, 200);
+            }}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                router.push(
+                  {
+                    pathname: "/",
+                    query: { category: searchTerm },
+                  },
+                  { shallow: true }
+                );
+              }
+            }}
           />
 
-          <SearchIcon className="h-12 p-4" />
+          <SearchIcon
+            className="h-12 p-4"
+            onClick={() => {
+              router.push(
+                {
+                  pathname: "/",
+                  query: { category: searchTerm },
+                },
+                { shallow: true }
+              );
+            }}
+          />
           {searchTerm?.length > 0 &&
             (searchResults.length > 0 || productSearchResults.length > 0) && (
               <ul
                 className={`dropdown ${
                   openSearch ? "block" : "hidden"
-                } bg-white border max-h-60 overflow-x-hidden z-50 border-t-2 absolute top-9 w-full border-gray-400 rounded-b-md`}
+                } bg-white border max-h-60 overflow-x-hidden z-50 border-t absolute top-9 w-full border-gray-400 rounded-b-md`}
               >
                 {searchResults.map((item) => (
                   <li
                     onClick={() => {
+                      console.log("wtf");
                       !router.pathname === "/checkout" ||
                       !router.pathname === "/orders"
                         ? setSearchValue(item)
-                        : router.push({
-                            pathname: "/",
-                            query: { category: item },
-                          },
-                          { shallow: true });
+                        : router.push(
+                            {
+                              pathname: "/",
+                              query: { category: item },
+                            },
+                            { shallow: true }
+                          );
                     }}
                     className="hover:bg-gray-100 p-2"
                   >
@@ -170,7 +196,8 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
             {!session ? (
               <p
                 onClick={signIn}
-                className="signInButton cursor-pointer bg-yellow-500 hover:bg-yellow-300 hover:text-black"
+                style={{backgroundColor: 'rgb(59, 61, 69)'}}
+                className="signInButton cursor-pointer hover:text-black"
               >
                 {"Sign In"}
               </p>
@@ -282,18 +309,18 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
                             !router.pathname === "/checkout" ||
                             !router.pathname === "/orders"
                               ? setSearchValue(item)
-                              : router.push({
-                                  pathname: "/",
-                                  query: { category: item },
-                                },
-                                { shallow: true });
+                              : router.push(
+                                  {
+                                    pathname: "/",
+                                    query: { category: item },
+                                  },
+                                  { shallow: true }
+                                );
                           }}
                           className="hover:bg-gray-100 p-2 text-black"
                         >
                           {item}
-                          <div className="text-red-600">
-                            category
-                          </div>
+                          <div className="text-red-600">category</div>
                         </li>
                       ))}
                       {productSearchResults.map(({ title, price, id }) => (
@@ -354,11 +381,13 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("home & kitchen")
-                  : router.push({
-                      pathname: "/",
-                      query: { category: "home & kitchen" },
-                    },
-                    { shallow: true });
+                  : router.push(
+                      {
+                        pathname: "/",
+                        query: { category: "home & kitchen" },
+                      },
+                      { shallow: true }
+                    );
               }}
             >
               home & kitchen
@@ -369,11 +398,13 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Automotive and Car Care")
-                  : router.push({
-                      pathname: "/",
-                      query: { category: "Automotive and Car Care" },
-                    },
-                    { shallow: true });
+                  : router.push(
+                      {
+                        pathname: "/",
+                        query: { category: "Automotive and Car Care" },
+                      },
+                      { shallow: true }
+                    );
               }}
             >
               Automotive and Car Care
@@ -384,11 +415,13 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Arts and Crafts")
-                  : router.push({
-                      pathname: "/",
-                      query: { category: "Arts and Crafts" },
-                    },
-                    { shallow: true });
+                  : router.push(
+                      {
+                        pathname: "/",
+                        query: { category: "Arts and Crafts" },
+                      },
+                      { shallow: true }
+                    );
               }}
             >
               Arts and Crafts
@@ -399,11 +432,13 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Toys & Games")
-                  : router.push({
-                      pathname: "/",
-                      query: { category: "Toys & Games" },
-                    },
-                    { shallow: true });
+                  : router.push(
+                      {
+                        pathname: "/",
+                        query: { category: "Toys & Games" },
+                      },
+                      { shallow: true }
+                    );
               }}
             >
               Toys & Games
@@ -414,11 +449,13 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Beauty & Personal Care")
-                  : router.push({
-                      pathname: "/",
-                      query: { category: "Beauty & Personal Care" },
-                    },
-                    { shallow: true });
+                  : router.push(
+                      {
+                        pathname: "/",
+                        query: { category: "Beauty & Personal Care" },
+                      },
+                      { shallow: true }
+                    );
               }}
             >
               Beauty & Personal Care

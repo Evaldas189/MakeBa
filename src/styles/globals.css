@@ -13,6 +13,25 @@
   }
 }
 
+.top-header {
+   background: linear-gradient(#380000,#8b0000);
+}
+.filter-button {
+  background: #ae0707;
+}
+.filter-container {
+background: #4a0000d9;
+}
+.button {
+  background: #ae0707;
+}
+.button:hover {
+  background: #bc0707;
+}
+.button:active {
+  background: #e00000;
+}
+
 body{
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -43,7 +62,7 @@ header .logo {
   width: 3px;
 }
 .shop-menu {
-  background-color: #911a1a;
+  background-color: #8b0000;
 }
 .adminInput {
   margin: 10px;

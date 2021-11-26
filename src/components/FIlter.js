@@ -35,8 +35,8 @@ function FIlter({setOpenFilter}) {
   };
 
   return (
-    <div className="w-screen h-screen z-50 fixed top-0 bg-opacity-60 bg-black">
-      <div className="h-screen w-4/6 sm:w-1/4 absolute bg-red-900 top-0 left-0 z-50">
+    <div className="w-full h-screen z-50 fixed top-0 bg-opacity-60 bg-black">
+      <div className="h-screen w-4/6 sm:w-2/4 md:w-2/4 lg:w-1/5 absolute filter-container top-0 left-0 z-50">
         <XIcon
           onClick={() => closeFilter()}
           className="absolute h-7 text-white top-2 right-2"
@@ -130,7 +130,8 @@ function FIlter({setOpenFilter}) {
         </button>
         <button
           onClick={()=>closeFilter()}
-          className="mt-4 text-white font-bold w-full border border-white shadow-md flex flex-row justify-center items-center bg-yellow-600 p-1 rounded-md"
+          style={{backgroundColor: '#3b3d45'}}
+          className="mt-4 text-white font-bold w-full border border-white shadow-md flex flex-row justify-center items-center p-1 rounded-md"
         >
           OK
         </button>
