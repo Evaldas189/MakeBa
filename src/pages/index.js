@@ -25,7 +25,7 @@ export default function Home({products}) {
       <ToastContainer autoClose={2000} closeOnClick/>
       <Head>
         <title>MakeBa</title>
-        <meta name="theme-color" content="#dc2626"/>
+        <meta name="theme-color" content="#128698"/>
       </Head>
 
       <Header setSearchValue={setSearchValue} products={products}

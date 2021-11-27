@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import db from "../../firebase";
 import { addToBasket } from "../slices/basketSlice";
+import { addToUserSearch } from "../slices/userSearchSlice";
 import { useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
@@ -25,6 +26,9 @@ function product({products, product}) {
    setMainImage(product.images[0])
   }, [product])
 
+  useEffect(() => {
+   dispatch(addToUserSearch(product.category))
+  }, [])
 
   const addItemToBasket = () => {
     

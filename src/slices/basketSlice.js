@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const KEY = "redux";
+const KEY = "basket";
 
 export function loadState() {
   try {
@@ -18,7 +18,6 @@ const initialState = {
 
 
 export async function saveState(state) {
-  console.log("LOOL")
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem(KEY, serializedState);
@@ -72,7 +71,6 @@ export const basketSlice = createSlice({
       }
       state.items = newBasket;
       saveState(state.items)
-      console.log(state.items)
     },
   },
 });

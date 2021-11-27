@@ -1,4 +1,7 @@
 module.exports = {
+  experimental: {
+    scrollRestoration: true,
+  },
   images: {
     domains: [
       "e7.pngegg.com",

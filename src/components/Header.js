@@ -53,7 +53,6 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
   }, [openFilter])
 
   useEffect(() => {
-    console.log(searchValue)
     setOpenSearch(false)
     setSearchTerm(searchValue);
     
@@ -66,6 +65,9 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
           <div
             className="hidden sm:block hover:cursor-pointer"
             onClick={() => {
+              if(router.pathname === "/"){
+                location.reload();
+              }
               router.push({
                 pathname: "/",
               });
@@ -117,7 +119,6 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
               setOpenSearch(true);
             }}
             onBlur={() => {
-              console.log("nx..");
               setTimeout(function () {
                 setOpenSearch(false);
               }, 200);
@@ -157,7 +158,6 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
                 {searchResults.map((item) => (
                   <li
                     onClick={() => {
-                      console.log("wtf");
                       !router.pathname === "/checkout" ||
                       !router.pathname === "/orders"
                         ? setSearchValue(item)
@@ -196,8 +196,7 @@ function Header({setSearchValue, searchValue, products, openFilter}) {
             {!session ? (
               <p
                 onClick={signIn}
-                style={{backgroundColor: 'rgb(59, 61, 69)'}}
-                className="signInButton cursor-pointer hover:text-black"
+                className="signInButton cursor-pointer hover:text-white"
               >
                 {"Sign In"}
               </p>

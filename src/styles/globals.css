@@ -14,16 +14,22 @@
 }
 
 .top-header {
-   background: linear-gradient(#380000,#8b0000);
+   background: linear-gradient(#128698,#00718b);
+}
+.mainGrid {
+  background-color:#00718b ;
 }
 .filter-button {
-  background: #ae0707;
+  background: #e7b80e;
+}
+.filter-button svg {
+  color:#0a8fad
 }
 .filter-container {
-background: #4a0000d9;
+background: #00718bd9;
 }
 .button {
-  background: #ae0707;
+  background: #0a8fad;
 }
 .button:hover {
   background: #bc0707;
@@ -46,9 +52,9 @@ header .logo {
 }
 .signInButton {
   padding: 8px 14px;
-  background-color: rgba(251, 191, 36, var(--tw-bg-opacity));
+  background-color: #e7b80e;
   border-radius: 20px;
-  color: white;
+  color: black;
   font-weight: 500;
 }
 
@@ -62,7 +68,7 @@ header .logo {
   width: 3px;
 }
 .shop-menu {
-  background-color: #8b0000;
+  background-color: #0987a3;
 }
 .adminInput {
   margin: 10px;
