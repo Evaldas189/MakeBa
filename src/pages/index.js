@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
 import db from "../../firebase";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
 import FIlter from "../components/FIlter";
 import moment from "moment";
@@ -22,7 +20,6 @@ export default function Home({products}) {
   }, [openFilter]);
   return (
     <div className="bg-gray-100">
-      <ToastContainer autoClose={2000} closeOnClick/>
       <Head>
         <title>MakeBa</title>
         <meta name="theme-color" content="#128698"/>

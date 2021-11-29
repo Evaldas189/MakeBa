@@ -4,7 +4,6 @@ import { addToBasket } from "../slices/basketSlice";
 import { addToUserSearch } from "../slices/userSearchSlice";
 import { useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 import Header from "../components/Header";
 import moment from "moment";
 import Currency from "react-currency-formatter";
@@ -44,7 +43,6 @@ function product({products, product}) {
     <div>
       <Header products={products} />
       <div>
-        <ToastContainer autoClose={2000} closeOnClick />
         <section class="text-gray-700 body-font overflow-hidden bg-white">
           <div class="container px-5 py-8 sm:py-15 mx-auto">
             <div class="lg:w-4/5 mx-auto flex flex-wrap justify-center">

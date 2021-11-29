@@ -120,7 +120,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
     <>
       {!openFilter && descriptions && (
         <div className="flex mx-auto flex-col mainGrid">
-          <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-2">
+          <h1 className="text-white text-xl font-semibold pt-8 pb-2 ml-2">
             Recommended for you
           </h1>
           <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
@@ -161,7 +161,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
             className="filter-button cursor-pointer fixed z-40 top-1/2 -left-2 h-14  rounded-r-full"
           >
             <AdjustmentsIcon
-              style={{color: "#0a8fad"}}
               className="h-9 p-2 transform rotate-90"
               style={{ marginTop: 10 }}
             />

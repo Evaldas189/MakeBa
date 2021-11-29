@@ -6,15 +6,14 @@ import {
 
 function Footer() {
     return (
-      <div className="w-full bg-red-500">
+      <div style={{backgroundColor: "#e7b80e"}} className="w-full">
         <div
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{backgroundColor: "rgb(94 0 0)"}}
           className="h-8 cursor-pointer w-full text-center text-white"
         >
-          <p className="pt-1">Go back to top</p>
+          <p className="pt-1 text-black font-bold active:text-white hover:text-white">Go back to top</p>
         </div>
-        <div style={{backgroundColor: "#7f0101"}} className="w-full items-center flex flex-col sm:flex-row text-white">
+        <div style={{backgroundColor: "#0987a3"}} className="w-full items-center flex flex-col sm:flex-row text-white">
           <div className="w-4/6 mt-4 sm:mt-0 sm:2-3/6 h-full flex justify-center items-center">
             <div className=" flex-col text-left">
               <div className="flex flex-row items-center p-1">
@@ -50,8 +49,8 @@ function Footer() {
                
                 <div class="flex items-center justify-between">
                   <button
-                  style={{backgroundColor: 'rgb(59, 61, 69)', borderWidth:1, borderColor: "white"}}
-                    class=" text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  style={{backgroundColor: "#e7b80e", borderWidth:1, borderColor: "black"}}
+                    class=" text-black hover:text-white active:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                   >
                     Send
