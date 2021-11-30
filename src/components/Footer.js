@@ -31,26 +31,26 @@ function Footer() {
             </div>
           </div>
           <div className="w-4/6 sm:2-3/6 h-full">
-              <form class=" px-2 sm:px-24 sm:pl-14 pl-2 pt-6 pb-8 mb-4">
-                <div class="mb-4">
+              <form className=" px-2 sm:px-24 sm:pl-14 pl-2 pt-6 pb-8 mb-4">
+                <div className="mb-4">
                   <label
-                    class="block text-white text-lg font-bold mb-2"
+                    className="block text-white text-lg font-bold mb-2"
                     for="username"
                   >
                     Contact Us
                   </label>
                   <input
-                    class="shadow max-w-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow max-w-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="username"
                     type="text"
                     placeholder="Email address"
                   />
                 </div>
                
-                <div class="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                   <button
                   style={{backgroundColor: "#e7b80e", borderWidth:1, borderColor: "black"}}
-                    class=" text-black hover:text-white active:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className=" text-black hover:text-white active:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                   >
                     Send

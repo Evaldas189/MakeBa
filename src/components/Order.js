@@ -22,7 +22,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
         <div>
           <p className="font-bold text-xs">TOTAL</p>
           <p>
-            <Currency quantity={amount} currency="GBP"></Currency>
+            <Currency quantity={amount} currency="EUR"></Currency>
             {/* <Currency quantity={amountShipping} currency="GBP">
               - Next Day Delivery
             </Currency> */}

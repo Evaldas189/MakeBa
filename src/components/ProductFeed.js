@@ -115,38 +115,53 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
      dispatch(resetFilter())
    }, [router])
 
+   console.log(descriptions)
 
   return (
     <>
-      {!openFilter && descriptions && (
-        <div className="flex mx-auto flex-col mainGrid">
-          <h1 className="text-white text-xl font-semibold pt-8 pb-2 ml-2">
-            Recommended for you
-          </h1>
-          <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
-            {products
-              .filter((product) => product.category === categories)
-              .sort(() => Math.random() - Math.random())
-              .slice(0, 4)
-              .map(({ id, title, price, desc, category, images }, index) => (
-                <Product
-                  index={index}
-                  key={id}
-                  id={id}
-                  title={title}
-                  price={price}
-                  desc={desc}
-                  category={category}
-                  images={images[0]}
-                />
-              ))}
-          </div>
-        </div>
-      )}
-      <div className="flex mx-auto mainGrid flex-col">
-        {!openFilter && descriptions && (
+      {!openFilter && (filter.keyword !== "" ||
+        filter.keyword !== undefined) &&
+          descriptions !== undefined &&
+          !router.query.category && (
+            <div className="flex mx-auto flex-col mainGrid">
+              <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-2">
+                Recommended for you
+              </h1>
+              <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+                {products
+                  .filter((product) => product.category === categories)
+                  .sort(() => Math.random() - Math.random())
+                  .slice(0, 4)
+                  .map(
+                    ({ id, title, price, desc, category, images }, index) => (
+                      <Product
+                        index={index}
+                        key={id}
+                        id={id}
+                        title={title}
+                        price={price}
+                        desc={desc}
+                        category={category}
+                        images={images[0]}
+                      />
+                    )
+                  )}
+              </div>
+            </div>
+          )}
+      <div className="flex mx-auto mainGrid flex-col pb-4">
+        {!openFilter &&
+          (filter.keyword !== "" ||
+          filter.keyword !== undefined) &&
+            descriptions &&
+            !router.query.category ? (
+              <h1 className="text-white text-xl font-semibold pt-6 pb-2 ml-2">
+                Newest products
+              </h1>
+            
+        ) : (
           <h1 className="text-white text-xl font-semibold pt-6 pb-2 ml-2">
-            Newest products
+            Search results
           </h1>
         )}
 

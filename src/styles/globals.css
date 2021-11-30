@@ -15,7 +15,8 @@
 
 .top-header {
    background: linear-gradient(#128698,#00718b);
-   padding-bottom: 20px;
+   /* border-bottom: 1px solid rgb(3, 2, 37); */
+   padding-bottom: 15px;
 }
 .mainGrid {
   background-color:#00718b ;
@@ -33,10 +34,10 @@ background: #00718bd9;
   background: #0a8fad;
 }
 .button:hover {
-  background: #bc0707;
+  background: #b8930e;
 }
 .button:active {
-  background: #e00000;
+  background: #d6ac14;
 }
 
 body{

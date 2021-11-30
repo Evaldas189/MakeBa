@@ -82,7 +82,7 @@ function Checkout({products}) {
                 <h2 className="whitespace-nowrap">
                   Subtotal ({items?.length} items):{" "}
                   <span className="font-bold">
-                    <Currency quantity={total} currency="GBP" />
+                    <Currency quantity={total} currency="EUR" />
                   </span>
                 </h2>
 
@@ -90,6 +90,7 @@ function Checkout({products}) {
                   role="link"
                   onClick={createCheckoutSession}
                   disabled={!session}
+                  style={{backgroundColor: !session && "gray" }}
                   className={`button text-white ${spinner && "flex justify-center"} mt-2 ${
                     !session &&
                     "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed"
