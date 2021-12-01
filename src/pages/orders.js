@@ -1,7 +1,7 @@
 import { getSession, useSession } from "next-auth/client";
 import Header from "../components/Header";
 import moment from "moment";
-import db from "../../firebase";
+import { db } from "../../firebase";
 import Order from "../components/Order";
 
 function Orders({ orders, products }) {

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { saveState } from '../slices/basketSlice'
 import moment from "moment";
-import db from "../../firebase";
+import { db } from "../../firebase";
 
 function success({products}) {
   const router = useRouter();

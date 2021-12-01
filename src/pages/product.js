@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import db from "../../firebase";
+import { db } from "../../firebase";
 import { addToBasket } from "../slices/basketSlice";
 import { addToUserSearch } from "../slices/userSearchSlice";
 import { useDispatch } from "react-redux";

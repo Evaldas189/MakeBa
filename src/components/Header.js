@@ -264,7 +264,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                   <p className="hidden sm:block mt-2">{" | "}</p>
                   <p
                     className="hidden sm:block ml-1 cursor-pointer mt-2 hover:text-yellow-400"
-                    onClick={() => signOut()}
+                    onClick={() => router.push("/auth/signup")}
                   >
                     Register
                   </p>

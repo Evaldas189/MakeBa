@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
-import db from "../../firebase";
+import { db } from "../../firebase";
 import { useRouter } from "next/router";
 import FIlter from "../components/FIlter";
 import moment from "moment";
