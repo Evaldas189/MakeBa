@@ -8,7 +8,6 @@ import { useSession } from "next-auth/client";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useState } from "react";
-import Spinner from "../svg/Spinner";
 import { db } from "../../firebase";
 import moment from "moment";
 
@@ -20,7 +19,6 @@ function Checkout({products}) {
   const [session] = useSession();
   const total = useSelector(selectTotal);
   const [spinner, setSpinner] = useState(false);
-console.log("sesija :" + session)
 
   const createCheckoutSession = async () => {
     setSpinner(true);

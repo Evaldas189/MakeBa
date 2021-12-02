@@ -3,7 +3,7 @@ import FbIcon from "../../svg/FbIcon";
 import GoogleIcon from "../../svg/GoogleIcon";
 import { useRouter } from "next/router";
 import { auth } from '../../../firebase';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -11,14 +11,47 @@ function signin({ providers }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [error, setError] = useState(false)
 
-  const simpleLogin = async ()=>{
-    try {
-      await auth.signInWithEmailAndPassword(email, pass).then(router.push("/"));
-    } catch (err) {
-      alert(err.message);
+  const isValid = () => {
+    let success = false
+    auth
+      .signInWithEmailAndPassword(email, pass)
+      .then((user) => {
+        console.log(user)
+        success = true
+        setError(false)
+      })
+      .catch((error) => {
+        success = false
+        setError(true);
+      });
+
+      return success
+  };
+
+  const userLogin = (provider) => {
+
+    if (provider.name !== "Google" && provider.name !== "Facebook") {
+      auth
+        .signInWithEmailAndPassword(email, pass)
+        .then((user) => {
+          console.log("a");
+          Login("credentials", {
+            email,
+            pass,
+            callbackUrl: "/",
+          });
+        })
+        .catch((error) => {
+          console.log("b");
+
+          setError(true);
+        });
+    } else {
+      Login(provider.id, { callbackUrl: "/" });
     }
-  }
+  };
 
   return (
     <>
@@ -31,8 +64,8 @@ function signin({ providers }) {
                 E-mail
               </label>
               <input
-               value={email}
-               onChange={(e)=> setEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
@@ -40,44 +73,25 @@ function signin({ providers }) {
                 Password
               </label>
               <input
-              value={pass}
-              onChange={(e)=> setPass(e.target.value)}
-
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
                 type="text"
-                class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+                class={`border border-black rounded-lg px-3 py-2 mt-1 ${error ? "mb-2" : "mb-5"} text-sm w-full`}
               />
-              <button
-              onClick={()=> simpleLogin()}
-                type="button"
-                style={{ backgroundColor: "#00718b" }}
-                class="transition duration-200  text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
-              >
-                <span class="inline-block mr-2">Login</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="w-4 h-4 inline-block"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </button>
-              <div className="w-full mt-6 flex justify-center flex-col items-center">
+              {error && <label class="text-center text-xs text-red-600 pb-1 block">Wrong email or password</label>}
+
+              <div className="w-full mt-2 flex justify-center flex-col items-center">
                 {Object.values(providers).map((provider) => (
                   <div key={provider.name} className="w-full">
                     <button
                       className={`w-full relative ${
                         provider.name === "Google"
                           ? "bg-blue-500 text-white p-2 rounded-lg mb-4 "
-                          : "bg-blue-900 text-white p-2 rounded-lg"
+                          : provider.name === "Facebook"
+                          ? "bg-blue-900 text-white p-2 rounded-lg"
+                          : "bg-yellow-500 text-white p-2 rounded-lg mb-8"
                       } `}
-                      onClick={() => Login(provider.id, { callbackUrl: "/" })}
+                      onClick={() => userLogin(provider)}
                     >
                       {provider.name === "Facebook" && <FbIcon />}
                       {provider.name === "Google" && <GoogleIcon />}
@@ -91,7 +105,12 @@ function signin({ providers }) {
               <div class="">
                 <div class="text-center sm:text-left whitespace-nowrap">
                   <button class="transition w-full duration-200 pb-2  cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                    <span onClick={()=>router.push("/auth/signup")} class="inline-block">Create account</span>
+                    <span
+                      onClick={() => router.push("/auth/signup")}
+                      class="inline-block"
+                    >
+                      Create account
+                    </span>
                   </button>
                 </div>
               </div>
@@ -115,7 +134,12 @@ function signin({ providers }) {
                       d="M10 19l-7-7m0 0l7-7m-7 7h18"
                     />
                   </svg>
-                  <span onClick={()=> router.push("/")} class="inline-block ml-1">Back to main page</span>
+                  <span
+                    onClick={() => router.push("/")}
+                    class="inline-block ml-1"
+                  >
+                    Back to main page
+                  </span>
                 </button>
               </div>
             </div>

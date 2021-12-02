@@ -5,8 +5,8 @@ import { Provider as AuthProvider } from "next-auth/client";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const MyApp = ({ Component, pageProps }) => {
+
   return (
     <AuthProvider session={pageProps.session}>
       <ToastContainer autoClose={2000} closeOnClick />

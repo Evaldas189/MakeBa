@@ -2,6 +2,8 @@ import { useState } from "react";
 import bodyParser from "body-parser";
 import { promisify } from "util";
 import * as adminFirebase from "firebase-admin";
+import { useSession } from "next-auth/client";
+
 
 const getBody = promisify(bodyParser.urlencoded());
 
@@ -14,7 +16,9 @@ function admin() {
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
+  const [session] = useSession();
 
+console.log(session)
   return (
     <form method="post">
       <div className="w-screen h-screen bg-gray-600 flex flex-col items-center justify-center">
@@ -97,7 +101,7 @@ function admin() {
 export async function getServerSideProps({ req, res }) {
   if (req.method === "POST") {
     await getBody(req, res);
-    const serviceAccount = require("../../permissions.json");
+    const serviceAccount = require("../../../permissions.json");
     const app = !adminFirebase.apps.length
       ? adminFirebase.initializeApp({
           credential: adminFirebase.credential.cert(serviceAccount),

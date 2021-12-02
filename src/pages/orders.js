@@ -6,6 +6,7 @@ import Order from "../components/Order";
 
 function Orders({ orders, products }) {
   const [session] = useSession();
+  
   return (
     <div>
       <Header products={products} />

@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import {
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
-import { useSession } from "next-auth/client";
 import { toast } from 'react-toastify';
 import { useRouter } from "next/router";
 
@@ -20,7 +19,6 @@ function Product({ id, title, price, desc, category, images, index }) {
   );
   const [hasPrime] = useState(Math.random() < 0.5);
   
-  const [session] = useSession();
   const router = useRouter();
 
   const addItemToBasket = (e) => {

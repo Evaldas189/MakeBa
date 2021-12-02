@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { signIn} from "next-auth/client";
-import { auth } from '../../../firebase';
+import { auth, database } from '../../../firebase';
 import { useState } from "react";
 
 function signup() {
@@ -8,16 +8,43 @@ function signup() {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [passConfirm, setPassConfirm] = useState("");
+    const [error, setError] = useState("")
 
+
+    const validateEmail = (email) => {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    const isValid = () => {
+      if (pass === "" || passConfirm === "" || email === "") {
+        setError("Fill all the fields");
+      } else if (validateEmail(email) === null) {
+        setError("Invalid email address");
+      } else if (pass !== passConfirm) {
+        setError("passwords do not match");
+      } else{
+        return true
+      }
+    };
 
     const createUser = () => {
+      if(isValid() === true){
       auth.createUserWithEmailAndPassword(email, pass)
         .then((userCredential) => {
-          const user = userCredential.user;
+          setError("")
+          database.ref(userCredential.user.uid).set({
+            role: "user"
+          }).catch(alert);
+          router.push("/auth/signin")
         })
         .catch((error) => {
-            alert(error)
+            setError(error.message)
         });
+      }
     };
 
   return (
@@ -54,8 +81,10 @@ function signup() {
                 value={passConfirm}
                 type="text"
                 onChange={(e)=> setPassConfirm(e.target.value)}
-                class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+                class={`border border-black rounded-lg px-3 py-2 mt-1 ${error !== "" ? "mb-2" : "mb-5"} text-sm w-full`}
               />
+              {error !== "" && <label class="text-center text-xs text-red-600 pb-2 block">{error}</label>}
+
               <button
                 type="button"
                 onClick={()=>createUser()}

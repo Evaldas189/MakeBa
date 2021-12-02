@@ -10,8 +10,7 @@ import { selectCategories } from "../slices/userSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { resetFilter, applyFilter } from "../slices/filterSlice";
-import NoProducts from "./NoProducts";
-import product from "../pages/product";
+
 
 function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 

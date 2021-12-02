@@ -280,7 +280,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                   >
                     <UserIcon />
                     <p className="hidden sm:block mr-1 mt-2 ml-1">
-                      {session.user.name}
+                      { session.user.name }
                     </p>
                   </div>
                 </div>
