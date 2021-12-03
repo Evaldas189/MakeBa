@@ -76,13 +76,13 @@ header .logo {
   margin: 10px;
   width: 400px;
   height: 40px;
-  background-color: brown;
-  border-radius: 10px;
+  background-color: white;
+  border-radius: 8px;
   border-color: black;
   border-width: 2px;
   padding-left: 10px;
   outline-style: none;
-  color: white
+  color: black
 }
 
 .dropdown::-webkit-scrollbar-track {

@@ -3,7 +3,7 @@ import FbIcon from "../../svg/FbIcon";
 import GoogleIcon from "../../svg/GoogleIcon";
 import { useRouter } from "next/router";
 import { auth } from '../../../firebase';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 
@@ -13,30 +13,13 @@ function signin({ providers }) {
   const [pass, setPass] = useState("");
   const [error, setError] = useState(false)
 
-  const isValid = () => {
-    let success = false
-    auth
-      .signInWithEmailAndPassword(email, pass)
-      .then((user) => {
-        console.log(user)
-        success = true
-        setError(false)
-      })
-      .catch((error) => {
-        success = false
-        setError(true);
-      });
-
-      return success
-  };
-
   const userLogin = (provider) => {
 
     if (provider.name !== "Google" && provider.name !== "Facebook") {
       auth
         .signInWithEmailAndPassword(email, pass)
         .then((user) => {
-          console.log("a");
+          setError(false)
           Login("credentials", {
             email,
             pass,
@@ -44,8 +27,6 @@ function signin({ providers }) {
           });
         })
         .catch((error) => {
-          console.log("b");
-
           setError(true);
         });
     } else {
@@ -75,7 +56,7 @@ function signin({ providers }) {
               <input
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
-                type="text"
+                type="password"
                 class={`border border-black rounded-lg px-3 py-2 mt-1 ${error ? "mb-2" : "mb-5"} text-sm w-full`}
               />
               {error && <label class="text-center text-xs text-red-600 pb-1 block">Wrong email or password</label>}
@@ -89,13 +70,14 @@ function signin({ providers }) {
                           ? "bg-blue-500 text-white p-2 rounded-lg mb-4 "
                           : provider.name === "Facebook"
                           ? "bg-blue-900 text-white p-2 rounded-lg"
-                          : "bg-yellow-500 text-white p-2 rounded-lg mb-8"
+                          : "bg-yellow-500 active:text-black text-white p-2 rounded-lg mb-8"
                       } `}
                       onClick={() => userLogin(provider)}
                     >
+                      
                       {provider.name === "Facebook" && <FbIcon />}
                       {provider.name === "Google" && <GoogleIcon />}
-                      Sign in with {provider.name}
+                      {provider.name !== "Credentials" ?  `Sign in with ${provider.name}` : "Sign in"}
                     </button>
                   </div>
                 ))}

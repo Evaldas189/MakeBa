@@ -71,7 +71,7 @@ function signup() {
               value={pass}
               onChange={(e)=> setPass(e.target.value)}
 
-                type="text"
+                type="password"
                 class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <label class="font-semibold text-sm text-gray-600 pb-1 block">
@@ -79,7 +79,7 @@ function signup() {
               </label>
               <input
                 value={passConfirm}
-                type="text"
+                type="password"
                 onChange={(e)=> setPassConfirm(e.target.value)}
                 class={`border border-black rounded-lg px-3 py-2 mt-1 ${error !== "" ? "mb-2" : "mb-5"} text-sm w-full`}
               />
@@ -89,9 +89,9 @@ function signup() {
                 type="button"
                 onClick={()=>createUser()}
                 style={{ backgroundColor: "#00718b" }}
-                class="transition duration-200  text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+                class="transition duration-200 active:text-yellow-500 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
               >
-                <span  class="inline-block mr-2">Create account</span>
+                <span class="inline-block mr-2">Create account</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

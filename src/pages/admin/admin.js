@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import bodyParser from "body-parser";
 import { promisify } from "util";
 import * as adminFirebase from "firebase-admin";
-import { useSession } from "next-auth/client";
+import { auth } from '../../../firebase';
+import { database } from '../../../firebase';
+import { useRouter } from "next/router";
 
 
 const getBody = promisify(bodyParser.urlencoded());
@@ -16,10 +18,32 @@ function admin() {
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
-  const [session] = useSession();
+  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false)
 
-console.log(session)
+  useEffect(() => {
+    if(auth?.currentUser){
+      const userRef = database.ref(auth.currentUser.uid);
+      userRef.on("value", (snapshot) => {
+        snapshot.forEach((data) => {
+          const role = data.val();
+          if (role !== "admin") {
+            router.push("/admin/login");
+          }
+          else{
+            setIsAdmin(true)
+          } 
+        });
+      });
+    }
+    else{
+      router.push("/admin/login");
+    }
+  }, [])
+
   return (
+    <>
+    {auth?.currentUser && isAdmin ? 
     <form method="post">
       <div className="w-screen h-screen bg-gray-600 flex flex-col items-center justify-center">
         <input
@@ -95,6 +119,8 @@ console.log(session)
         </button>
       </div>
     </form>
+    : null}
+    </>
   );
 }
 

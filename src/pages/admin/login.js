@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from '../../../firebase';
 import { signIn } from "next-auth/client";
 import { database } from '../../../firebase';
 import { useRouter } from "next/router";
+import Hoc from './components/Hoc'
 
 
 function login() {
@@ -11,29 +12,45 @@ function login() {
     const [pass, setPass] = useState("");
     const router = useRouter();
 
+    useEffect(() => {
+     if (auth?.currentUser) {
+       const userRef = database.ref(auth.currentUser.uid);
+       userRef.on("value", (snapshot) => {
+         snapshot.forEach((data) => {
+           const role = data.val();
+           console.log(role);
+           if (role !== "admin") {
+             router.push("/admin/login");
+           } else {
+            router.push("/admin/products");
+           }
+         });
+       });
+     }else{
+      router.push("/admin/login");
+     }
+    }, [])
+
     const adminLogin = () => {
-      console.log("a")
         auth
-        .signInWithEmailAndPassword(email, pass)
-        .then((user) => {
-          console.log("asdasd")
-          const userRef = database.ref(user.user.uid);
-          userRef.on("value", (snapshot) => {
-            snapshot.forEach(data => {
-              const role = data.val();
-              if(role === "admin"){
-                signIn("credentials", {
-                  email,
-                  pass,
-                  role: "admin",
-                  redirect: false,
-                }).then(()=> router.push("/admin/admin"));
-              }
-            })
+          .signInWithEmailAndPassword(email, pass)
+          .then((user) => {
+            const userRef = database.ref(user.user.uid);
+            userRef.on("value", (snapshot) => {
+              snapshot.forEach((data) => {
+                const role = data.val();
+                if (role === "admin") {
+                  router.push("/admin/products");
+                }
+                else{
+                  router.push("/admin/login");
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.log(error);
           });
-          
-        })
-        .catch((error) => { console.log(error) });
     }
 
     return (
@@ -83,4 +100,4 @@ function login() {
     );
 }
 
-export default login
+export default Hoc(login)

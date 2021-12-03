@@ -3,13 +3,15 @@ import Spinner from "../svg/Spinner";
 import LoginModal from "./LoginModal";
 import Product from "./Product";
 import {
-  AdjustmentsIcon
+  AdjustmentsIcon,
+  EmojiSadIcon
 } from "@heroicons/react/outline";
 import { selectFilter } from "../slices/filterSlice";
 import { selectCategories } from "../slices/userSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { resetFilter, applyFilter } from "../slices/filterSlice";
+import Image from "next/image";
 
 
 function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
@@ -22,9 +24,8 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   const [descriptions, setDescriptions] = useState(true)
   const dispatch = useDispatch();
 
-  useEffect(() => {
-   console.log(categories)
-  }, [])
+  console.log(router.query.category)
+
 
   useEffect(() => {
     let newProducts = [...products];
@@ -118,48 +119,43 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
   return (
     <>
-      {!openFilter && (filter.keyword !== "" ||
-        filter.keyword !== undefined) &&
-          descriptions !== undefined &&
-          !router.query.category && (
-            <div className="flex mx-auto flex-col mainGrid">
-              <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-2">
-                Recommended for you
-              </h1>
-              <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
-                {products
-                  .filter((product) => product.category === categories)
-                  .sort(() => Math.random() - Math.random())
-                  .slice(0, 4)
-                  .map(
-                    ({ id, title, price, desc, category, images }, index) => (
-                      <Product
-                        index={index}
-                        key={id}
-                        id={id}
-                        title={title}
-                        price={price}
-                        desc={desc}
-                        category={category}
-                        images={images[0]}
-                      />
-                    )
-                  )}
-              </div>
+      {!openFilter &&
+        (filter.keyword == "" || filter.keyword == undefined) &&
+        (!router.query.category || router.query.category === "") &&
+        descriptions !== undefined && (
+          <div className="flex mx-auto flex-col mainGrid">
+            <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-2">
+              Recommended for you
+            </h1>
+            <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+              {products
+                .filter((product) => product.category === categories)
+                .sort(() => Math.random() - Math.random())
+                .slice(0, 4)
+                .map(({ id, title, price, desc, category, images }, index) => (
+                  <Product
+                    index={index}
+                    key={id}
+                    id={id}
+                    title={title}
+                    price={price}
+                    desc={desc}
+                    category={category}
+                    images={images[0]}
+                  />
+                ))}
             </div>
-          )}
+          </div>
+        )}
       <div className="flex mx-auto mainGrid flex-col pb-4">
         {!openFilter &&
-          (filter.keyword !== "" ||
-          filter.keyword !== undefined) &&
-            descriptions &&
-            !router.query.category ? (
-              <h1 className="text-white text-xl font-semibold pt-6 pb-2 ml-2">
-                Newest products
-              </h1>
-            
-        ) : (
+        (filter.keyword == "" || filter.keyword == undefined) &&
+        (!router.query.category || router.query.category === "") ? (
           <h1 className="text-white text-xl font-semibold pt-6 pb-2 ml-2">
+            Newest products
+          </h1>
+        ) : (
+          <h1 className={`${sortedProducts.length === 0 ? "hidden" : "block"} text-white text-xl font-semibold pt-6 pb-2 ml-2`}>
             Search results
           </h1>
         )}
@@ -167,9 +163,13 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
         <div className="mainGrid relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
           <div
             onClick={() => {
-              dispatch(
-                applyFilter({ key: "keyword", value: router?.query?.category })
-              ),
+              router?.query?.category &&
+                dispatch(
+                  applyFilter({
+                    key: "keyword",
+                    value: router?.query?.category,
+                  })
+                ),
                 setOpenFilter(true);
             }}
             className="filter-button cursor-pointer fixed z-40 top-1/2 -left-2 h-14  rounded-r-full"
@@ -222,6 +222,17 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
             <Spinner />
           )}
         </div>
+        {sortedProducts.length === 0 && (
+          <div className="text-white text-center justify-center flex flex-col items-center text-4xl mx-4 my-48">
+            <EmojiSadIcon className=' h-24 mb-6'/>
+            <p className="text-4xl">
+              We could not find anything related to: <span className="text-red-400">{filter.keyword}</span>
+            </p>
+            <p className="text-xl mt-4">
+             Try changing your request...
+            </p>
+          </div>
+        )}
       </div>
     </>
   );
