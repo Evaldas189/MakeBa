@@ -11,8 +11,6 @@ import { selectCategories } from "../slices/userSearchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { resetFilter, applyFilter } from "../slices/filterSlice";
-import Image from "next/image";
-
 
 function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
@@ -23,8 +21,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   const router = useRouter();
   const [descriptions, setDescriptions] = useState(true)
   const dispatch = useDispatch();
-
-  console.log(router.query.category)
 
 
   useEffect(() => {
@@ -83,7 +79,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
         }
 
         if (filter?.sort !== "") {
-
           if (filter.sort === "1") {
             newProducts.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
           }
@@ -115,7 +110,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
      dispatch(resetFilter())
    }, [router])
 
-   console.log(descriptions)
 
   return (
     <>

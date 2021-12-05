@@ -1,4 +1,4 @@
-import { getProviders, signIn as Login } from "next-auth/client";
+import { getProviders, signIn as Login, sendPasswordResetEmail } from "next-auth/client";
 import FbIcon from "../../svg/FbIcon";
 import GoogleIcon from "../../svg/GoogleIcon";
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ function signin({ providers }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [error, setError] = useState(false)
+  const [error, setError] = useState("")
 
   const userLogin = (provider) => {
 
@@ -19,15 +19,19 @@ function signin({ providers }) {
       auth
         .signInWithEmailAndPassword(email, pass)
         .then((user) => {
-          setError(false)
-          Login("credentials", {
-            email,
-            pass,
-            callbackUrl: "/",
-          });
+          if (user.user.emailVerified === false) {
+            setError("You need to verify your email");
+          } else {
+            setError("");
+            Login("credentials", {
+              email,
+              pass,
+              callbackUrl: "/",
+            });
+          }
         })
         .catch((error) => {
-          setError(true);
+          setError("Wrong email or password");
         });
     } else {
       Login(provider.id, { callbackUrl: "/" });
@@ -57,9 +61,15 @@ function signin({ providers }) {
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
-                class={`border border-black rounded-lg px-3 py-2 mt-1 ${error ? "mb-2" : "mb-5"} text-sm w-full`}
+                class={`border border-black rounded-lg px-3 py-2 mt-1 ${
+                  error ? "mb-2" : "mb-5"
+                } text-sm w-full`}
               />
-              {error && <label class="text-center text-xs text-red-600 pb-1 block">Wrong email or password</label>}
+              {error && (
+                <label class="text-center text-xs text-red-600 pb-1 block">
+                  {error}
+                </label>
+              )}
 
               <div className="w-full mt-2 flex justify-center flex-col items-center">
                 {Object.values(providers).map((provider) => (
@@ -70,14 +80,15 @@ function signin({ providers }) {
                           ? "bg-blue-500 text-white p-2 rounded-lg mb-4 "
                           : provider.name === "Facebook"
                           ? "bg-blue-900 text-white p-2 rounded-lg"
-                          : "bg-yellow-500 active:text-black text-white p-2 rounded-lg mb-8"
+                          : "bg-yellow-500 active:text-black text-white p-2 rounded-lg mb-2"
                       } `}
                       onClick={() => userLogin(provider)}
                     >
-                      
                       {provider.name === "Facebook" && <FbIcon />}
                       {provider.name === "Google" && <GoogleIcon />}
-                      {provider.name !== "Credentials" ?  `Sign in with ${provider.name}` : "Sign in"}
+                      {provider.name !== "Credentials"
+                        ? `Sign in with ${provider.name}`
+                        : "Sign in"}
                     </button>
                   </div>
                 ))}

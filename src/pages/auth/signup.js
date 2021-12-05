@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { signIn} from "next-auth/client";
+import { signIn, sendEmailVerification } from "next-auth/client";
 import { auth, database } from '../../../firebase';
 import { useState } from "react";
 
@@ -36,10 +36,12 @@ function signup() {
       auth.createUserWithEmailAndPassword(email, pass)
         .then((userCredential) => {
           setError("")
-          database.ref(userCredential.user.uid).set({
-            role: "user"
-          }).catch(alert);
-          router.push("/auth/signin")
+          userCredential.user.sendEmailVerification().then(() => {
+            database.ref(userCredential.user.uid).set({
+              role: "user"
+            }).catch(alert);
+            router.push("/auth/signin")
+          });
         })
         .catch((error) => {
             setError(error.message)
