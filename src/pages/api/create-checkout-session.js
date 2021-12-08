@@ -8,7 +8,7 @@ export default async (req, res) => {
     description: item.description,
     quantity: item.quantity,
     price_data: {
-      currency: "gbp",
+      currency: "eur",
       unit_amount: item.price * 100,
       product_data: {
         name: item.title,

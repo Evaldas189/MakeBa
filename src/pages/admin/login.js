@@ -18,7 +18,6 @@ function login() {
        userRef.on("value", (snapshot) => {
          snapshot.forEach((data) => {
            const role = data.val();
-           console.log(role);
            if (role !== "admin") {
              router.push("/admin/login");
            } else {
@@ -32,26 +31,25 @@ function login() {
     }, [])
 
     const adminLogin = () => {
-        auth
-          .signInWithEmailAndPassword(email, pass)
-          .then((user) => {
-            const userRef = database.ref(user.user.uid);
-            userRef.on("value", (snapshot) => {
-              snapshot.forEach((data) => {
-                const role = data.val();
-                if (role === "admin") {
-                  router.push("/admin/products");
-                }
-                else{
-                  router.push("/admin/login");
-                }
-              });
+      auth
+        .signInWithEmailAndPassword(email, pass)
+        .then((user) => {
+          const userRef = database.ref(user.user.uid);
+          userRef.on("value", (snapshot) => {
+            snapshot.forEach((data) => {
+              const role = data.val();
+              if (role === "admin") {
+                router.push("/admin/products");
+              } else {
+                router.push("/admin/login");
+              }
             });
-          })
-          .catch((error) => {
-            console.log(error);
           });
-    }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
     return (
       <div class="bg-white w-full h-screen justify-center items-center shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">

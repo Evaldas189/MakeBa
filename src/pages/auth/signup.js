@@ -9,6 +9,7 @@ function signup() {
     const [pass, setPass] = useState("");
     const [passConfirm, setPassConfirm] = useState("");
     const [error, setError] = useState("")
+    const [showEmailMessage, setShowEmailMessage] = useState(false)
 
 
     const validateEmail = (email) => {
@@ -40,7 +41,10 @@ function signup() {
             database.ref(userCredential.user.uid).set({
               role: "user"
             }).catch(alert);
-            router.push("/auth/signin")
+            setEmail("");
+            setPass("");
+            setPassConfirm("");
+            setShowEmailMessage(true)
           });
         })
         .catch((error) => {
@@ -83,9 +87,11 @@ function signup() {
                 value={passConfirm}
                 type="password"
                 onChange={(e)=> setPassConfirm(e.target.value)}
-                class={`border border-black rounded-lg px-3 py-2 mt-1 ${error !== "" ? "mb-2" : "mb-5"} text-sm w-full`}
+                class={`border border-black rounded-lg px-3 py-2 mt-1 ${error !== "" || showEmailMessage ? "mb-2" : "mb-5"} text-sm w-full`}
               />
               {error !== "" && <label class="text-center text-xs text-red-600 pb-2 block">{error}</label>}
+              {error === "" && showEmailMessage &&
+               <div class="text-center rounded-md p-2 bg-green-500 text-xs text-white mb-2 mr-0 ml-0 block">A verification link has been sent to your email account. Click on the link to verify your email and continue by signing in.</div>}
 
               <button
                 type="button"

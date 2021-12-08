@@ -2,6 +2,7 @@ import { buffer } from "micro";
 import * as admin from "firebase-admin";
 
 // Secure a connection to firebase
+
 const serviceAccount = require("../../../permissions.json");
 const app = !admin.apps.length
   ? admin.initializeApp({

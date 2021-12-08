@@ -10,7 +10,7 @@ export default NextAuth({
       async authorize(credentials) {
 
         const user = { name: credentials.email, email: credentials.email, role: credentials.role };
-        console.log(user)
+
         return user
       },
     }),

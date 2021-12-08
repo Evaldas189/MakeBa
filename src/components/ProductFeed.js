@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Spinner from "../svg/Spinner";
-import LoginModal from "./LoginModal";
 import Product from "./Product";
 import {
   AdjustmentsIcon,

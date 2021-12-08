@@ -80,7 +80,7 @@ function signin({ providers }) {
                           ? "bg-blue-500 text-white p-2 rounded-lg mb-4 "
                           : provider.name === "Facebook"
                           ? "bg-blue-900 text-white p-2 rounded-lg"
-                          : "bg-yellow-500 active:text-black text-white p-2 rounded-lg mb-2"
+                          : "bg-yellow-500 active:text-black text-white p-2 mb-6 rounded-lg mb-2"
                       } `}
                       onClick={() => userLogin(provider)}
                     >

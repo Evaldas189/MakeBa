@@ -12,7 +12,7 @@ export function loadState() {
   }
 }
 
-export function mode(arr) {
+export function mostRecurrent(arr) {
   return arr
     .sort(
       (a, b) =>
@@ -41,7 +41,6 @@ export const userSearchSlice = createSlice({
   initialState,
   
   reducers: {
-    
     addToUserSearch: (state, action) => {
         state.categories = [...state.categories, action.payload];
       saveState(state.categories)
@@ -51,8 +50,7 @@ export const userSearchSlice = createSlice({
 
 export const { addToUserSearch } = userSearchSlice.actions;
 
-// Selectors - This is how we pull information from the Global store slice
 export const selectCategories = (state) =>
- mode(state.userSearch.categories.slice(state.userSearch.categories.length - 10, state.userSearch.categories.length));
+ mostRecurrent(state.userSearch.categories.slice(state.userSearch.categories.length - 10, state.userSearch.categories.length));
 
 export default userSearchSlice.reducer;

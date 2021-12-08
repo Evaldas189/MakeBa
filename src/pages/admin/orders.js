@@ -2,13 +2,23 @@ import Sidebar from "./components/Sidebar";
 import moment from "moment";
 import { db } from "../../../firebase";
 import Hoc from './components/Hoc'
+import { useState } from "react"
 
 function orders({orders}) {
+
+   const [searchValue, setSearchValue] = useState("")
 
     return (
       <div className="flex flex-row w-full">
         <Sidebar selected="orders" />
         <main className="p-6 w-full">
+          <input
+            type="text"
+            placeholder="Search by typing user email..."
+            className="p-2 h-8 w-2/4 flex-grow bg-gray-600 flex-shrink rounded-md text-white focus:outline-none"
+            value={searchValue}
+            onChange={(e)=> setSearchValue(e.target.value)}
+          />
           <table class="table-fixed">
             <thead>
               <tr>

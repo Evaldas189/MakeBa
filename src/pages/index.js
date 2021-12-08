@@ -21,18 +21,30 @@ export default function Home({products}) {
     <div className="bg-gray-100">
       <Head>
         <title>MakeBa</title>
-        <meta name="theme-color" content="#128698"/>
+        <meta name="theme-color" content="#128698" />
       </Head>
 
-      <Header setSearchValue={setSearchValue} products={products}
-      searchValue={router?.query?.category ? router?.query?.category : searchValue}  openFilter={openFilter}/>
+      <Header
+        setSearchValue={setSearchValue}
+        products={products}
+        searchValue={
+          router?.query?.category ? router?.query?.category : searchValue
+        }
+        openFilter={openFilter}
+      />
 
       <main className="max-w-screen-2xl mx-auto">
-        <ProductFeed products={products} setOpenFilter={setOpenFilter}
-        searchValue={router?.query?.category ? router?.query?.category : searchValue} openFilter={openFilter} />
+        <ProductFeed
+          products={products}
+          setOpenFilter={setOpenFilter}
+          searchValue={
+            router?.query?.category ? router?.query?.category : searchValue
+          }
+          openFilter={openFilter}
+        />
       </main>
-      <Footer/>
-      {openFilter && <FIlter setOpenFilter={setOpenFilter}/>}
+      <Footer />
+      {openFilter && <FIlter setOpenFilter={setOpenFilter} />}
     </div>
   );
 }
