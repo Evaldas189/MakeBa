@@ -52,16 +52,16 @@ function login() {
     };
 
     return (
-      <div class="bg-white w-full h-screen justify-center items-center shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-        <div class="mb-4 w-5/12">
+      <div className="bg-white w-full h-screen justify-center items-center shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+        <div className="mb-4 w-5/12">
           <label
-            class="block text-grey-darker text-sm font-bold mb-2"
+            className="block text-grey-darker text-sm font-bold mb-2"
             for="Email"
           >
             Email
           </label>
           <input
-            class="shadow appearance-none border border-black rounded w-full py-2 px-3 text-grey-darker"
+            className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-grey-darker"
             id="Email"
             type="text"
             placeholder="Email"
@@ -69,15 +69,15 @@ function login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div class="mb-6 w-5/12">
+        <div className="mb-6 w-5/12">
           <label
-            class="block text-grey-darker text-sm font-bold mb-2"
+            className="block text-grey-darker text-sm font-bold mb-2"
             for="password"
           >
             Password
           </label>
           <input
-            class="shadow appearance-none border border-black border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
+            className="shadow appearance-none border border-black border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
             id="password"
             type="password"
             placeholder="Password"
@@ -85,9 +85,9 @@ function login() {
             onChange={(e) => setPass(e.target.value)}
           />
         </div>
-        <div class="flex items-center justify-between w-5/12">
+        <div className="flex items-center justify-between w-5/12">
           <button onClick={()=> adminLogin()}
-            class="bg-blue-300 hover:bg-blue-dark text-black font-bold py-2 px-4 rounded"
+            className="bg-blue-300 hover:bg-blue-dark text-black font-bold py-2 px-4 rounded"
             type="button"
           >
             Sign In

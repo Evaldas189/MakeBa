@@ -105,19 +105,19 @@ function FIlter({setOpenFilter}) {
             </div>
             <div className="mb-2">
               <label className="inline-flex items-center text-white text-sm font-bold">
-                <input type="radio" className="form-radio" name="radio" value="2" onChange={(e)=> onFilterChange("sort", e.target.value)} />
+                <input type="radio" checked={filter.sort === "2"} className="form-radio" name="radio" value="2" onChange={(e)=> onFilterChange("sort", e.target.value)} />
                 <span className="ml-3">Cheapest on top </span>
               </label>
             </div>
             <div className="mb-2">
               <label className="inline-flex items-center text-white text-sm font-bold">
-                <input type="radio" className="form-radio" name="radio" value="3" onChange={(e)=> onFilterChange("sort", e.target.value)} />
+                <input type="radio" checked={filter.sort === "3"} className="form-radio" name="radio" value="3" onChange={(e)=> onFilterChange("sort", e.target.value)} />
                 <span className="ml-3">Most expensive on top </span>
               </label>
             </div>
             <div>
               <label className="inline-flex items-center text-white text-sm font-bold">
-                <input type="radio" className="form-radio" name="radio" value="4" onChange={(e)=> onFilterChange("sort", e.target.value)} />
+                <input type="radio" checked={filter.sort === "4"} className="form-radio" name="radio" value="4" onChange={(e)=> onFilterChange("sort", e.target.value)} />
                 <span className="ml-3">Latest at the bottom</span>
               </label>
             </div>

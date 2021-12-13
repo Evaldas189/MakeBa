@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import Image from "next/image";
+// import Image from "next/image";
 import { useSelector } from "react-redux";
 import { selectItems, selectTotal } from "../slices/basketSlice";
 import CheckoutProduct from "../components/CheckoutProduct";
@@ -43,9 +43,9 @@ function Checkout({products}) {
       <main className="relative lg:flex max-w-screen-2xl mx-auto">
         <div className="flex-grow my-5 md:m-5 shadow-sm">
           {items?.length === 0 && (
-            <Image
+            <img
               src="/images/emptyCart.png"
-              width={"1000"}
+              width={1000}
               height={250}
               objectFit="contain"
             />
@@ -74,7 +74,7 @@ function Checkout({products}) {
           </div>
         </div>
         {items?.length > 0 && (
-          <div className="flex flex-col md:my-5  bg-white p-10 shadow-md">
+          <div className="flex flex-col md:my-5 bg-white p-10 shadow-md">
             {items.length > 0 && (
               <>
                 <h2 className="whitespace-nowrap">

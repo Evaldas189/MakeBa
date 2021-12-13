@@ -18,9 +18,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   const categories = useSelector(selectCategories)
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [descriptions, setDescriptions] = useState(true)
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     let newProducts = [...products];
@@ -92,10 +90,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
           }
         }
       }
-
-      if(products === newProducts){
-        setDescriptions(false)
-      }
       
       setLoading(true);
       setSortedProducts(newProducts);
@@ -113,13 +107,15 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   return (
     <>
       {!openFilter &&
-        (filter.keyword == "" || filter.keyword == undefined) &&
-        (!router.query.category || router.query.category === "") &&
-        descriptions !== undefined && (
+        (filter.keyword === "" || filter.keyword === undefined) &&
+        filter.minValue === "" &&
+        filter.maxValue === "" &&
+        filter.sort === "" &&
+        (!router.query.category || router.query.category === "") && (
           <div className="flex mx-auto flex-col mainGrid">
-            <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-2">
+            {categories && <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-2">
               Recommended for you
-            </h1>
+            </h1>}
             <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
               {products
                 .filter((product) => product.category === categories)
@@ -143,17 +139,24 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
       <div className="flex mx-auto mainGrid flex-col pb-4">
         {!openFilter &&
         (filter.keyword == "" || filter.keyword == undefined) &&
+        filter.minValue === "" &&
+        filter.maxValue === "" &&
+        filter.sort === "" &&
         (!router.query.category || router.query.category === "") ? (
           <h1 className="text-white text-xl font-semibold pt-6 pb-2 ml-2">
             Newest products
           </h1>
         ) : (
-          <h1 className={`${sortedProducts.length === 0 ? "hidden" : "block"} text-white text-xl font-semibold pt-6 pb-2 ml-2`}>
+          <h1
+            className={`${
+              sortedProducts.length === 0 ? "hidden" : "block"
+            } text-white text-xl font-semibold pt-6 pb-2 ml-2`}
+          >
             Search results
           </h1>
         )}
 
-        <div className="mainGrid relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+        <div className="mainGrid relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-1">
           <div
             onClick={() => {
               router?.query?.category &&
@@ -191,7 +194,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
               {sortedProducts.length >= 8 && (
                 <img
                   className="hidden md:block md:col-span-full"
-                  src="https://cdn.buyee.jp/sliderbanner/amazon_amazonTopImage/en/1/index_en.png"
+                  src="/images/add.png"
                   alt=""
                 />
               )}
@@ -217,13 +220,12 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
         </div>
         {sortedProducts.length === 0 && (
           <div className="text-white text-center justify-center flex flex-col items-center text-4xl mx-4 my-48">
-            <EmojiSadIcon className=' h-24 mb-6'/>
+            <EmojiSadIcon className=" h-24 mb-6" />
             <p className="text-4xl">
-              We could not find anything related to: <span className="text-red-400">{filter.keyword}</span>
+              We could not find anything related to:{" "}
+              <span className="text-red-400">{filter.keyword}</span>
             </p>
-            <p className="text-xl mt-4">
-             Try changing your request...
-            </p>
+            <p className="text-xl mt-4">Try changing your request...</p>
           </div>
         )}
       </div>

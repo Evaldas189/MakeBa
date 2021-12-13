@@ -64,19 +64,19 @@ function signup() {
                 E-mail
               </label>
               <input
+                placeholder="Email"
                 type="text"
                 value={email}
-                onChange={(e)=> setEmail(e.target.value)}
-
+                onChange={(e) => setEmail(e.target.value)}
                 class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <label class="font-semibold text-sm text-gray-600 pb-1 block">
                 Password
               </label>
               <input
-              value={pass}
-              onChange={(e)=> setPass(e.target.value)}
-
+                value={pass}
+                placeholder="Password"
+                onChange={(e) => setPass(e.target.value)}
                 type="password"
                 class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
@@ -86,16 +86,27 @@ function signup() {
               <input
                 value={passConfirm}
                 type="password"
-                onChange={(e)=> setPassConfirm(e.target.value)}
-                class={`border border-black rounded-lg px-3 py-2 mt-1 ${error !== "" || showEmailMessage ? "mb-2" : "mb-5"} text-sm w-full`}
+                placeholder="Repeat password"
+                onChange={(e) => setPassConfirm(e.target.value)}
+                class={`border border-black rounded-lg px-3 py-2 mt-1 ${
+                  error !== "" || showEmailMessage ? "mb-2" : "mb-5"
+                } text-sm w-full`}
               />
-              {error !== "" && <label class="text-center text-xs text-red-600 pb-2 block">{error}</label>}
-              {error === "" && showEmailMessage &&
-               <div class="text-center rounded-md p-2 bg-green-500 text-xs text-white mb-2 mr-0 ml-0 block">A verification link has been sent to your email account. Click on the link to verify your email and continue by signing in.</div>}
+              {error !== "" && (
+                <label class="text-center text-xs text-red-600 pb-2 block">
+                  {error}
+                </label>
+              )}
+              {error === "" && showEmailMessage && (
+                <div class="text-center rounded-md p-2 bg-green-500 text-xs text-white mb-2 mr-0 ml-0 block">
+                  A verification link has been sent to your email account. Click
+                  on the link to verify your email and continue by signing in.
+                </div>
+              )}
 
               <button
                 type="button"
-                onClick={()=>createUser()}
+                onClick={() => createUser()}
                 style={{ backgroundColor: "#00718b" }}
                 class="transition duration-200 active:text-yellow-500 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
               >
@@ -119,8 +130,10 @@ function signup() {
             <div class="py-2">
               <div class="">
                 <div class="text-center sm:text-left whitespace-nowrap">
-                  <button class="transition w-full duration-200 pb-2  cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                    <span onClick={()=>signIn()} class="inline-block">Already have an account?</span>
+                  <button onClick={() => signIn()} class="transition w-full duration-200 pb-2  cursor-pointer font-normal text-sm rounded-lg text-gray-500 focus:outline-none focus:text-yellow-500 hover:text-yellow-600">
+                    <span class="inline-block">
+                      Already have an account?
+                    </span>
                   </button>
                 </div>
               </div>
@@ -129,7 +142,7 @@ function signup() {
           <div class="py-2">
             <div class="grid grid-cols-2 gap-1">
               <div class="text-center sm:text-left whitespace-nowrap">
-                <button class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+                <button onClick={() => router.push("/")} class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -144,7 +157,12 @@ function signup() {
                       d="M10 19l-7-7m0 0l7-7m-7 7h18"
                     />
                   </svg>
-                  <span onClick={()=> router.push("/")} class="inline-block ml-1">Back to main page</span>
+                  <span
+                    
+                    class="inline-block ml-1"
+                  >
+                    Back to main page
+                  </span>
                 </button>
               </div>
             </div>

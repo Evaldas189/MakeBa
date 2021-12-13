@@ -38,7 +38,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
             <div className='min-w-max'>
             <img src={image} alt="" className="h-20 object-contain sm:h-32 min-w-20"/>
             <div className="hidden sm:block whitespace-nowrap text-center mt-1" >Quantity: {items[i].quantity}</div>
-            <div className="whitespace-nowrap text-center mt-1 block sm:hidden" >Q: {items[i].quantity}</div>
+            <div className="whitespace-nowrap text-center mt-1 block sm:hidden" >Qty: {items[i].quantity}</div>
             </div>
           ))}
         </div>

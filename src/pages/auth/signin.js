@@ -40,33 +40,35 @@ function signin({ providers }) {
 
   return (
     <>
-      <div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
-        <div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-          <h1 class="font-bold text-center text-2xl mb-5">Sign in</h1>
-          <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-            <div class="px-5 py-7 pb-2">
-              <label class="font-semibold text-sm text-gray-600 pb-1 block">
+      <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
+        <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
+          <h1 className="font-bold text-center text-2xl mb-5">Sign in</h1>
+          <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+            <div className="px-5 py-7 pb-2">
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 E-mail
               </label>
               <input
                 value={email}
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
-                class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+                className="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
-              <label class="font-semibold text-sm text-gray-600 pb-1 block">
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Password
               </label>
               <input
                 value={pass}
+                placeholder="Password"
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
-                class={`border border-black rounded-lg px-3 py-2 mt-1 ${
+                className={`border border-black rounded-lg px-3 py-2 mt-1 ${
                   error ? "mb-2" : "mb-5"
                 } text-sm w-full`}
               />
               {error && (
-                <label class="text-center text-xs text-red-600 pb-1 block">
+                <label className="text-center text-xs text-red-600 pb-1 block">
                   {error}
                 </label>
               )}
@@ -94,13 +96,13 @@ function signin({ providers }) {
                 ))}
               </div>
             </div>
-            <div class="py-2">
-              <div class="">
-                <div class="text-center sm:text-left whitespace-nowrap">
-                  <button class="transition w-full duration-200 pb-2  cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+            <div className="py-2">
+              <div className="">
+                <div className="text-center sm:text-left whitespace-nowrap">
+                  <button onClick={() => router.push("/auth/signup")} className="transition w-full duration-200 pb-2  cursor-pointer font-normal text-sm rounded-lg text-gray-500 focus:text-yellow-500 hover:text-yellow-600">
                     <span
-                      onClick={() => router.push("/auth/signup")}
-                      class="inline-block"
+                      
+                      className="inline-block"
                     >
                       Create account
                     </span>
@@ -109,16 +111,16 @@ function signin({ providers }) {
               </div>
             </div>
           </div>
-          <div class="py-2">
-            <div class="grid grid-cols-2 gap-1">
-              <div class="text-center sm:text-left whitespace-nowrap">
-                <button class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
+          <div className="py-2">
+            <div className="grid grid-cols-2 gap-1">
+              <div className="text-center sm:text-left whitespace-nowrap">
+                <button onClick={() => router.push("/")} className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    class="w-4 h-4 inline-block align-text-top"
+                    className="w-4 h-4 inline-block align-text-top"
                   >
                     <path
                       stroke-linecap="round"
@@ -128,8 +130,7 @@ function signin({ providers }) {
                     />
                   </svg>
                   <span
-                    onClick={() => router.push("/")}
-                    class="inline-block ml-1"
+                    className="inline-block ml-1"
                   >
                     Back to main page
                   </span>
