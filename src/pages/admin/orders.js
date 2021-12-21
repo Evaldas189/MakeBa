@@ -7,13 +7,12 @@ import { useState } from "react"
 function orders({allOrders}) {
 
    const [searchValue, setSearchValue] = useState("")
-   console.log(allOrders)
 
     return (
       <div className="flex flex-row w-full">
         <Sidebar selected="orders" />
         <main className="p-6 w-full">
-          <input
+          <input spellcheck="false" 
             type="text"
             placeholder="Search by typing user email..."
             className="p-2 h-8 w-2/4 flex-grow bg-gray-600 flex-shrink rounded-md text-white focus:outline-none"
@@ -23,17 +22,17 @@ function orders({allOrders}) {
           <table className="table-fixed">
             <thead>
               <tr>
-                <th className="w-1/2">Title</th>
-                <th className="w-1/4">Author</th>
-                <th className="w-1/4">Views</th>
+                <th className="w-1/2">Quantity</th>
+                <th className="w-1/4">Full Price</th>
+                <th className="w-1/4">Created At</th>
               </tr>
             </thead>
             <tbody>
               {allOrders?.map((order) => (
-                <tr>
-                  <td>{order.id}</td>
-                  <td>{order.amount}</td>
-                  <td>{order.timestamp}</td>
+                <tr className="p-4">
+                  <td>{order.items.length}</td>
+                  <td>{order.amount}€</td>
+                  <td>{moment(order.timestamp * 1000).format('YYYY-MM-DD') }</td>
                 </tr>
               ))}
               

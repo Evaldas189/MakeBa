@@ -13,7 +13,7 @@ module.exports = {
       "st2.depositphotos.com",
       "mydigitech.in",
       "canary.contestimg.wish.com",
-      "m.media-amazon.com"
+      "m.media-amazon.com",
     ],
   },
 

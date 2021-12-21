@@ -21,6 +21,10 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    window.history.pushState('', 'MakeBa', '/');
+  }, [])
+
+  useEffect(() => {
     let newProducts = [...products];
     if (searchValue !== "" && !openFilter) {
       newProducts = newProducts.filter((a) =>
@@ -37,9 +41,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   }, [searchValue])
 
    useEffect(() => {
-
     let newProducts = [...products];
-
     if (filter && openFilter) {
       if (
         (filter?.keyword === "" || filter?.keyword === undefined) &&
@@ -74,7 +76,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
             (product) => parseInt(product.price) <= parseInt(filter.maxValue)
           );
         }
-
         if (filter?.sort !== "") {
           if (filter.sort === "1") {
             newProducts.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
@@ -90,7 +91,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
           }
         }
       }
-      
       setLoading(true);
       setSortedProducts(newProducts);
       setTimeout(() => {
@@ -113,10 +113,10 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
         filter.sort === "" &&
         (!router.query.category || router.query.category === "") && (
           <div className="flex mx-auto flex-col mainGrid">
-            {categories && <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-2">
+            {categories && <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-4">
               Recommended for you
             </h1>}
-            <div className="relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+            <div className="mainGrid relative grid-flow-row-dense grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-1">
               {products
                 .filter((product) => product.category === categories)
                 .sort(() => Math.random() - Math.random())
@@ -143,16 +143,16 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
         filter.maxValue === "" &&
         filter.sort === "" &&
         (!router.query.category || router.query.category === "") ? (
-          <h1 className="text-white text-xl font-semibold pt-6 pb-2 ml-2">
+          <h1 className="text-white text-xl font-semibold pt-4 pb-2 ml-4">
             Newest products
           </h1>
         ) : (
           <h1
             className={`${
               sortedProducts.length === 0 ? "hidden" : "block"
-            } text-white text-xl font-semibold pt-6 pb-2 ml-2`}
+            } text-white text-xl font-semibold pt-4 pb-2 ml-4`}
           >
-            Search results
+            Search results: <span className="text-red-400 font-medium">{filter.keyword ? filter.keyword : router?.query?.category && !filter.keyword ? router?.query?.category : "" } </span>
           </h1>
         )}
 

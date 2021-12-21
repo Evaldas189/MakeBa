@@ -26,7 +26,7 @@ function products() {
             style={{ backgroundColor: "rgb(137 179 189)" }}
             className="w-full h-screen flex flex-col items-center justify-center"
           >
-            <input
+            <input spellcheck="false" 
               name="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -34,7 +34,7 @@ function products() {
               type="text"
               placeholder="title"
             />
-            <input
+            <input spellcheck="false" 
               name="desc"
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
@@ -42,7 +42,7 @@ function products() {
               type="text"
               placeholder="description"
             />
-            <input
+            <input spellcheck="false" 
               name="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -50,7 +50,7 @@ function products() {
               type="text"
               placeholder="category"
             />
-            <input
+            <input spellcheck="false" 
               name="price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
@@ -58,7 +58,7 @@ function products() {
               type="text"
               placeholder="price"
             />
-            <input
+            <input spellcheck="false" 
               name="image"
               value={image}
               onChange={(e) => setImage(e.target.value)}
@@ -66,7 +66,7 @@ function products() {
               type="text"
               placeholder="image"
             />
-            <input
+            <input spellcheck="false" 
               name="image2"
               value={image2}
               onChange={(e) => setImage2(e.target.value)}
@@ -74,7 +74,7 @@ function products() {
               type="text"
               placeholder="image2"
             />
-            <input
+            <input spellcheck="false" 
               name="image3"
               value={image3}
               onChange={(e) => setImage3(e.target.value)}
@@ -82,7 +82,7 @@ function products() {
               type="text"
               placeholder="image3"
             />
-            <input
+            <input spellcheck="false" 
               name="image4"
               value={image4}
               onChange={(e) => setImage4(e.target.value)}

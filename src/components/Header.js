@@ -4,7 +4,7 @@ import {
   SearchIcon,
   ShoppingCartIcon,
   XIcon,
-  ChevronLeftIcon
+  ChevronLeftIcon,
 } from "@heroicons/react/outline";
 import { signIn, signOut, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -13,6 +13,7 @@ import { selectItems } from "../slices/basketSlice";
 import { useEffect, useRef, useState } from "react";
 import UserIcon from "../svg/UserIcon";
 import Account from "./Account";
+import Currency from "react-currency-formatter";
 
 const categories = [
   "Electronics",
@@ -33,9 +34,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
   const [searchResults, setSearchResults] = useState([]);
   const [productSearchResults, setProductSearchResults] = useState([]);
   const [openSearch, setOpenSearch] = useState(false);
-  const [openNavBar, setOpenNavBar] = useState(false);
   const [openSearchBar, setOpenSearchBar] = useState(false);
-  const [showAccountModal, setShowAccountModal] = useState(false)
+  const [showAccountModal, setShowAccountModal] = useState(false);
+  const [HoverAccount, setHoverAccount] = useState(false);
+  const [hoverLogin, setHoverLogin] = useState(false);
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -113,14 +115,8 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
             style={{ flex: 2 }}
             className={`relative hidden items-center rounded-md border-gray-400 h-10 bg-gray-100 hover:bg-gray-200 sm:flex cursor-pointer flex-grow max-w-full`}
           >
-            {/* <input
-            type="text"
-            placeholder="Search"
-            className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none"
-          />
-         
-            <SearchIcon className="h-12 p-4" /> */}
             <input
+              spellcheck="false"
               type="text"
               placeholder="Search"
               className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none"
@@ -165,7 +161,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 <ul
                   className={`dropdown ${
                     openSearch ? "block" : "hidden"
-                  } bg-white border max-h-60 overflow-x-hidden z-50 border-t absolute top-9 w-full border-gray-400 rounded-b-md`}
+                  } bg-white border max-h-96 overflow-x-hidden z-50 border-t absolute top-9 w-full border-gray-400 rounded-b-md`}
                 >
                   {searchResults.map((item) => (
                     <li
@@ -181,12 +177,13 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                               { shallow: true }
                             );
                       }}
-                      className="hover:bg-gray-100 p-2"
+                      className="hover:bg-gray-100 p-2 h-30 flex border-b border-gray flex-row justify-between items-center"
                     >
-                      {item} <div className="text-yellow-600"> category </div>
+                      <p>{item}</p>{" "}
+                      <div className="text-yellow-600 mr-2"> category </div>
                     </li>
                   ))}
-                  {productSearchResults.map(({ title, price, id }) => (
+                  {productSearchResults.map(({ title, price, id, images }) => (
                     <li
                       onClick={() => {
                         router.push({
@@ -194,12 +191,18 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                           query: { id: id },
                         });
                       }}
-                      className="hover:bg-gray-100 p-2"
+                      className="hover:bg-gray-100 p-2 flex flex-row border-b border-gray justify-between"
                     >
-                      {title}{" "}
-                      <div className="text-yellow-600">
-                        {" "}
-                        product price: {price}{" "}
+                      <div className="flex flex-row items-end w-3/4">
+                        <img
+                          src={images[0]}
+                          className="w-16 h-16 rounded-sm"
+                          objectFit="contain"
+                        />
+                        <p className="mb-2 ml-4">{title}</p>
+                      </div>
+                      <div className="text-yellow-600 text-lg flex items-center mb-2 mr-2">
+                        <Currency quantity={price} currency="EUR"></Currency>
                       </div>
                     </li>
                   ))}
@@ -207,17 +210,6 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
               )}
           </div>
           <div className="text-white flex items-center text-sm font-medium space-x-6 mx-3 md:mx-6 whitespace-nowrap">
-            {/* <div
-              onClick={() => {
-                router.push({
-                  pathname: "/orders",
-                });
-              }}
-              className="link"
-            >
-              <p>Returns</p>
-              <p className="font-medium md:text-sm">& Orders</p>
-            </div> */}
             <div
               className="block sm:hidden"
               onClick={() => setOpenSearchBar(true)}
@@ -242,16 +234,30 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
             </div>
             <div className="flex flex-row relative justify-center items-center">
               {!session ? (
-                
                 <>
-                 {showAccountModal && (
+                  {showAccountModal && (
                     <Account setOpenModal={setShowAccountModal} />
                   )}
                   <div
                     onClick={() => signIn()}
+                    onMouseEnter={() => setHoverLogin(true)}
+                    onMouseLeave={() => setHoverLogin(false)}
                     className="hidden sm:flex flex-row justify-center items-center cursor-pointer hover:text-yellow-400"
                   >
-                    <UserIcon />
+                   <svg
+                      fill={`${
+                        hoverLogin
+                          ? "rgba(251, 191, 36, var(--tw-text-opacity))"
+                          : "white"
+                      }`}
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      height="30"
+                      width="30"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                    </svg>
                     <p className="hidden sm:block mr-1 mt-2">Log in</p>
                   </div>
                   <div
@@ -260,7 +266,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                   >
                     <UserIcon />
                   </div>
-                  
+
                   <p className="hidden sm:block mt-2">{" | "}</p>
                   <p
                     className="hidden sm:block ml-1 cursor-pointer mt-2 hover:text-yellow-400"
@@ -270,17 +276,36 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                   </p>
                 </>
               ) : (
-                <div className="flex flex-row hover:text-yellow-400 justify-center relative items-center">
+                <div className="flex flex-row justify-center relative items-center">
                   {showAccountModal && (
                     <Account setOpenModal={setShowAccountModal} />
                   )}
                   <div
+                    onMouseEnter={() => setHoverAccount(true)}
+                    onMouseLeave={() => setHoverAccount(false)}
                     onClick={() => setShowAccountModal(true)}
-                    className="flex  flex-row justify-center relative items-center cursor-pointer"
+                    className="flex flex-row justify-center relative items-center cursor-pointer"
                   >
-                    <UserIcon />
-                    <p className="hidden sm:block mr-1 mt-2 ml-1">
-                      { session.user.name }
+                    <svg
+                      fill={`${
+                        HoverAccount
+                          ? "rgba(251, 191, 36, var(--tw-text-opacity))"
+                          : "white"
+                      }`}
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      height="30"
+                      width="30"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                    </svg>
+                    <p
+                      className={` ${
+                        HoverAccount ? "text-yellow-400" : ""
+                      } hidden sm:block mr-1 mt-2 ml-1`}
+                    >
+                      Account
                     </p>
                   </div>
                 </div>
@@ -291,7 +316,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
       )}
       {openSearchBar && (
         <nav
-          className={`shop-menu flex flex-col md:flex-row items-start md:items-center justify-start md:justify-center md:text-center text-white text-sm space-x-3 p-2 ${
+          className={`shop-menu flex flex-col md:flex-row items-start md:items-center justify-start md:justify-center md:text-center text-white text-sm space-x-3 p-2 pl-8 ${
             !openSearchBar ? "pl-6" : ""
           }`}
         >
@@ -303,6 +328,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 } relative d-flex justify-center align-center`}
               >
                 <input
+                  spellcheck="false"
                   type="text"
                   value={searchTerm}
                   autoFocus
@@ -327,11 +353,17 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                     />
                   </div>
                 ) : (
-                  <XIcon
-                    onClick={() => setOpenSearchBar(false)}
-                    className="absolute h-8 text-white top-2 right-1"
-                    style={{ marginTop: -3 }}
-                  />
+                  <>
+                    <SearchIcon
+                      className="absolute h-6 top-2 text-white -left-6"
+                      style={{ marginTop: 1, marginRight: -3 }}
+                    />
+                    <XIcon
+                      onClick={() => setOpenSearchBar(false)}
+                      className="absolute h-8 text-white top-2 right-1"
+                      style={{ marginTop: -3 }}
+                    />
+                  </>
                 )}
               </div>
             </div>
@@ -344,9 +376,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
         }`}
       >
         <div
-          className={`${
-            openNavBar === false ? "hidden" : "block"
-          } w-full flex-grow md:flex md:items-center md:w-auto `}
+          className={`block w-full flex-grow md:flex md:items-center md:w-auto `}
         >
           <div className="text-sm sm:flex-grow">
             <a
@@ -458,10 +488,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
         searchTerm?.length > 0 &&
         (searchResults.length > 0 || productSearchResults.length > 0) && (
           <ul
-            style={{ backgroundColor: "#00718b", marginTop: 3 }}
+            style={{ backgroundColor: "white", marginTop: 3 }}
             className={`dropdown ${
               openSearch ? "block" : "hidden"
-            }  max-h-56 overflow-x-hidden z-50 p-0 fixed top-12 w-full`}
+            }  max-h-96 overflow-x-hidden z-50 p-0 fixed top-14 w-full border-b border-black`}
           >
             {searchResults.map((item) => (
               <li
@@ -478,13 +508,13 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                       );
                   setOpenSearchBar(false);
                 }}
-                className="hover:bg-gray-100 p-2 text-white active:bg-transparent"
+                className="hover:bg-gray-100 p-2  border-b border-gray text-black active:bg-transparent flex flex-row justify-between"
               >
-                {item}
-                <div className="text-yellow-500">category</div>
+                <p className="ml-1">{item}</p>
+                <div className="text-yellow-500 mr-1">category</div>
               </li>
             ))}
-            {productSearchResults.map(({ title, price, id }) => (
+            {productSearchResults.map(({ title, price, id, images }) => (
               <li
                 onClick={() => {
                   router.push({
@@ -492,10 +522,19 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                     query: { id: id },
                   });
                 }}
-                className="hover:bg-gray-100 p-2 text-white"
+                className="hover:bg-gray-100 p-2 text-black border-b border-gray flex flex-row justify-between"
               >
-                {title}{" "}
-                <div className="text-yellow-500"> product price: {price} </div>
+                <div className="flex flex-row items-end w-3/4">
+                  <img
+                    src={images[0]}
+                    className="w-14 h-14 rounded-sm"
+                    objectFit="contain"
+                  />
+                  <p className="mb-2 ml-4 line-clamp-2">{title}</p>
+                </div>
+                <div className="text-yellow-500 text-md flex-nowrap flex items-center mb-2 mr-1">
+                  <Currency quantity={price} currency="EUR"></Currency>
+                </div>
               </li>
             ))}
           </ul>

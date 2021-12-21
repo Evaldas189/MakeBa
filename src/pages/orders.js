@@ -3,39 +3,46 @@ import Header from "../components/Header";
 import moment from "moment";
 import { db } from "../../firebase";
 import Order from "../components/Order";
+import router from "next/router";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function Orders({ orders, products }) {
+  const router = useRouter();
   const [session] = useSession();
+
+  useEffect(() => {
+    if(!session){
+     router.push("/")
+    }
+  }, [])
   
   return (
     <div>
-      <Header products={products} />
-      <main className="relative max-w-screen-lg mx-auto p-10">
-        <h1 className="text-3xl border-b mb-2 pb-1 border-black">
-          {orders?.length} Orders
-        </h1>
-        {session ? (
-          <h2></h2>
-        ) : (
-          <h2>Please sign in to see your orders</h2>
-        )}
-        <div className="mt-5 space-y-4">
-          {orders?.map(
-            ({ id, amount, amountShipping, items, timestamp, images }) => (
-              <Order
-                kry={id}
-                id={id}
-                amount={amount}
-                amountShipping={amountShipping}
-                items={items}
-                timestamp={timestamp}
-                images={images}
-              />
-            )
-          )}
-        </div>
-        {/* {openLoading && <Spinner/>} */}
-      </main>
+      {products?.length > 0 && <Header products={products} />}
+      {session && (
+        <main className="relative max-w-screen-lg mx-auto p-10">
+          <h1 className="text-3xl border-b mb-2 pb-1 border-black">
+            {orders?.length} Orders
+          </h1>
+          <div className="mt-5 space-y-4">
+            {orders?.map(
+              ({ id, amount, amountShipping, items, timestamp, images }) => (
+                <Order
+                  kry={id}
+                  id={id}
+                  amount={amount}
+                  amountShipping={amountShipping}
+                  items={items}
+                  timestamp={timestamp}
+                  images={images}
+                />
+              )
+            )}
+          </div>
+          {/* {openLoading && <Spinner/>} */}
+        </main>
+      )}
     </div>
   );
 }

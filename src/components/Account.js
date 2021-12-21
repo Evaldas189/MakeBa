@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { getSession, signIn, signOut, useSession } from "next-auth/client";
+import { db } from "../../firebase";
+import moment from "moment";
 
-function Account({ setOpenModal }) {
+function Account({ setOpenModal, orders }) {
   const router = useRouter();
   const [session] = useSession();
 
@@ -23,6 +25,11 @@ function Account({ setOpenModal }) {
         >
           {session ? (
             <>
+              <div className="w-full flex justify-center items-center bg-gray-300">
+                <p className="py-2 text-sm capitalize text-black font-semibold ">
+                  {session.user.name}
+                </p>
+              </div>
               <a
                 onClick={() => {
                   setOpenModal(false);
@@ -48,17 +55,17 @@ function Account({ setOpenModal }) {
             <>
               <a
                 onClick={() => {
-                    signIn(), setOpenModal(false);
-                  }}
+                  signIn(), setOpenModal(false);
+                }}
                 className="cursor-pointer hover:text-yellow-500 block px-4 py-2 text-sm capitalize text-gray-700"
               >
                 Log In
               </a>
 
               <a
-                // onClick={() => {
-                //   signOut(), setOpenModal(false);
-                // }}
+                onClick={() => {
+                  signOut(), setOpenModal(false);
+                }}
                 className="cursor-pointer hover:text-yellow-500 block px-4 py-2 text-sm capitalize text-gray-700 "
               >
                 Register
@@ -72,3 +79,4 @@ function Account({ setOpenModal }) {
 }
 
 export default Account;
+

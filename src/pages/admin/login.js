@@ -60,7 +60,7 @@ function login() {
           >
             Email
           </label>
-          <input
+          <input spellcheck="false" 
             className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-grey-darker"
             id="Email"
             type="text"
@@ -76,7 +76,7 @@ function login() {
           >
             Password
           </label>
-          <input
+          <input spellcheck="false" 
             className="shadow appearance-none border border-black border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
             id="password"
             type="password"

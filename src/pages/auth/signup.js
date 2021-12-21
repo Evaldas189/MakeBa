@@ -55,50 +55,50 @@ function signup() {
 
   return (
     <>
-      <div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
-        <div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-          <h1 class="font-bold text-center text-2xl mb-5">Sign up</h1>
-          <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-            <div class="px-5 py-7 pb-2">
-              <label class="font-semibold text-sm text-gray-600 pb-1 block">
+      <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
+        <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
+          <h1 className="font-bold text-center text-2xl mb-5">Sign up</h1>
+          <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+            <div className="px-5 py-7 pb-2">
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 E-mail
               </label>
-              <input
+              <input spellcheck="false" 
                 placeholder="Email"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+                className="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
-              <label class="font-semibold text-sm text-gray-600 pb-1 block">
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Password
               </label>
-              <input
+              <input spellcheck="false" 
                 value={pass}
                 placeholder="Password"
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
-                class="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+                className="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
-              <label class="font-semibold text-sm text-gray-600 pb-1 block">
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Repeat password
               </label>
-              <input
+              <input spellcheck="false" 
                 value={passConfirm}
                 type="password"
                 placeholder="Repeat password"
                 onChange={(e) => setPassConfirm(e.target.value)}
-                class={`border border-black rounded-lg px-3 py-2 mt-1 ${
+                className={`border border-black rounded-lg px-3 py-2 mt-1 ${
                   error !== "" || showEmailMessage ? "mb-2" : "mb-5"
                 } text-sm w-full`}
               />
               {error !== "" && (
-                <label class="text-center text-xs text-red-600 pb-2 block">
+                <label className="text-center text-xs text-red-600 pb-2 block">
                   {error}
                 </label>
               )}
               {error === "" && showEmailMessage && (
-                <div class="text-center rounded-md p-2 bg-green-500 text-xs text-white mb-2 mr-0 ml-0 block">
+                <div className="text-center rounded-md p-2 bg-green-500 text-xs text-white mb-2 mr-0 ml-0 block">
                   A verification link has been sent to your email account. Click
                   on the link to verify your email and continue by signing in.
                 </div>
@@ -108,15 +108,15 @@ function signup() {
                 type="button"
                 onClick={() => createUser()}
                 style={{ backgroundColor: "#00718b" }}
-                class="transition duration-200 active:text-yellow-500 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+                className="transition duration-200 active:text-yellow-500 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
               >
-                <span class="inline-block mr-2">Create account</span>
+                <span className="inline-block mr-2">Create account</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  class="w-4 h-4 inline-block"
+                  className="w-4 h-4 inline-block"
                 >
                   <path
                     stroke-linecap="round"
@@ -127,11 +127,11 @@ function signup() {
                 </svg>
               </button>
             </div>
-            <div class="py-2">
-              <div class="">
-                <div class="text-center sm:text-left whitespace-nowrap">
-                  <button onClick={() => signIn()} class="transition w-full duration-200 pb-2  cursor-pointer font-normal text-sm rounded-lg text-gray-500 focus:outline-none focus:text-yellow-500 hover:text-yellow-600">
-                    <span class="inline-block">
+            <div className="py-2">
+              <div className="">
+                <div className="text-center sm:text-left whitespace-nowrap">
+                  <button onClick={() => signIn()} className="transition w-full duration-200 pb-2  cursor-pointer font-normal text-sm rounded-lg text-gray-500 focus:outline-none focus:text-yellow-500 hover:text-yellow-600">
+                    <span className="inline-block">
                       Already have an account?
                     </span>
                   </button>
@@ -139,16 +139,16 @@ function signup() {
               </div>
             </div>
           </div>
-          <div class="py-2">
-            <div class="grid grid-cols-2 gap-1">
-              <div class="text-center sm:text-left whitespace-nowrap">
-                <button onClick={() => router.push("/")} class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300">
+          <div className="py-2">
+            <div className="grid grid-cols-2 gap-1">
+              <div className="text-center sm:text-left whitespace-nowrap">
+                <button onClick={() => router.push("/")} className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    class="w-4 h-4 inline-block align-text-top"
+                    className="w-4 h-4 inline-block align-text-top"
                   >
                     <path
                       stroke-linecap="round"
@@ -159,7 +159,7 @@ function signup() {
                   </svg>
                   <span
                     
-                    class="inline-block ml-1"
+                    className="inline-block ml-1"
                   >
                     Back to main page
                   </span>

@@ -48,7 +48,7 @@ function signin({ providers }) {
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 E-mail
               </label>
-              <input
+              <input spellcheck="false" 
                 value={email}
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -58,7 +58,7 @@ function signin({ providers }) {
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Password
               </label>
-              <input
+              <input spellcheck="false" 
                 value={pass}
                 placeholder="Password"
                 onChange={(e) => setPass(e.target.value)}

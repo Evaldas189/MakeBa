@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { auth, database } from "../../../../firebase";
 import { useRouter } from "next/router";
 
-const Hoc = Component => () => {
+const Hoc = Component => (pageProps) => {
 
     const router = useRouter();
     const [isAdmin, setIsAdmin] = useState(false);
@@ -33,9 +33,9 @@ const Hoc = Component => () => {
       <>
         {isAdmin ? (
           <div>
-            <Component></Component>
+            <Component {...pageProps}></Component>
           </div>
-        ) : router.pathname === '/admin/login' ?  <Component></Component> : null}
+        ) : router.pathname === '/admin/login' ?  <Component {...pageProps}></Component> : null}
       </>
     );
 }

@@ -56,7 +56,8 @@ function FIlter({setOpenFilter}) {
           >
             Keyword
           </label>
-          <input
+          <input spellcheck="false" 
+            spellcheck="false"
             className="shadow appearance-none border rounded w-full mt-1 py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="Search"
@@ -71,14 +72,14 @@ function FIlter({setOpenFilter}) {
             Price range (EUR)
           </label>
           <div className="flex flex-row">
-            <input
+            <input spellcheck="false" 
               className="shadow m-2 ml-0 appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
               type="number"
               placeholder="Min"
               value={filter.minValue}
               onChange={(e)=>onFilterChange("minValue", e.target.value)}
             ></input>
-            <input
+            <input spellcheck="false" 
               className="shadow m-2 mr-0 appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
               type="number"
               placeholder="Max"
@@ -92,7 +93,7 @@ function FIlter({setOpenFilter}) {
           <div className="mt-2">
             <div className="mb-2">
               <label className="inline-flex items-center text-white text-sm font-bold">
-                <input
+                <input spellcheck="false" 
                   type="radio"
                   className="form-radio"
                   name="radio"
@@ -105,19 +106,19 @@ function FIlter({setOpenFilter}) {
             </div>
             <div className="mb-2">
               <label className="inline-flex items-center text-white text-sm font-bold">
-                <input type="radio" checked={filter.sort === "2"} className="form-radio" name="radio" value="2" onChange={(e)=> onFilterChange("sort", e.target.value)} />
+                <input spellcheck="false"  type="radio" checked={filter.sort === "2"} className="form-radio" name="radio" value="2" onChange={(e)=> onFilterChange("sort", e.target.value)} />
                 <span className="ml-3">Cheapest on top </span>
               </label>
             </div>
             <div className="mb-2">
               <label className="inline-flex items-center text-white text-sm font-bold">
-                <input type="radio" checked={filter.sort === "3"} className="form-radio" name="radio" value="3" onChange={(e)=> onFilterChange("sort", e.target.value)} />
+                <input spellcheck="false"  type="radio" checked={filter.sort === "3"} className="form-radio" name="radio" value="3" onChange={(e)=> onFilterChange("sort", e.target.value)} />
                 <span className="ml-3">Most expensive on top </span>
               </label>
             </div>
             <div>
               <label className="inline-flex items-center text-white text-sm font-bold">
-                <input type="radio" checked={filter.sort === "4"} className="form-radio" name="radio" value="4" onChange={(e)=> onFilterChange("sort", e.target.value)} />
+                <input spellcheck="false"  type="radio" checked={filter.sort === "4"} className="form-radio" name="radio" value="4" onChange={(e)=> onFilterChange("sort", e.target.value)} />
                 <span className="ml-3">Latest at the bottom</span>
               </label>
             </div>
