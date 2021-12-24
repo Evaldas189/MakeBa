@@ -64,7 +64,7 @@ function Account({ setOpenModal, orders }) {
 
               <a
                 onClick={() => {
-                  signOut(), setOpenModal(false);
+                  router.push('/auth/signup'), setOpenModal(false);
                 }}
                 className="cursor-pointer hover:text-yellow-500 block px-4 py-2 text-sm capitalize text-gray-700 "
               >

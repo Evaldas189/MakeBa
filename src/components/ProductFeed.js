@@ -20,15 +20,16 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    window.history.pushState('', 'MakeBa', '/');
-  }, [])
+  // useEffect(() => {
+  //   window.history.pushState('', 'MakeBa', '/');
+  // }, [])
 
   useEffect(() => {
+    console.log(searchValue)
     let newProducts = [...products];
     if (searchValue !== "" && !openFilter) {
       newProducts = newProducts.filter((a) =>
-        a.category.toLowerCase().includes(searchValue.toLowerCase())
+        a.category.toLowerCase().includes(searchValue.toLowerCase()) || a.title.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
     if(searchValue === ""){
@@ -96,6 +97,8 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
       setTimeout(() => {
         setLoading(false);
       }, 800);
+       window.history.pushState('', 'MakeBa', '/');
+
     }   
    }, [filter])
 
@@ -152,7 +155,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
               sortedProducts.length === 0 ? "hidden" : "block"
             } text-white text-xl font-semibold pt-4 pb-2 ml-4`}
           >
-            Search results: <span className="text-red-400 font-medium">{filter.keyword ? filter.keyword : router?.query?.category && !filter.keyword ? router?.query?.category : "" } </span>
+            Search results: <span className="text-red-400 font-medium">{router?.query?.category && filter.keyword ? filter.keyword : filter.keyword ? filter.keyword : router?.query?.category && !filter.keyword ? router?.query?.category : "" } </span>
           </h1>
         )}
 
@@ -163,7 +166,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
                 dispatch(
                   applyFilter({
                     key: "keyword",
-                    value: router?.query?.category,
+                    value: router?.query?.category && filter.keyword ? filter.keyword : filter.keyword ? filter.keyword : router?.query?.category && !filter.keyword ? router?.query?.category : "",
                   })
                 ),
                 setOpenFilter(true);

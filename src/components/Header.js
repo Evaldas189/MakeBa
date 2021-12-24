@@ -75,9 +75,9 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
             <div
               className="hidden sm:block hover:cursor-pointer"
               onClick={() => {
-                if (router.pathname === "/") {
-                  location.reload();
-                }
+                // if (router.pathname === "/") {
+                //   location.reload();
+                // }
                 router.push({
                   pathname: "/",
                 });
@@ -390,7 +390,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                         pathname: "/",
                         query: { category: "Electronics" },
                       },
-                      { shallow: true }
+                      
                     );
               }}
             >
@@ -407,7 +407,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                         pathname: "/",
                         query: { category: "home & kitchen" },
                       },
-                      { shallow: true }
+                      
                     );
               }}
             >
@@ -424,7 +424,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                         pathname: "/",
                         query: { category: "Automotive and Car Care" },
                       },
-                      { shallow: true }
+                      
                     );
               }}
             >
@@ -441,7 +441,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                         pathname: "/",
                         query: { category: "Arts and Crafts" },
                       },
-                      { shallow: true }
+                      
                     );
               }}
             >
@@ -458,11 +458,28 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                         pathname: "/",
                         query: { category: "Toys & Games" },
                       },
-                      { shallow: true }
+                      
                     );
               }}
             >
               Toys & Games
+            </a>
+            <a
+              className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 active:text-red-400"
+              onClick={() => {
+                !router.pathname === "/checkout" ||
+                !router.pathname === "/orders"
+                  ? setSearchValue("Pet Supplies")
+                  : router.push(
+                      {
+                        pathname: "/",
+                        query: { category: "Pet Supplies" },
+                      },
+                      
+                    );
+              }}
+            >
+              Pet Supplies
             </a>
             <a
               className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-6 active:text-red-400"
@@ -475,7 +492,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                         pathname: "/",
                         query: { category: "Beauty & Personal Care" },
                       },
-                      { shallow: true }
+                      
                     );
               }}
             >
