@@ -131,8 +131,8 @@ function FIlter({setOpenFilter}) {
         </button>
         <button
           onClick={()=>closeFilter()}
-          style={{backgroundColor: '#3b3d45'}}
-          className="mt-4 text-white font-bold w-full border border-white shadow-md flex flex-row justify-center items-center p-1 rounded-md"
+          style={{backgroundColor: '#e7b80e'}}
+          className="mt-4 text-black font-bold w-full border border-white shadow-md flex flex-row justify-center items-center p-1 rounded-md"
         >
           OK
         </button>

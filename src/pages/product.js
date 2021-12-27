@@ -119,8 +119,7 @@ function product({products, product}) {
                   </span>
                   <button
                     onClick={addItemToBasket}
-                    style={{ backgroundColor: "#0a8fad" }}
-                    className="flex ml-auto text-white border-0 py-2 px-6 focus:outline-none rounded"
+                    className="flex ml-auto text-white border-0 py-2 px-6 focus:outline-none rounded button"
                   >
                     Add To Cart
                   </button>

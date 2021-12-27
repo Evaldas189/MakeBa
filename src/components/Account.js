@@ -26,7 +26,7 @@ function Account({ setOpenModal, orders }) {
           {session ? (
             <>
               <div className="w-full flex justify-center items-center bg-gray-300">
-                <p className="py-2 text-sm capitalize text-black font-semibold ">
+                <p className="py-2 text-sm text-black font-semibold ">
                   {session.user.name}
                 </p>
               </div>
