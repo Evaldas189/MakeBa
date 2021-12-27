@@ -27,6 +27,7 @@ function product({products, product}) {
 
   useEffect(() => {
    dispatch(addToUserSearch(product.category))
+   console.log(router)
   }, [])
 
   const addItemToBasket = () => {
@@ -37,7 +38,7 @@ function product({products, product}) {
       images: product.images[0]
     }
     dispatch(addToBasket(newProduct));
-    toast("Added to the cart!");
+    toast("Successfully added to the cart!");
   };
   return (
     <div>
@@ -58,7 +59,7 @@ function product({products, product}) {
                       onClick={() => setMainImage(image)}
                       alt="ecommerce"
                       className={`object-contain ${
-                        image === mainImage ? "border-red-600" : ""
+                        image === mainImage ? "border-yellow-500" : ""
                       }
                     py-2 cursor-pointer object-center rounded mx-1 shadow-md my-1 border w-full border-gray-200  max-h-20 md:max-h-20`}
                       src={image}
@@ -73,86 +74,63 @@ function product({products, product}) {
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                   {product.title}
                 </h1>
+
                 <div className="flex mb-4">
                   <span className="flex items-center">
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-4 h-4 text-red-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-4 h-4 text-red-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-4 h-4 text-red-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-4 h-4 text-red-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      className="w-4 h-4 text-red-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
+                    {Array(rating)
+                      .fill()
+                      .map((_, i) => (
+                        <svg
+                          fill="currentColor"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          className="w-4 h-4 text-red-500"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                      ))}
+                    {Array(5-rating)
+                      .fill()
+                      .map((_, i) => (
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          className="w-4 h-4 text-red-500"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                      ))}
+
                     <span className="text-gray-600 ml-3">{rating} Stars</span>
                   </span>
-                  
                 </div>
                 <p className="leading-relaxed">{product.desc}</p>
                 <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5"></div>
                 <div className="flex">
                   <span className="title-font font-medium text-2xl text-gray-900">
-                    $58.00
+                    <Currency quantity={product.price} currency="EUR" />
                   </span>
                   <button
                     onClick={addItemToBasket}
-                    style={{backgroundColor: "#0a8fad"}}
+                    style={{ backgroundColor: "#0a8fad" }}
                     className="flex ml-auto text-white border-0 py-2 px-6 focus:outline-none rounded"
                   >
                     Add To Cart
                   </button>
-                 
                 </div>
               </div>
             </div>
           </div>
-          <h1 className="justify-self-center text-lg text-center pb-4">You may also like:</h1>
+          <h1 className="justify-self-center text-lg text-center pb-4">
+            You may also like:
+          </h1>
           <div className="flex flex-col sm:flex-row justify-center items-center mr-10 ml-10 mb-10">
             {products
               .filter(
@@ -161,12 +139,15 @@ function product({products, product}) {
               )
               .slice(0, 4)
               .map((p) => (
-                <div onClick={() => {
-                  router.push({
-                    pathname: "/product",
-                    query: { id: p.id },
-                  });
-                }} className="flex cursor-pointer flex-col max-w-md sm:max-w-xs m-4 w-full sm:w-1/4  shadow-md border border-gray-200 justify-center items-center">
+                <div
+                  onClick={() => {
+                    router.push({
+                      pathname: "/product",
+                      query: { id: p.id },
+                    });
+                  }}
+                  className="flex cursor-pointer flex-col max-w-md sm:max-w-xs m-4 w-full sm:w-1/4  shadow-md border border-gray-200 justify-center items-center"
+                >
                   <img
                     alt="ecommerce"
                     className={`object-contain
@@ -175,7 +156,7 @@ function product({products, product}) {
                   />
                   <p className="p-4 my-2 line-clamp-2 pb-0">{p.title}</p>
                   <div className="mb-2 md:mb-5 font-bold text-red-700 pt-2">
-                  <Currency quantity={p.price} currency="EUR" />
+                    <Currency quantity={p.price} currency="EUR" />
                   </div>
                 </div>
               ))}

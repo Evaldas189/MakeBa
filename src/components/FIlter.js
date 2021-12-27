@@ -138,7 +138,7 @@ function FIlter({setOpenFilter}) {
         </button>
         </div>
       </div>
-      <div onClick={()=> closeFilter()} className=" w-2/6 sm:w-3/4 h-screen float-right">
+      <div onClick={()=> closeFilter()} className=" w-2/6 sm:w-2/4 md:w-2/4 lg:w-4/5 h-screen float-right">
 
       </div>
     </div>

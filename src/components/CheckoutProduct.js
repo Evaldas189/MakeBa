@@ -50,7 +50,7 @@ function CheckoutProduct({
       <Image src={image} height={200} width={200} objectFit="contain" />
 
       <div className="col-span-3 mx-5">
-        <p>{title}</p>
+        <p className="line-clamp-3">{title}</p>
         <div className="flex">
           {Array(rating)
             .fill()

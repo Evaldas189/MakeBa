@@ -59,6 +59,9 @@ header .logo {
   color: black;
   font-weight: 500;
 }
+.Toastify__progress-bar-theme--light {
+  background: #e7b80e !important;
+}
 
 .search:focus { outline: none; }
 

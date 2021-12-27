@@ -9,7 +9,7 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <AuthProvider session={pageProps.session}>
-      <ToastContainer autoClose={2000} closeOnClick />
+      <ToastContainer autoClose={1500} closeOnClick toastStyle={{marginTop: 28}} />
       <Provider store={store}>
         <Component {...pageProps} />
       </Provider>

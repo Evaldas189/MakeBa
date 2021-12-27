@@ -34,7 +34,7 @@ function Product({ id, title, price, desc, category, images, index }) {
       hasPrime,
       quantity: 1,
     };
-    toast("Added to the cart!");
+    toast("Successfully added to the cart!");
     dispatch(addToBasket(product));
   };
 
@@ -42,6 +42,7 @@ function Product({ id, title, price, desc, category, images, index }) {
     router.push({
       pathname: "/product",
       query: { id: id },
+      rating: rating,
     });
   }
 

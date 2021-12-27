@@ -5,6 +5,7 @@ import Hoc from './components/Hoc'
 import { useState } from "react"
 
 function orders({allOrders}) {
+  console.log(allOrders)
 
    const [searchValue, setSearchValue] = useState("")
 
@@ -22,14 +23,16 @@ function orders({allOrders}) {
           <table className="table-fixed">
             <thead>
               <tr>
+                <th className="w-1/2">Nr.</th>
                 <th className="w-1/2">Quantity</th>
                 <th className="w-1/4">Full Price</th>
                 <th className="w-1/4">Created At</th>
               </tr>
             </thead>
             <tbody>
-              {allOrders?.map((order) => (
+              {allOrders?.map((order, index) => (
                 <tr className="p-4">
+                  <td>{index + 1}</td>
                   <td>{order.items.length}</td>
                   <td>{order.amount}€</td>
                   <td>{moment(order.timestamp * 1000).format('YYYY-MM-DD') }</td>

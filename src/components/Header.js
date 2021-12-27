@@ -75,9 +75,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
             <div
               className="hidden sm:block hover:cursor-pointer"
               onClick={() => {
-                // if (router.pathname === "/") {
-                //   location.reload();
-                // }
+                setSearchTerm("");
                 router.push({
                   pathname: "/",
                 });
@@ -93,9 +91,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
             <div
               className="block sm:hidden hover:cursor-pointer"
               onClick={() => {
-                if (router.pathname === "/") {
-                  location.reload();
-                }
+                setSearchTerm("");
                 router.push({
                   pathname: "/",
                 });
@@ -166,6 +162,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                   {searchResults.map((item) => (
                     <li
                       onClick={() => {
+                        setSearchTerm("");
                         !router.pathname === "/checkout" ||
                         !router.pathname === "/orders"
                           ? setSearchValue(item)
@@ -186,6 +183,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                   {productSearchResults.map(({ title, price, id, images }) => (
                     <li
                       onClick={() => {
+                        setSearchTerm("");
                         router.push({
                           pathname: "/product",
                           query: { id: id },
@@ -194,11 +192,16 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                       className="hover:bg-gray-100 p-2 flex flex-row border-b border-gray justify-between"
                     >
                       <div className="flex flex-row items-end w-3/4">
-                        <img
-                          src={images[0]}
-                          className="w-16 h-16 rounded-sm"
-                          objectFit="contain"
-                        />
+                        <div
+                          style={{ minWidth: 56 }}
+                          className="h-16 flex justify-center items-center"
+                        >
+                          <img
+                            src={images[0]}
+                            className="min-w-16 h-16 rounded-sm"
+                            objectFit="contain"
+                          />
+                        </div>
                         <p className="mb-2 ml-4">{title}</p>
                       </div>
                       <div className="text-yellow-600 text-lg flex items-center mb-2 mr-2">
@@ -244,7 +247,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                     onMouseLeave={() => setHoverLogin(false)}
                     className="hidden sm:flex flex-row justify-center items-center cursor-pointer hover:text-yellow-400"
                   >
-                   <svg
+                    <svg
                       fill={`${
                         hoverLogin
                           ? "rgba(251, 191, 36, var(--tw-text-opacity))"
@@ -385,13 +388,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Electronics")
-                  : router.push(
-                      {
-                        pathname: "/",
-                        query: { category: "Electronics" },
-                      },
-                      
-                    );
+                  : router.push({
+                      pathname: "/",
+                      query: { category: "Electronics" },
+                    });
               }}
             >
               Electronics
@@ -402,13 +402,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("home & kitchen")
-                  : router.push(
-                      {
-                        pathname: "/",
-                        query: { category: "home & kitchen" },
-                      },
-                      
-                    );
+                  : router.push({
+                      pathname: "/",
+                      query: { category: "home & kitchen" },
+                    });
               }}
             >
               home & kitchen
@@ -419,13 +416,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Automotive and Car Care")
-                  : router.push(
-                      {
-                        pathname: "/",
-                        query: { category: "Automotive and Car Care" },
-                      },
-                      
-                    );
+                  : router.push({
+                      pathname: "/",
+                      query: { category: "Automotive and Car Care" },
+                    });
               }}
             >
               Automotive and Car Care
@@ -436,13 +430,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Arts and Crafts")
-                  : router.push(
-                      {
-                        pathname: "/",
-                        query: { category: "Arts and Crafts" },
-                      },
-                      
-                    );
+                  : router.push({
+                      pathname: "/",
+                      query: { category: "Arts and Crafts" },
+                    });
               }}
             >
               Arts and Crafts
@@ -453,13 +444,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Toys & Games")
-                  : router.push(
-                      {
-                        pathname: "/",
-                        query: { category: "Toys & Games" },
-                      },
-                      
-                    );
+                  : router.push({
+                      pathname: "/",
+                      query: { category: "Toys & Games" },
+                    });
               }}
             >
               Toys & Games
@@ -470,13 +458,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Pet Supplies")
-                  : router.push(
-                      {
-                        pathname: "/",
-                        query: { category: "Pet Supplies" },
-                      },
-                      
-                    );
+                  : router.push({
+                      pathname: "/",
+                      query: { category: "Pet Supplies" },
+                    });
               }}
             >
               Pet Supplies
@@ -487,13 +472,10 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 !router.pathname === "/checkout" ||
                 !router.pathname === "/orders"
                   ? setSearchValue("Beauty & Personal Care")
-                  : router.push(
-                      {
-                        pathname: "/",
-                        query: { category: "Beauty & Personal Care" },
-                      },
-                      
-                    );
+                  : router.push({
+                      pathname: "/",
+                      query: { category: "Beauty & Personal Care" },
+                    });
               }}
             >
               Beauty & Personal Care
@@ -513,6 +495,8 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
             {searchResults.map((item) => (
               <li
                 onClick={() => {
+                  setSearchTerm("");
+                  setOpenSearchBar(false);
                   !router.pathname === "/checkout" ||
                   !router.pathname === "/orders"
                     ? setSearchValue(item)
@@ -523,7 +507,6 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                         },
                         { shallow: true }
                       );
-                  setOpenSearchBar(false);
                 }}
                 className="hover:bg-gray-100 p-2  border-b border-gray text-black active:bg-transparent flex flex-row justify-between"
               >
@@ -534,6 +517,8 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
             {productSearchResults.map(({ title, price, id, images }) => (
               <li
                 onClick={() => {
+                  setOpenSearchBar(false);
+                  setSearchTerm("");
                   router.push({
                     pathname: "/product",
                     query: { id: id },
@@ -542,11 +527,16 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                 className="hover:bg-gray-100 p-2 text-black border-b border-gray flex flex-row justify-between"
               >
                 <div className="flex flex-row items-end w-3/4">
-                  <img
-                    src={images[0]}
-                    className="w-14 h-14 rounded-sm"
-                    objectFit="contain"
-                  />
+                  <div
+                    style={{ minWidth: 56 }}
+                    className="h-16 flex justify-center items-center"
+                  >
+                    <img
+                      src={images[0]}
+                      className="min-w-14 h-14 rounded-sm"
+                      objectFit="contain"
+                    />
+                  </div>
                   <p className="mb-2 ml-4 line-clamp-2">{title}</p>
                 </div>
                 <div className="text-yellow-500 text-md flex-nowrap flex items-center mb-2 mr-1">

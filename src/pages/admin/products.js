@@ -64,7 +64,7 @@ function products() {
               onChange={(e) => setImage(e.target.value)}
               className="adminInput"
               type="text"
-              placeholder="image"
+              placeholder="image1"
             />
             <input spellcheck="false" 
               name="image2"
