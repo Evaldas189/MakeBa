@@ -24,6 +24,7 @@ function orders({allOrders}) {
             <thead>
               <tr>
                 <th className="w-1/2">Nr.</th>
+                <th className="w-1/2">Email</th>
                 <th className="w-1/2">Quantity</th>
                 <th className="w-1/4">Full Price</th>
                 <th className="w-1/4">Created At</th>
@@ -33,6 +34,7 @@ function orders({allOrders}) {
               {allOrders?.map((order, index) => (
                 <tr className="p-4">
                   <td>{index + 1}</td>
+                  <td>{order.userId}</td>
                   <td>{order.items.length}</td>
                   <td>{order.amount}€</td>
                   <td>{moment(order.timestamp * 1000).format('YYYY-MM-DD') }</td>
@@ -64,6 +66,7 @@ export async function getServerSideProps() {
           limit: 100,
         })
       ).data,
+      // info: await stripe.orders.retrieve(order.id)
     }))
   );
 
