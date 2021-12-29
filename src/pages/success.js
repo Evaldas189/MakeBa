@@ -5,14 +5,17 @@ import { useEffect } from "react";
 import { saveState } from '../slices/basketSlice'
 import moment from "moment";
 import { db } from "../../firebase";
+import { removeAllFromCart } from "../slices/basketSlice";
+import { useDispatch } from "react-redux";
+
 
 function success({products}) {
   const router = useRouter();
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    setTimeout(() => {
-      saveState([])
-    }, 1000);
+   dispatch(removeAllFromCart())
   }, [])
 
   return (

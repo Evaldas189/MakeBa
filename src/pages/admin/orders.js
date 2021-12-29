@@ -2,12 +2,15 @@ import Sidebar from "./components/Sidebar";
 import moment from "moment";
 import { db } from "../../../firebase";
 import Hoc from './components/Hoc'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function orders({allOrders}) {
-  console.log(allOrders)
 
    const [searchValue, setSearchValue] = useState("")
+
+   useEffect(() => {
+    
+   }, [searchValue])
 
     return (
       <div className="flex flex-row w-full">
@@ -20,26 +23,26 @@ function orders({allOrders}) {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <table className="table-fixed">
+          <table className="table-fixed mt-4">
             <thead>
               <tr>
-                <th className="w-1/2">Nr.</th>
-                <th className="w-1/2">Email</th>
-                <th className="w-1/2">Quantity</th>
+                <th className="w-1/8">Nr.</th>
+                <th className="w-1/4">Email</th>
+                <th className="w-1/6">Quantity</th>
                 <th className="w-1/4">Full Price</th>
-                <th className="w-1/4">Created At</th>
+                <th className="w-1/2">Created At</th>
               </tr>
             </thead>
             <tbody>
-              {allOrders?.map((order, index) => (
+              {allOrders.filter(order => order.email.includes(searchValue))?.map((order, index) => (
                 <tr className="p-4">
-                  <td>{index + 1}</td>
-                  <td>{order.userId}</td>
-                  <td>{order.country}</td>
-                  <td>{order.address}</td>
-                  <td>{order.items.length}</td>
-                  <td>{order.amount}€</td>
-                  <td>{moment(order.timestamp * 1000).format('YYYY-MM-DD') }</td>
+                  <td className="text-center border">{index + 1}</td>
+                  <td className="text-center border">{order.email}</td>
+                  {/* <td>{order.country}</td>
+                  <td>{order.address}</td> */}
+                  <td className="text-center border">{order.items.length}</td>
+                  <td className="text-center border">{order.amount}€</td>
+                  <td className="text-center border">{moment(order.timestamp * 1000).format('YYYY-MM-DD') }</td>
                 </tr>
               ))}
               
@@ -68,9 +71,9 @@ export async function getServerSideProps() {
           limit: 100,
         })
       ).data,
-      email: order.data().userId,
-      country: order.data().country,
-      address: order.data().address
+      email: order.data().email,
+      // country: order.data().country,
+      // address: order.data().address
     }))
   );
 

@@ -17,6 +17,7 @@ function Orders({ orders, products }) {
     }
   }, [])
   
+
   return (
     <div>
       {products?.length > 0 && <Header products={products} />}
