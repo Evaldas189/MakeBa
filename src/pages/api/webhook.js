@@ -30,7 +30,7 @@ const fullfillOrder = async (session) => {
       amount_shipping: session.total_details.amount_shipping / 100,
       images: JSON.parse(session.metadata.images),
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
-      userId: session.metadata.id
+      email: session.metadata.email
     })
     .then(() => {
       console.log(`SUCCESS: Order ${session.id} has been added to DB!`);
@@ -57,6 +57,7 @@ export default async (req, res) => {
     }
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
+      console.log(session)
 
       return fullfillOrder(session)
         .then(() => res.status(200))

@@ -35,6 +35,8 @@ function orders({allOrders}) {
                 <tr className="p-4">
                   <td>{index + 1}</td>
                   <td>{order.userId}</td>
+                  <td>{order.country}</td>
+                  <td>{order.address}</td>
                   <td>{order.items.length}</td>
                   <td>{order.amount}€</td>
                   <td>{moment(order.timestamp * 1000).format('YYYY-MM-DD') }</td>
@@ -66,7 +68,9 @@ export async function getServerSideProps() {
           limit: 100,
         })
       ).data,
-      // info: await stripe.orders.retrieve(order.id)
+      email: order.data().userId,
+      country: order.data().country,
+      address: order.data().address
     }))
   );
 
