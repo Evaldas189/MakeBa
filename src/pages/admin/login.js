@@ -66,6 +66,7 @@ function login() {
             type="text"
             placeholder="Email"
             value={email}
+            autoComplete="off"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -80,6 +81,7 @@ function login() {
             className="shadow appearance-none border border-black border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
             id="password"
             type="password"
+            autoComplete="off"
             placeholder="Password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}

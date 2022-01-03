@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        amazon_blue: {
+        makeba_blue: {
           DEFAULT: "rgb(248, 248, 248)",
         },
       },

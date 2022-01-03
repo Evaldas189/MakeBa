@@ -40,7 +40,9 @@ function signup() {
           userCredential.user.sendEmailVerification().then(() => {
             database.ref(userCredential.user.uid).set({
               role: "user"
-            }).catch(alert);
+            }).catch(err => {
+              console.log(err)
+            }) 
             setEmail("");
             setPass("");
             setPassConfirm("");
@@ -66,6 +68,7 @@ function signup() {
               <input spellcheck="false" 
                 placeholder="Email"
                 type="text"
+                autoComplete="off"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="border border-black rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
@@ -75,6 +78,7 @@ function signup() {
               </label>
               <input spellcheck="false" 
                 value={pass}
+                autoComplete="new-password"
                 placeholder="Password"
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
@@ -86,6 +90,7 @@ function signup() {
               <input spellcheck="false" 
                 value={passConfirm}
                 type="password"
+                autoComplete="new-password"
                 placeholder="Repeat password"
                 onChange={(e) => setPassConfirm(e.target.value)}
                 className={`border border-black rounded-lg px-3 py-2 mt-1 ${

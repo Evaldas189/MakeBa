@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import moment from "moment";
 import { db } from "../../firebase";
 import Order from "../components/Order";
-import router from "next/router";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -11,11 +10,6 @@ function Orders({ orders, products }) {
   const router = useRouter();
   const [session] = useSession();
 
-  useEffect(() => {
-    if(!session){
-     router.push("/")
-    }
-  }, [])
   
 
   return (
@@ -69,7 +63,11 @@ export async function getServerSideProps(context) {
       stripeOrders.docs.map(async (order) => ({
         id: order.id,
         amount: order.data().amount,
-        images: order.data().images,
+        images: await db
+          .collection("images")
+          .doc(order.data().images.toString())
+          .get()
+          .then((snap) => JSON.parse(JSON.stringify(snap.data().images))),
         timestamp: moment(order.data().timestamp.toDate()).unix(),
         items: (
           await stripe.checkout.sessions.listLineItems(order.id, {

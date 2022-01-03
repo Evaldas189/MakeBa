@@ -42,7 +42,6 @@ function Product({ id, title, price, desc, category, images, index }) {
     router.push({
       pathname: "/product",
       query: { id: id },
-      rating: rating,
     });
   }
 

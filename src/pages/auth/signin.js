@@ -50,6 +50,7 @@ function signin({ providers }) {
               </label>
               <input spellcheck="false" 
                 value={email}
+                autoComplete="new-password"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
@@ -60,6 +61,7 @@ function signin({ providers }) {
               </label>
               <input spellcheck="false" 
                 value={pass}
+                autoComplete="new-password"
                 placeholder="Password"
                 onChange={(e) => setPass(e.target.value)}
                 type="password"

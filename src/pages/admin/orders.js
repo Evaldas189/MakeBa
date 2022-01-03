@@ -18,6 +18,7 @@ function orders({allOrders}) {
         <main className="p-6 w-full">
           <input spellcheck="false" 
             type="text"
+            autoComplete="new-password"
             placeholder="Search by typing user email..."
             className="p-2 h-8 w-2/4 flex-grow bg-gray-600 flex-shrink rounded-md text-white focus:outline-none"
             value={searchValue}

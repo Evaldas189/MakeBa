@@ -124,7 +124,10 @@ function FIlter({setOpenFilter}) {
             </div>
           </div>
           <button
-          onClick={()=>removeFilter()}
+          onClick={()=>{
+            removeFilter()
+          }
+          }
           className="mt-8 text-black font-bold w-full border border-black shadow-md flex flex-row justify-center items-center bg-white p-1 rounded-md"
         >
           Reset
