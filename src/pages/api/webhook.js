@@ -57,7 +57,6 @@ export default async (req, res) => {
     }
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
-      console.log(session)
 
       return fullfillOrder(session)
         .then(() => res.status(200))

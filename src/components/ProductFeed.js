@@ -30,7 +30,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   useEffect(() => {
     
     if(filter.keyword === undefined || filter.keyword === ""){
-      console.log("asdasdas")
     let newProducts = [...products];
     if (searchValue !== "" && !openFilter) {
       newProducts = newProducts.filter((a) =>
@@ -48,7 +47,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   }, [searchValue])
 
    useEffect(() => {
-     console.log(filter.keyword)
     let newProducts = [...products];
     if (filter && openFilter) {
       if (
@@ -67,7 +65,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
           arr2 = products.filter((product) =>
             product.category.toLowerCase().includes(filter?.keyword?.toLowerCase())
           );
-          console.log(arr2)
           if (newProducts.length > arr2.length) {
             newProducts.concat(arr2);
           }

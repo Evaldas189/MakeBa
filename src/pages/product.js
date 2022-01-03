@@ -27,7 +27,6 @@ function product({products, product}) {
 
   useEffect(() => {
    dispatch(addToUserSearch(product.category))
-   console.log(router)
   }, [])
 
   const addItemToBasket = () => {

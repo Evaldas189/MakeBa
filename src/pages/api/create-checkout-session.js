@@ -14,8 +14,6 @@ const app = !admin.apps.length
 export default async (req, res) => {
   const { items, email } = req.body;
 
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")
-
   const transformedItems = items.map((item) => ({
     description: item.description,
     quantity: item.quantity,
