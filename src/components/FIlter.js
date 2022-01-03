@@ -29,6 +29,9 @@ function FIlter({setOpenFilter}) {
     dispatch(
       applyFilter({key,value})
     );
+    if (key === "keyword") {
+      router.query.category = "";
+    }
     let newFilter = {...filter};
     newFilter[key] = value
     setFilter(newFilter);
@@ -107,13 +110,13 @@ function FIlter({setOpenFilter}) {
             <div className="mb-2">
               <label className="inline-flex items-center text-white text-sm font-bold">
                 <input spellcheck="false"  type="radio" checked={filter.sort === "2"} className="form-radio" name="radio" value="2" onChange={(e)=> onFilterChange("sort", e.target.value)} />
-                <span className="ml-3">Cheapest on top </span>
+                <span className="ml-3">Cheapest at the top </span>
               </label>
             </div>
             <div className="mb-2">
               <label className="inline-flex items-center text-white text-sm font-bold">
                 <input spellcheck="false"  type="radio" checked={filter.sort === "3"} className="form-radio" name="radio" value="3" onChange={(e)=> onFilterChange("sort", e.target.value)} />
-                <span className="ml-3">Most expensive on top </span>
+                <span className="ml-3">Most expensive at the top </span>
               </label>
             </div>
             <div>

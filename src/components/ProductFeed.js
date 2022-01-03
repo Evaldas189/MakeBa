@@ -26,6 +26,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
   useEffect(() => {
     console.log(searchValue)
+    if(!filter.keyword){
     let newProducts = [...products];
     if (searchValue !== "" && !openFilter) {
       newProducts = newProducts.filter((a) =>
@@ -39,9 +40,11 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
       newProducts = [...products]
     }
     setSortedProducts(newProducts);
+    }
   }, [searchValue])
 
    useEffect(() => {
+     console.log(filter.keyword)
     let newProducts = [...products];
     if (filter && openFilter) {
       if (
@@ -60,7 +63,8 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
           arr2 = products.filter((product) =>
             product.category.toLowerCase().includes(filter?.keyword?.toLowerCase())
           );
-          if (newProducts.length > 0) {
+          console.log(arr2)
+          if (newProducts.length > arr2.length) {
             newProducts.concat(arr2);
           }
           else{
@@ -105,7 +109,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
    useEffect(() => {
      dispatch(resetFilter())
    }, [router])
-
 
   return (
     <>

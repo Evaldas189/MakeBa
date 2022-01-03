@@ -40,6 +40,8 @@ function product({products, product}) {
     dispatch(addToBasket(newProduct));
     toast("Successfully added to the cart!");
   };
+
+
   return (
     <div>
       <Header products={products} />

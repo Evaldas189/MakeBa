@@ -227,7 +227,7 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
               }}
               className="relative flex items-center cursor-pointer"
             >
-              <span className="absolute top-0 right-0 md:right-10 h-4 w-4 mr-1 bg-yellow-400 text-center rounded-full text-black font-bold">
+              <span style={{width: 18, height: 18}} className="absolute top-0 right-0 md:right-10 mr-1 bg-yellow-400 text-center rounded-full text-black font-bold">
                 {items?.length}
               </span>
               <ShoppingCartIcon className="h-8 mr-1" />

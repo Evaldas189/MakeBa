@@ -1,7 +1,6 @@
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 import * as admin from "firebase-admin";
-import { session } from "next-auth/client";
 
 // Secure a connection to firebase
 
