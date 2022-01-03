@@ -22,7 +22,7 @@ const categories = [
   "Arts and Crafts",
   "Toys & Games",
   "Beauty & Personal Care",
-  "home & kitchen",
+  "Home & kitchen",
 ];
 
 function Header({ setSearchValue, searchValue, products, openFilter }) {
@@ -404,11 +404,11 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                   ? setSearchValue("home & kitchen")
                   : router.push({
                       pathname: "/",
-                      query: { category: "home & kitchen" },
+                      query: { category: "Home & kitchen" },
                     });
               }}
             >
-              home & kitchen
+              Home & kitchen
             </a>
             <a
               className="block cursor-pointer mt-4 md:inline-block md:mt-0 text-teal-200 hover:text-white mr-4 active:text-red-400"

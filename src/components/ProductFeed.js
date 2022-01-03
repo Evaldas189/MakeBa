@@ -23,10 +23,14 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   // useEffect(() => {
   //   window.history.pushState('', 'MakeBa', '/');
   // }, [])
+  useEffect(() => {
+    dispatch(resetFilter())
+  }, [router])
 
   useEffect(() => {
-    console.log(searchValue)
-    if(!filter.keyword){
+    
+    if(filter.keyword === undefined || filter.keyword === ""){
+      console.log("asdasdas")
     let newProducts = [...products];
     if (searchValue !== "" && !openFilter) {
       newProducts = newProducts.filter((a) =>
@@ -105,10 +109,6 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
 
     }   
    }, [filter])
-
-   useEffect(() => {
-     dispatch(resetFilter())
-   }, [router])
 
   return (
     <>

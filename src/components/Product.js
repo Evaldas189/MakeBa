@@ -48,7 +48,7 @@ function Product({ id, title, price, desc, category, images, index }) {
   return (
     //hover:scale-105
     <div onClick={()=> showProductInfo()} className="relative cursor-pointer rounded-lg hover:scale-105 shadow-md flex flex-col m-2 bg-white z-30 pb-5 md:pt-10 p-10">
-      <p className="absolute top-2 right-2 text-xs italic text-gray-400">
+      <p className="product-category absolute top-2 right-2 text-xs italic text-gray-400">
         {category}
       </p>
       <Image className="rounded-sm" src={images} height={200} width={200} objectFit="contain" />

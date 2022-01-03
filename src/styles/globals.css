@@ -42,6 +42,10 @@ background: #00718bd9;
   background: #d6ac14;
 }
 
+.product-category::first-letter{
+  text-transform: capitalize
+}
+
 body{
   font-family: 'Lato', sans-serif;}
 

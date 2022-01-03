@@ -10,8 +10,6 @@ function Orders({ orders, products }) {
   const router = useRouter();
   const [session] = useSession();
 
-  
-
   return (
     <div>
       {products?.length > 0 && <Header products={products} />}
@@ -21,7 +19,7 @@ function Orders({ orders, products }) {
             {orders?.length} Orders
           </h1>
           <div className="mt-5 space-y-4">
-            {orders?.map(
+            {orders.filter(order => order.images !== null)?.map(
               ({ id, amount, amountShipping, items, timestamp, images }) => (
                 <Order
                   kry={id}
@@ -63,11 +61,11 @@ export async function getServerSideProps(context) {
       stripeOrders.docs.map(async (order) => ({
         id: order.id,
         amount: order.data().amount,
-        images: await db
+        images:order.data().images ? await db
           .collection("images")
           .doc(order.data().images.toString())
           .get()
-          .then((snap) => JSON.parse(JSON.stringify(snap.data().images))),
+          .then((snap) => JSON.parse(JSON.stringify(snap.data().images))) : null,
         timestamp: moment(order.data().timestamp.toDate()).unix(),
         items: (
           await stripe.checkout.sessions.listLineItems(order.id, {
