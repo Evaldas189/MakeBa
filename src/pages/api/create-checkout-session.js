@@ -28,7 +28,6 @@ export default async (req, res) => {
   }));
 
   let r = Date.now()
-  let session = null;
   app
     .firestore()
     .collection("images")
@@ -37,7 +36,7 @@ export default async (req, res) => {
       images: items.map((item) => item.images),
     })
     .then(async() => {
-      session = await stripe.checkout.sessions.create({
+      const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         shipping_address_collection: {
           allowed_countries: ["GB", "US", "CA","LT"],
@@ -51,6 +50,7 @@ export default async (req, res) => {
           images: r.toString()
         },
       });
+      console.log(session.id)
       res.status(200).json({ id: session.id })
     })
     
