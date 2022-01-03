@@ -53,5 +53,7 @@ export default async (req, res) => {
           images: r.toString()
         },
       });
-    }).then(()=>res.status(200).json({ id: session.id }));
+      res.status(200).json({ id: session.id })
+    })
+    
 };

@@ -16,7 +16,7 @@ function Orders({ orders, products }) {
       {session && (
         <main className="relative max-w-screen-lg mx-auto p-10">
           <h1 className="text-3xl border-b mb-2 pb-1 border-black">
-            {orders?.length} Orders
+            {orders.filter(order => order.images !== null)?.length} Orders
           </h1>
           <div className="mt-5 space-y-4">
             {orders.filter(order => order.images !== null)?.map(
