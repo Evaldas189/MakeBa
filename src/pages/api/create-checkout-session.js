@@ -54,8 +54,4 @@ export default async (req, res) => {
         },
       });
     }).then(()=>res.status(200).json({ id: session.id }));
-  
-  
-
-  
 };

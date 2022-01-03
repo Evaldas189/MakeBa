@@ -61,11 +61,16 @@ export async function getServerSideProps(context) {
       stripeOrders.docs.map(async (order) => ({
         id: order.id,
         amount: order.data().amount,
-        images:order.data().images ? await db
+        images: await db
           .collection("images")
           .doc(order.data().images.toString())
           .get()
-          .then((snap) => JSON.parse(JSON.stringify(snap.data().images))) : null,
+          .then((snap) => {
+            if(snap.data()){
+            return JSON.parse(JSON.stringify(snap.data().images));
+            }
+            else return null
+          }),
         timestamp: moment(order.data().timestamp.toDate()).unix(),
         items: (
           await stripe.checkout.sessions.listLineItems(order.id, {
