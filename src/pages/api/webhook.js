@@ -32,9 +32,6 @@ const fullfillOrder = async (session) => {
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       email: session.metadata.email,
     })
-    .then(() => {
-      console.log(`SUCCESS: Order ${session.id} has been added to DB!`);
-    });
 };
 
 export default async (req, res) => {
@@ -55,14 +52,15 @@ export default async (req, res) => {
       console.log("ERROR", e.message);
       return res.status(400).send({ message: "Webhook error: " + e.message });
     }
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
+    try {
+      if (event.type === "checkout.session.completed") {
+        const session = event.data.object;
+        await fullfillOrder(session);
+      }
 
-      return fullfillOrder(session)
-        .then(() => res.status(200))
-        .catch((e) =>
-          res.status(400).send({ message: "WEBHOOK_ERROR: " + e.message })
-        );
+      res.status(200).send(`Received!`);
+    } catch (err) {
+      res.status(400).send(`Error: ${err}`);
     }
   }
 };

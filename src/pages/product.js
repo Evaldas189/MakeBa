@@ -29,6 +29,7 @@ function product({products, product}) {
    dispatch(addToUserSearch(product.category))
   }, [])
 
+
   const addItemToBasket = () => {
     
     const newProduct = {

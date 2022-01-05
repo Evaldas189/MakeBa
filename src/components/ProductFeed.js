@@ -102,7 +102,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
       setTimeout(() => {
         setLoading(false);
       }, 800);
-       window.history.pushState('', 'MakeBa', '/');
+      //  window.history.pushState('', 'MakeBa', '/');
 
     }   
    }, [filter])
