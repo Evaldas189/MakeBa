@@ -11,6 +11,7 @@ function login() {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const router = useRouter();
+    const [error, setError] = useState("");
 
     useEffect(() => {
      if (auth?.currentUser) {
@@ -39,14 +40,17 @@ function login() {
             snapshot.forEach((data) => {
               const role = data.val();
               if (role === "admin") {
+                setError("")
                 router.push("/admin/products");
               } else {
+                setError("Wrong email or password")
                 router.push("/admin/login");
               }
             });
           });
         })
         .catch((error) => {
+          setError("Wrong email or password")
           console.log(error);
         });
     };
@@ -60,7 +64,8 @@ function login() {
           >
             Email
           </label>
-          <input spellcheck="false" 
+          <input
+            spellcheck="false"
             className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-grey-darker"
             id="Email"
             type="text"
@@ -77,8 +82,9 @@ function login() {
           >
             Password
           </label>
-          <input spellcheck="false" 
-            className="shadow appearance-none border border-black border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
+          <input
+            spellcheck="false"
+            className={`shadow appearance-none border border-black border-red rounded w-full py-2 px-3 text-grey-darker ${error ? "-mb-1" : "mb-3" }`}
             id="password"
             type="password"
             autoComplete="off"
@@ -87,14 +93,22 @@ function login() {
             onChange={(e) => setPass(e.target.value)}
           />
         </div>
+        {error !== "" && (
+          <label
+            className="block text-red-500 font-bold"
+            for="password"
+          >
+            {error}
+          </label>
+        )}
         <div className="flex items-center justify-between w-5/12">
-          <button onClick={()=> adminLogin()}
+          <button
+            onClick={() => adminLogin()}
             className="bg-blue-300 hover:bg-blue-dark text-black font-bold py-2 px-4 rounded"
             type="button"
           >
             Sign In
           </button>
-          
         </div>
       </div>
     );

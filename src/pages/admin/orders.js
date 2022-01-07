@@ -41,6 +41,7 @@ function orders({allOrders}) {
                   <td className="text-center border">{order.email}</td>
                   {/* <td>{order.country}</td>
                   <td>{order.address}</td> */}
+                  
                   <td className="text-center border">{order.items.length}</td>
                   <td className="text-center border">{order.amount}€</td>
                   <td className="text-center border">{moment(order.timestamp * 1000).format('YYYY-MM-DD') }</td>
@@ -73,8 +74,6 @@ export async function getServerSideProps() {
         })
       ).data,
       email: order.data().email,
-      // country: order.data().country,
-      // address: order.data().address
     }))
   );
 
