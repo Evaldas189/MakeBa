@@ -50,7 +50,7 @@ function Account({ setOpenModal, orders }) {
                 }}
                 className="cursor-pointer hover:text-yellow-500 block px-4 py-2 text-sm capitalize text-gray-700 "
               >
-                Sign Out
+                Sign out
               </a>
             </>
           ) : (

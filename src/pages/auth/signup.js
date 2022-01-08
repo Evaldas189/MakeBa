@@ -26,7 +26,7 @@ function signup() {
       } else if (validateEmail(email) === null) {
         setError("Invalid email address");
       } else if (pass !== passConfirm) {
-        setError("passwords do not match");
+        setError("Passwords do not match");
       } else{
         return true
       }
