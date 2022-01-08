@@ -182,6 +182,13 @@ function products() {
               placeholder="4 image url"
               autoComplete="off"
             />
+            <input
+              spellcheck="false"
+              name="category"
+              value={category}
+              className="hidden"
+              autoComplete="off"
+            />
             {error !== "" && (
               <label className="m-1 text-red-500">{error}</label>
             )}
