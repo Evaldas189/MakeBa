@@ -171,7 +171,6 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                                 pathname: "/",
                                 query: { category: item },
                               },
-                              { shallow: true }
                             );
                       }}
                       className="hover:bg-gray-100 p-2 h-30 flex border-b border-gray flex-row justify-between items-center"
@@ -505,7 +504,6 @@ function Header({ setSearchValue, searchValue, products, openFilter }) {
                           pathname: "/",
                           query: { category: item },
                         },
-                        { shallow: true }
                       );
                 }}
                 className="hover:bg-gray-100 p-2  border-b border-gray text-black active:bg-transparent flex flex-row justify-between"
