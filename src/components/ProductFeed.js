@@ -28,6 +28,13 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
   }, [router])
 
   useEffect(() => {
+    console.log(router)
+   if(router.asPath.includes("?category")){
+    dispatch(resetFilter())
+   }
+  }, [router])
+
+  useEffect(() => {
     
     if(filter.keyword === undefined || filter.keyword === ""){
     let newProducts = [...products];
@@ -44,7 +51,7 @@ function ProductFeed({ products, searchValue, setOpenFilter, openFilter }) {
     }
     setSortedProducts(newProducts);
     }
-  }, [searchValue])
+  }, [searchValue, filter])
 
    useEffect(() => {
     let newProducts = [...products];
