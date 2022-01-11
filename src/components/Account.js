@@ -21,12 +21,12 @@ function Account({ setOpenModal, orders }) {
 
         <div
           x-show="dropdownOpen"
-          className="absolute right-0 w-48 bg-white rounded-md shadow-xl z-20"
+          className="absolute right-0 w-52 bg-white rounded-md shadow-xl z-20"
         >
           {session ? (
             <>
-              <div className="w-full flex justify-center items-center bg-gray-300">
-                <p className="py-2 text-sm text-black font-semibold ">
+              <div className="w-full flex justify-center items-center bg-gray-300 p-1">
+                <p className="py-2 text-sm text-black font-semibold whitespace-normal break-words w-max text-center ">
                   {session.user.name}
                 </p>
               </div>
